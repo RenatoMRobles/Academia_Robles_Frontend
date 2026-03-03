@@ -248,7 +248,7 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO CUÁNTICO (Nivel Audiófilo - Alto Impacto)
+        // 🎵 MOTOR DE AUDIO CUÁNTICO (Acústica Premium & Minimalista)
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -261,29 +261,29 @@
             }
         }
 
-        // Tono de "Cristal" al pasar el ratón
+        // 🎴 Tono "Hover": Un ligerísimo 'tick' de cristal, muy tenue y sofisticado.
         function playHoverSound() {
-            initAudio(); // ⚡ Despierta el motor obligatoriamente en cada roce
+            initAudio(); 
             if (!audioCtx) return;
             
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'triangle'; // ⚡ Onda triangular: más armónicos
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+            osc.type = 'sine'; // Onda pura para evitar estridencias
+            osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.03); // Caída hiper-rápida
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.02); // 🔊 Volumen 30%
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            gainNode.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01); // 🔊 Volumen mínimo y elegante (5%)
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); // Se apaga casi de inmediato
             
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
+            osc.stop(audioCtx.currentTime + 0.05);
         }
 
-        // Tono de "Confirmación Bóveda" al hacer clic
+        // 🖱️ Tono "Click": Un sonido profundo, sobrio y corporativo.
         function playClickSound() {
             initAudio(); 
             if (!audioCtx) return;
@@ -291,25 +291,25 @@
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'square'; // ⚡ Onda cuadrada: robusto
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.1);
+            osc.type = 'sine'; // Onda profunda
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.1); // Descenso de tono grave
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.02); // 🔊 Volumen 40%
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+            gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02); // 🔊 Volumen firme pero moderado (10%)
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15); // Duración corta
             
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.2);
+            osc.stop(audioCtx.currentTime + 0.15);
         }
 
         // Desbloqueo inicial global
         window.addEventListener('mousedown', initAudio, { once: true });
         window.addEventListener('keydown', initAudio, { once: true });
 
-        // Asignar eventos ASMR
+        // Asignar eventos
         document.querySelectorAll('.hover-sound').forEach(el => {
             el.addEventListener('mouseenter', playHoverSound);
         });
