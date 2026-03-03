@@ -445,10 +445,16 @@
         const cursorOutline = document.querySelector('.cursor-outline');
         
         window.addEventListener('mousemove', function(e) {
-            cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
-            cursorOutline.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 500, fill: "forwards" });
+            // translate3d obliga al uso de la Tarjeta Gráfica para latencia cero
+            cursorDot.style.transform = `translate3d(${e.clientX - 4}px, ${e.clientY - 4}px, 0)`;
+            
+            // Inercia suave para el anillo magnético
+            cursorOutline.animate({ 
+                transform: `translate3d(${e.clientX - 20}px, ${e.clientY - 20}px, 0)` 
+            }, { duration: 400, fill: "forwards" });
         });
 
+        // Efecto magnético sobre elementos interactivos
         document.querySelectorAll('a, button, input').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
