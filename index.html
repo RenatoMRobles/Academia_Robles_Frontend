@@ -50,29 +50,18 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 📱 BLINDAJE CELULAR Y ACELERACIÓN EXTREMA DE GPU */
+        /* 📱 BLINDAJE CELULAR Y AURA CUÁNTICA */
         @media (pointer: fine) {
-            * {
-                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important;
-            }
+            * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
             .cursor-outline {
-                position: fixed; 
-                top: -20px; left: -20px;
-                width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
-                border-radius: 50%; pointer-events: none; z-index: 99999; 
-                scale: 1;
-                will-change: transform, scale;
-                /* ⚡ Transiciones estrictamente enfocadas en el color y escala */
+                position: fixed; top: -20px; left: -20px; width: 40px; height: 40px; 
+                border: 1px solid rgba(255, 202, 40, 0.5); border-radius: 50%; pointer-events: none; z-index: 99999; 
+                scale: 1; will-change: transform, scale;
                 transition: scale 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.1s, border-color 0.1s;
             }
-            .cursor-outline.hover {
-                scale: 1.5; 
-                background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
-            }
+            .cursor-outline.hover { scale: 1.5; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold); }
         }
-        @media (pointer: coarse) {
-            .cursor-outline { display: none !important; }
-        }
+        @media (pointer: coarse) { .cursor-outline { display: none !important; } }
 
         /* Componentes */
         .header {
@@ -87,8 +76,7 @@
         .btn-header-vip {
             margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1); color: var(--robles-gold); 
             border: 1px solid var(--robles-gold); border-radius: 30px; font-weight: 600; font-size: 0.9em; 
-            text-transform: uppercase; letter-spacing: 1px; 
-            transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease; cursor: pointer;
             will-change: background-color, box-shadow;
         }
         .btn-header-vip:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
@@ -114,8 +102,7 @@
         .btn-entrar {
             display: inline-block; margin-top: 30px; padding: 12px 30px; background: transparent;
             color: var(--robles-gold); text-decoration: none; border-radius: 30px; border: 1px solid var(--robles-gold);
-            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; 
-            transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease;
+            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease;
         }
         .btn-entrar:hover { background-color: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
@@ -143,17 +130,13 @@
         /* ⚡ MODAL VIP BLINDADO */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #050507; 
-            display: flex; justify-content: center; align-items: center; z-index: 2000; 
-            opacity: 0; visibility: hidden; 
-            transition: opacity 0.15s ease, visibility 0.15s ease;
-            contain: paint; /* ⚡ Aísla el modal del resto de la página */
+            background: #050507; display: flex; justify-content: center; align-items: center; z-index: 2000; 
+            opacity: 0; visibility: hidden; transition: opacity 0.15s ease, visibility 0.15s ease; contain: paint;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content {
             background: rgba(20, 20, 20, 0.8); border: 1px solid var(--robles-gold); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px;
-            text-align: center; position: relative; 
-            transform: scale(0.95) translateY(-10px); transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            text-align: center; position: relative; transform: scale(0.95) translateY(-10px); transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
         .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: color 0.05s; cursor: pointer; }
@@ -163,21 +146,12 @@
         
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        
-        /* ⚡ Solución para escritura perfecta: Solo vigilar color */
-        .input-group input { 
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); 
-            background-color: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; 
-            transition: background-color 0.05s ease, border-color 0.05s ease; 
-        }
+        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background-color: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: background-color 0.05s ease, border-color 0.05s ease; }
         .input-group input:focus { outline: none; border-color: var(--robles-gold); background-color: rgba(0,0,0,0.8); }
         
-        /* ⚡ Botón de Élite Instantáneo */
         .btn-submit { 
             width: 100%; padding: 15px; background-color: var(--robles-gold); color: #000; border: none; border-radius: 8px; 
-            font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; 
-            transition: background-color 0.05s ease, box-shadow 0.05s ease; cursor: pointer; 
-            will-change: background-color, box-shadow;
+            font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: background-color 0.05s ease, box-shadow 0.05s ease; cursor: pointer; will-change: background-color, box-shadow;
         }
         .btn-submit:hover { background-color: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
@@ -195,15 +169,15 @@
     <div class="header">
         <h1>🦅 Academia <span>Robles Bienestar</span></h1>
         <p>Forjando el futuro mediante la Lógica, Tecnología y Liderazgo</p>
-        <button id="btnOpenLogin" class="btn-header-vip">🔒 Acceso Alumnos VIP</button>
+        <button id="btnOpenLogin" class="btn-header-vip hover-sound click-sound">🔒 Acceso Alumnos VIP</button>
     </div>
 
     <aside class="ambient-player" aria-label="Reproductor de música para concentración">
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <button id="prevBtn" onclick="prevTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏮</button>
-                <button id="playPauseBtn" class="btn-play pulse" aria-label="Reproducir música" onclick="toggleAudio()">▶</button>
-                <button id="nextBtn" onclick="nextTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏭</button>
+                <button id="prevBtn" onclick="prevTrack()" class="click-sound" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏮</button>
+                <button id="playPauseBtn" class="btn-play pulse click-sound" aria-label="Reproducir música" onclick="toggleAudio()">▶</button>
+                <button id="nextBtn" onclick="nextTrack()" class="click-sound" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏭</button>
             </div>
             <div style="display: flex; align-items: center; gap: 5px; margin-top: 5px;">
                 <span style="color: var(--text-muted); font-size: 0.9em;">🔈</span>
@@ -220,27 +194,27 @@
     <div class="container">
         <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000">Catálogo de Excelencia</h2>
         <div class="grid-cursos">
-            <div class="curso-card" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+            <div class="curso-card hover-sound" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
                 <h3>🧠 Fundamentos de Lógica</h3>
                 <p>Desarrolla un pensamiento estructurado, análisis deductivo y resolución de problemas complejos. La base absoluta de cualquier mente brillante.</p>
-                <a href="#" class="btn-entrar">Acceder ➔</a>
+                <a href="#" class="btn-entrar hover-sound click-sound">Acceder ➔</a>
             </div>
-            <div class="curso-card" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            <div class="curso-card hover-sound" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
                 <h3>💻 Inteligencia Artificial y Python</h3>
                 <p>Domina las herramientas del mañana. Desde pseudocódigo puro hasta la creación de asistentes virtuales y automatización de procesos empresariales.</p>
-                <a href="#" class="btn-entrar">Acceder ➔</a>
+                <a href="#" class="btn-entrar hover-sound click-sound">Acceder ➔</a>
             </div>
-            <div class="curso-card" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+            <div class="curso-card hover-sound" data-tilt data-tilt-max="8" data-tilt-speed="150" data-tilt-glare="true" data-tilt-max-glare="0.15" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                 <h3>📊 Soberanía Tecnológica</h3>
                 <p>Controla tus propios sistemas, servidores y datos. Arquitectura en la nube, despliegue Serverless y gestión estratégica corporativa.</p>
-                <a href="#" class="btn-entrar">Acceder ➔</a>
+                <a href="#" class="btn-entrar hover-sound click-sound">Acceder ➔</a>
             </div>
         </div>
     </div>
 
     <div id="loginModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="close-modal" id="btnCloseLogin">&times;</button>
+            <button class="close-modal click-sound" id="btnCloseLogin">&times;</button>
             <h2>Ingreso Élite</h2>
             <p>Identifícate para acceder a tu ecosistema.</p>
             <form id="vipForm" onsubmit="event.preventDefault();">
@@ -252,7 +226,7 @@
                     <label for="password">Credencial de Acceso</label>
                     <input type="password" id="password" required placeholder="••••••••">
                 </div>
-                <button type="submit" class="btn-submit">Ingresar a la Bóveda</button>
+                <button type="submit" class="btn-submit hover-sound click-sound">Ingresar a la Bóveda</button>
             </form>
         </div>
     </div>
@@ -260,10 +234,10 @@
     <footer class="footer">
         <div class="footer-logo">🦅 Academia <span>Robles Bienestar</span></div>
         <div class="footer-links">
-            <a href="#">Catálogo</a>
-            <a href="#">Misión y Visión</a>
-            <a href="#">Reglamento Institucional</a>
-            <a href="#">Soporte Técnico</a>
+            <a href="#" class="hover-sound">Catálogo</a>
+            <a href="#" class="hover-sound">Misión y Visión</a>
+            <a href="#" class="hover-sound">Reglamento Institucional</a>
+            <a href="#" class="hover-sound">Soporte Técnico</a>
         </div>
         <div class="footer-copy">
             &copy; 2026 - 2034 Robles y Robles. Todos los derechos reservados.<br>
@@ -274,6 +248,66 @@
     <div class="cursor-outline"></div>
 
     <script>
+        // 🎵 MOTOR DE AUDIO CUÁNTICO (Web Audio API - Cero Latencia)
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Tono de "Cristal" al pasar el ratón
+        function playHoverSound() {
+            if (!audioCtx || audioCtx.state === 'suspended') return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.01); // Volumen ASMR súper sutil
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Tono de "Confirmación Bóveda" al hacer clic
+        function playClickSound() {
+            initAudio(); // Asegura inicialización en el clic
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        }
+
+        // Desbloquear audio en el primer clic del usuario (Políticas de Navegador)
+        document.body.addEventListener('click', initAudio, { once: true });
+
+        // Asignar eventos ASMR
+        document.querySelectorAll('.hover-sound').forEach(el => {
+            el.addEventListener('mouseenter', playHoverSound);
+        });
+        document.querySelectorAll('.click-sound').forEach(el => {
+            el.addEventListener('mousedown', playClickSound);
+        });
+
+        // 🖱️ MOTOR DE PUNTERO (Inercia Inteligente)
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0, mouseY = 0;
@@ -287,15 +321,11 @@
             function animateCursor() {
                 let diffX = mouseX - outlineX;
                 let diffY = mouseY - outlineY;
-                
-                // ⚡ REPOSO INTELIGENTE: Solo actualiza el motor si el ratón se movió de verdad. 
-                // Evita que el anillo consuma recursos mientras escribes texto.
                 if (Math.abs(diffX) > 0.1 || Math.abs(diffY) > 0.1) {
                     outlineX += diffX * 0.6; 
                     outlineY += diffY * 0.6;
                     cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0)`;
                 }
-                
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
@@ -306,7 +336,7 @@
             });
         }
 
-        // Lógica del Reproductor
+        // 🎵 LÓGICA DEL REPRODUCTOR MUSICAL
         const audio = document.getElementById("bgMusic");
         const playBtn = document.getElementById("playPauseBtn");
         const trackNameDisplay = document.getElementById("trackName");
@@ -343,7 +373,7 @@
         function setVolume(val) { audio.volume = val; }
         loadTrack(currentTrackIndex);
 
-        // Lógica del Modal VIP
+        // 🔒 LÓGICA DEL MODAL VIP
         const modal = document.getElementById('loginModal');
         const btnOpen = document.getElementById('btnOpenLogin');
         const btnClose = document.getElementById('btnCloseLogin');
