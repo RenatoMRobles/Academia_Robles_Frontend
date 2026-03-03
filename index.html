@@ -248,7 +248,7 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO CUÁNTICO (Web Audio API - Volumen Optimizado)
+        // 🎵 MOTOR DE AUDIO CUÁNTICO (Nivel Audiófilo - Alto Impacto)
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -261,37 +261,42 @@
             }
         }
 
-        // Tono de "Cristal" al pasar el ratón (Volumen al 8%)
+        // Tono de "Cristal" al pasar el ratón
         function playHoverSound() {
-            if (!audioCtx || audioCtx.state === 'suspended') return;
+            initAudio(); // ⚡ Despierta el motor obligatoriamente en cada roce
+            if (!audioCtx) return;
+            
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-            osc.type = 'sine';
+            
+            osc.type = 'triangle'; // ⚡ Onda triangular: más armónicos
             osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.01); // 🔊 Volumen aumentado
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.02); // 🔊 Volumen 30%
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
             
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.15);
         }
 
-        // Tono de "Confirmación Bóveda" al hacer clic (Volumen al 15%)
+        // Tono de "Confirmación Bóveda" al hacer clic
         function playClickSound() {
             initAudio(); 
             if (!audioCtx) return;
+            
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-            osc.type = 'sine';
+            
+            osc.type = 'square'; // ⚡ Onda cuadrada: robusto
             osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.1);
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.02); // 🔊 Volumen aumentado
+            gainNode.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.02); // 🔊 Volumen 40%
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
             
             osc.connect(gainNode);
@@ -300,7 +305,7 @@
             osc.stop(audioCtx.currentTime + 0.2);
         }
 
-        // ⚡ Desbloqueo forzado de audio al hacer clic en CUALQUIER lugar de la página
+        // Desbloqueo inicial global
         window.addEventListener('mousedown', initAudio, { once: true });
         window.addEventListener('keydown', initAudio, { once: true });
 
@@ -384,7 +389,7 @@
         const btnClose = document.getElementById('btnCloseLogin');
         btnOpen.onclick = function() { modal.classList.add('active'); }
         btnClose.onclick = function() { modal.classList.remove('active'); }
-        window.onclick = function(event) { if (event.target == modal) { modal.classList.remove('active'); } }
+        window.onclick = function(event) { if (event.target === modal) { modal.classList.remove('active'); } }
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
