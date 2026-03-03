@@ -26,7 +26,7 @@
 
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #0a0a0c; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.2); border-radius: 5px; transition: 0.2s; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.2); border-radius: 5px; transition: background-color 0.2s; }
         ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
 
         @keyframes gradient-breathe {
@@ -57,15 +57,16 @@
             }
             .cursor-outline {
                 position: fixed; 
-                top: -20px; left: -20px; /* ⚡ Centrado geométrico nativo, ahorra cálculos a la CPU */
+                top: -20px; left: -20px;
                 width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
                 border-radius: 50%; pointer-events: none; z-index: 99999; 
-                scale: 1; /* ⚡ Usamos la propiedad Scale moderna, latencia 0 */
-                will-change: translate, scale;
+                scale: 1;
+                will-change: transform, scale;
+                /* ⚡ Transiciones estrictamente enfocadas en el color y escala */
                 transition: scale 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.1s, border-color 0.1s;
             }
             .cursor-outline.hover {
-                scale: 1.5; /* ⚡ Expansión por Tarjeta Gráfica (Cero lag geométrico) */
+                scale: 1.5; 
                 background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
             }
         }
@@ -86,7 +87,8 @@
         .btn-header-vip {
             margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1); color: var(--robles-gold); 
             border: 1px solid var(--robles-gold); border-radius: 30px; font-weight: 600; font-size: 0.9em; 
-            text-transform: uppercase; letter-spacing: 1px; transition: all 0.05s ease; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; 
+            transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease; cursor: pointer;
             will-change: background-color, box-shadow;
         }
         .btn-header-vip:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
@@ -98,13 +100,13 @@
         .curso-card {
             background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
             border-radius: 20px; padding: 40px 30px; position: relative; overflow: hidden;
-            transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
         }
         .curso-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, transparent, var(--robles-purple), transparent); opacity: 0.5; transition: opacity 0.15s ease;
         }
-        .curso-card:hover { background: rgba(35, 35, 35, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(142, 36, 170, 0.2); border-color: rgba(255, 255, 255, 0.15); }
+        .curso-card:hover { background-color: rgba(35, 35, 35, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(142, 36, 170, 0.2); border-color: rgba(255, 255, 255, 0.15); }
         .curso-card:hover::before { opacity: 1; background: linear-gradient(90deg, transparent, var(--robles-gold), transparent); }
         .curso-card h3 { color: #fff; margin-top: 0; font-size: 1.8em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
         .curso-card p { color: var(--text-muted); font-weight: 300; font-size: 1.05em; }
@@ -112,34 +114,40 @@
         .btn-entrar {
             display: inline-block; margin-top: 30px; padding: 12px 30px; background: transparent;
             color: var(--robles-gold); text-decoration: none; border-radius: 30px; border: 1px solid var(--robles-gold);
-            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; transition: all 0.05s ease;
+            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; 
+            transition: background-color 0.05s ease, box-shadow 0.05s ease, color 0.05s ease;
         }
-        .btn-entrar:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
+        .btn-entrar:hover { background-color: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
         .ambient-player {
             position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); 
             border: 1px solid var(--glass-border); padding: 15px 25px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-            z-index: 1000; display: flex; align-items: center; gap: 15px; transition: transform 0.15s ease;
+            z-index: 1000; display: flex; align-items: center; gap: 15px; transition: transform 0.15s ease, border-color 0.15s ease;
         }
         .ambient-player:hover { transform: scale(1.02); border-color: rgba(255, 202, 40, 0.3); }
         .player-info { display: flex; flex-direction: column; }
         .player-title { margin: 0; color: #fff; font-size: 0.85em; font-weight: 600; text-transform: uppercase; }
         .player-subtitle { margin: 0; color: var(--robles-gold); font-size: 0.7em; opacity: 0.8; }
-        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.05s ease; cursor: pointer; }
+        .btn-play { 
+            background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 1.2em; 
+            transition: box-shadow 0.05s ease, transform 0.05s ease; cursor: pointer; 
+        }
         .btn-play.pulse { animation: playPulse 2s infinite; }
         @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); } }
         
         input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: pointer; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: 0.05s; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: background-color 0.05s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
-        /* ⚡ MODAL VIP BLINDADO (Fondo 100% Sólido para detener renderizados) */
+        /* ⚡ MODAL VIP BLINDADO */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #050507; /* ⚡ NEGRO OBSIDIANA SÓLIDO: Libera el 100% de la Tarjeta Gráfica */
+            background: #050507; 
             display: flex; justify-content: center; align-items: center; z-index: 2000; 
             opacity: 0; visibility: hidden; 
             transition: opacity 0.15s ease, visibility 0.15s ease;
+            contain: paint; /* ⚡ Aísla el modal del resto de la página */
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content {
@@ -148,22 +156,30 @@
             transform: scale(0.95) translateY(-10px); transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.05s; cursor: pointer; }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: color 0.05s; cursor: pointer; }
         .close-modal:hover { color: var(--robles-gold); }
         .modal-content h2 { color: #fff; margin-top: 0; font-size: 2em; }
         .modal-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9em; }
+        
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.05s; }
-        .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.8); }
         
-        .btn-submit { 
-            width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; 
-            font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; 
-            transition: all 0.05s ease; cursor: pointer; 
-            will-change: background-color, box-shadow; /* ⚡ El botón VIP ahora tiene su propia aceleración */
+        /* ⚡ Solución para escritura perfecta: Solo vigilar color */
+        .input-group input { 
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); 
+            background-color: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; 
+            transition: background-color 0.05s ease, border-color 0.05s ease; 
         }
-        .btn-submit:hover { background: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
+        .input-group input:focus { outline: none; border-color: var(--robles-gold); background-color: rgba(0,0,0,0.8); }
+        
+        /* ⚡ Botón de Élite Instantáneo */
+        .btn-submit { 
+            width: 100%; padding: 15px; background-color: var(--robles-gold); color: #000; border: none; border-radius: 8px; 
+            font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; 
+            transition: background-color 0.05s ease, box-shadow 0.05s ease; cursor: pointer; 
+            will-change: background-color, box-shadow;
+        }
+        .btn-submit:hover { background-color: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
         .footer { background: rgba(10, 10, 12, 0.9); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
         .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8em; color: #fff; margin-bottom: 10px; }
@@ -269,10 +285,17 @@
             });
 
             function animateCursor() {
-                outlineX += (mouseX - outlineX) * 0.6; 
-                outlineY += (mouseY - outlineY) * 0.6;
-                // ⚡ Usamos la propiedad independiente "translate" en lugar de "transform" para no chocar con el "scale" del CSS
-                cursorOutline.style.translate = `${outlineX}px ${outlineY}px`;
+                let diffX = mouseX - outlineX;
+                let diffY = mouseY - outlineY;
+                
+                // ⚡ REPOSO INTELIGENTE: Solo actualiza el motor si el ratón se movió de verdad. 
+                // Evita que el anillo consuma recursos mientras escribes texto.
+                if (Math.abs(diffX) > 0.1 || Math.abs(diffY) > 0.1) {
+                    outlineX += diffX * 0.6; 
+                    outlineY += diffY * 0.6;
+                    cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0)`;
+                }
+                
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
