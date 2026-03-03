@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -23,16 +22,11 @@
             --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        /* ✨ Selección de Texto VIP */
         ::selection { background: var(--robles-purple); color: #ffffff; }
 
-        /* 📜 Barra de Desplazamiento 2034 (Scrollbar) */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: #0a0a0c; border-left: 1px solid var(--glass-border); }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 202, 40, 0.3); border-radius: 10px;
-            border: 3px solid #0a0a0c; transition: background 0.3s ease;
-        }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 10px; border: 3px solid #0a0a0c; transition: background 0.3s ease; }
         ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
 
         @keyframes gradient-breathe {
@@ -42,62 +36,55 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0;
+            font-family: 'Inter', sans-serif; margin: 0; padding: 0;
             background: linear-gradient(-45deg, #0a0a0c, #160a22, #0a0c10, #131109);
-            background-size: 400% 400%;
-            animation: gradient-breathe 25s ease infinite;
-            color: var(--text-light);
-            line-height: 1.7; min-height: 100vh;
+            background-size: 400% 400%; animation: gradient-breathe 25s ease infinite;
+            color: var(--text-light); line-height: 1.7; min-height: 100vh;
             display: flex; flex-direction: column;
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 🌌 Nebulosa de Fondo (Ambient Orbs) */
+        /* 🌌 Nebulosa de Fondo */
         .orb-1, .orb-2 {
             position: fixed; border-radius: 50%; filter: blur(150px);
-            z-index: -1; pointer-events: none;
-            animation: floatOrbs 20s infinite alternate ease-in-out;
+            z-index: -1; pointer-events: none; animation: floatOrbs 20s infinite alternate ease-in-out;
         }
         .orb-1 { width: 500px; height: 500px; background: rgba(142, 36, 170, 0.4); top: -150px; left: -100px; }
         .orb-2 { width: 400px; height: 400px; background: rgba(255, 202, 40, 0.2); bottom: -100px; right: -50px; animation-delay: -10s; }
         @keyframes floatOrbs { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.1); } }
 
-        /* 🖱️ Puntero Cuántico (Latencia CERO) */
-        * { cursor: none !important; } /* Desaparece el puntero globalmente */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; border-radius: 50%;
-            z-index: 99999; pointer-events: none; will-change: transform;
+        /* ⚡ PUNTERO NATIVO POR HARDWARE (0 Lag) */
+        * {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important;
         }
-        .cursor-dot { 
-            width: 8px; height: 8px; background: var(--robles-gold); 
-            box-shadow: 0 0 10px var(--robles-gold); 
-            /* El centro no tiene transición, se mueve instantáneo */
-        }
+        
+        /* Anillo Cuántico */
         .cursor-outline {
+            position: fixed; top: 0; left: 0;
             width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
-            /* Aquí hacemos el truco: CSS maneja la inercia del transform */
-            transition: transform 0.15s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+            border-radius: 50%; z-index: 99999; pointer-events: none; will-change: transform;
+            /* Se eliminó la transición en "transform" para evitar los saltitos */
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
         }
         .cursor-outline.hover {
             width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
         }
 
-        /* Glassmorphism Header */
+        /* Componentes */
         .header {
-            background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px);
-            padding: 40px 20px; display: flex; flex-direction: column; align-items: center;
-            border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100;
+            background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); padding: 40px 20px; 
+            display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--glass-border); 
+            position: sticky; top: 0; z-index: 100;
         }
         .header h1 { margin: 0; font-size: 3.5em; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .header h1 span { color: var(--robles-gold); background: linear-gradient(to right, #ffca28, #ffb300); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header p { font-size: 1.2em; color: var(--text-muted); font-style: italic; }
 
         .btn-header-vip {
-            margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1);
-            color: var(--robles-gold); border: 1px solid var(--robles-gold); border-radius: 30px;
-            font-weight: 600; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
+            margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1); color: var(--robles-gold); 
+            border: 1px solid var(--robles-gold); border-radius: 30px; font-weight: 600; font-size: 0.9em; 
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
         }
         .btn-header-vip:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
@@ -126,31 +113,24 @@
         .btn-entrar:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
         .ambient-player {
-            position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7);
-            backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 15px 25px;
-            border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000;
-            display: flex; align-items: center; gap: 15px; transition: transform 0.3s ease;
+            position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); padding: 15px 25px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            z-index: 1000; display: flex; align-items: center; gap: 15px; transition: transform 0.3s ease;
         }
         .ambient-player:hover { transform: scale(1.02); border-color: rgba(255, 202, 40, 0.3); }
         .player-info { display: flex; flex-direction: column; }
         .player-title { margin: 0; color: #fff; font-size: 0.85em; font-weight: 600; text-transform: uppercase; }
         .player-subtitle { margin: 0; color: var(--robles-gold); font-size: 0.7em; opacity: 0.8; }
-        
-        .btn-play {
-            background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.3s ease;
-        }
+        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.3s ease; cursor: pointer !important; }
         .btn-play.pulse { animation: playPulse 2s infinite; }
         @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); } }
         
-        input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; }
+        input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: pointer !important; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
-        /* 🔒 MODAL VIP */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);
             display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
@@ -159,15 +139,15 @@
             text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.3s; }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.3s; cursor: pointer !important; }
         .close-modal:hover { color: var(--robles-gold); }
         .modal-content h2 { color: #fff; margin-top: 0; font-size: 2em; }
         .modal-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9em; }
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.3s; }
+        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.3s; cursor: text !important;}
         .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.5); }
-        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer !important;}
         .btn-submit:hover { background: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
         .footer { background: rgba(10, 10, 12, 0.8); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
@@ -263,21 +243,35 @@
         </div>
     </footer>
 
-    <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
     <script>
-        // Lógica del Puntero Cuántico
-        const cursorDot = document.querySelector('.cursor-dot');
+        // 🚀 Motor JS Optimizado (Solo para la inercia del anillo)
         const cursorOutline = document.querySelector('.cursor-outline');
-        
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        // Captura pura de coordenadas sin procesar la animación aquí
         window.addEventListener('mousemove', function(e) {
-            // Actualización directa sin API de animaciones. CSS hace la inercia del anillo.
-            cursorDot.style.transform = `translate3d(${e.clientX - 4}px, ${e.clientY - 4}px, 0)`;
-            cursorOutline.style.transform = `translate3d(${e.clientX - 20}px, ${e.clientY - 20}px, 0)`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        document.querySelectorAll('a, button, input').forEach(el => {
+        // Loop sincronizado con los Hercios (Hz) de tu monitor
+        function animateCursor() {
+            let distX = mouseX - outlineX;
+            let distY = mouseY - outlineY;
+            
+            // Inercia matemática suave
+            outlineX += distX * 0.2; 
+            outlineY += distY * 0.2;
+            
+            cursorOutline.style.transform = `translate3d(${outlineX - 20}px, ${outlineY - 20}px, 0)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, input, .btn-play').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
         });
@@ -300,31 +294,22 @@
             trackNameDisplay.innerText = playlist[index].nombre;
             audio.load();
         }
-
         function toggleAudio() {
             if (audio.paused) {
                 if (!audio.src) loadTrack(currentTrackIndex);
-                audio.play();
-                playBtn.innerHTML = "⏸";
-                playBtn.classList.remove("pulse");
+                audio.play(); playBtn.innerHTML = "⏸"; playBtn.classList.remove("pulse");
             } else {
-                audio.pause();
-                playBtn.innerHTML = "▶";
+                audio.pause(); playBtn.innerHTML = "▶";
             }
         }
-
         function nextTrack() {
             currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-            loadTrack(currentTrackIndex);
-            if (playBtn.innerHTML === "⏸") audio.play();
+            loadTrack(currentTrackIndex); if (playBtn.innerHTML === "⏸") audio.play();
         }
-
         function prevTrack() {
             currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrackIndex);
-            if (playBtn.innerHTML === "⏸") audio.play();
+            loadTrack(currentTrackIndex); if (playBtn.innerHTML === "⏸") audio.play();
         }
-
         function setVolume(val) { audio.volume = val; }
         loadTrack(currentTrackIndex);
 
@@ -332,7 +317,6 @@
         const modal = document.getElementById('loginModal');
         const btnOpen = document.getElementById('btnOpenLogin');
         const btnClose = document.getElementById('btnCloseLogin');
-
         btnOpen.onclick = function() { modal.classList.add('active'); }
         btnClose.onclick = function() { modal.classList.remove('active'); }
         window.onclick = function(event) { if (event.target == modal) { modal.classList.remove('active'); } }
