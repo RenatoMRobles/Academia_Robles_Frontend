@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academia Robles Bienestar | Excelencia y Estrategia</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +40,30 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* ✨ Selección de Texto VIP */
+        ::selection {
+            background: var(--robles-purple);
+            color: #ffffff;
+        }
+
+        /* 📜 Barra de Desplazamiento 2034 (Scrollbar) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c; /* Se funde con el fondo oscuro */
+            border-left: 1px solid var(--glass-border);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 202, 40, 0.3); /* Dorado translúcido */
+            border-radius: 10px;
+            border: 3px solid #0a0a0c; /* Espacio para que no toque los bordes */
+            transition: background 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--robles-gold); /* Brilla al pasar el ratón */
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
