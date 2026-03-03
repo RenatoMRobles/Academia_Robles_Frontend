@@ -24,9 +24,9 @@
 
         ::selection { background: var(--robles-purple); color: #ffffff; }
 
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: #0a0a0c; border-left: 1px solid var(--glass-border); }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 10px; border: 3px solid #0a0a0c; transition: background 0.15s ease; }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.2); border-radius: 5px; transition: 0.2s; }
         ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
 
         @keyframes gradient-breathe {
@@ -37,25 +37,21 @@
 
         body {
             font-family: 'Inter', sans-serif; margin: 0; padding: 0;
-            background: linear-gradient(-45deg, #0a0a0c, #160a22, #0a0c10, #131109);
-            background-size: 400% 400%; animation: gradient-breathe 25s ease infinite;
+            /* ⚡ HACK 1: Las "Nebulosas" ahora son gradientes radiales estáticos. CERO lag por blur. */
+            background-color: #0a0a0c;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(142, 36, 170, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(255, 202, 40, 0.1) 0%, transparent 40%),
+                linear-gradient(-45deg, #0a0a0c, #160a22, #0a0c10, #131109);
+            background-size: 100% 100%, 100% 100%, 400% 400%;
+            animation: gradient-breathe 25s ease infinite;
             color: var(--text-light); line-height: 1.7; min-height: 100vh;
             display: flex; flex-direction: column;
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 🌌 Nebulosa de Fondo (Ahora en su propia capa de GPU) */
-        .orb-1, .orb-2 {
-            position: fixed; border-radius: 50%; filter: blur(150px);
-            z-index: -1; pointer-events: none; animation: floatOrbs 20s infinite alternate ease-in-out;
-            will-change: transform; /* ⚡ Optimización Crítica */
-        }
-        .orb-1 { width: 500px; height: 500px; background: rgba(142, 36, 170, 0.4); top: -150px; left: -100px; }
-        .orb-2 { width: 400px; height: 400px; background: rgba(255, 202, 40, 0.2); bottom: -100px; right: -50px; animation-delay: -10s; }
-        @keyframes floatOrbs { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.1); } }
-
-        /* 💫 Aura Cuántica (Reacción Instantánea a 0.1s) */
+        /* 💫 Aura Cuántica (Optimizada) */
         .cursor-outline {
             position: fixed; top: 0; left: 0;
             width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
@@ -66,9 +62,9 @@
             width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
         }
 
-        /* Componentes */
+        /* ⚡ HACK 2: Reducción del Blur al 50%. Mismo efecto visual, mitad de carga de CPU. */
         .header {
-            background: rgba(10, 10, 12, 0.6); backdrop-filter: blur(20px); padding: 40px 20px; 
+            background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); padding: 40px 20px; 
             display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--glass-border); 
             position: sticky; top: 0; z-index: 100;
         }
@@ -88,7 +84,7 @@
         .grid-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
 
         .curso-card {
-            background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border);
+            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
             border-radius: 20px; padding: 40px 30px; position: relative; overflow: hidden;
             transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
         }
@@ -96,7 +92,7 @@
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, transparent, var(--robles-purple), transparent); opacity: 0.5; transition: opacity 0.15s ease;
         }
-        .curso-card:hover { background: rgba(35, 35, 35, 0.55); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(142, 36, 170, 0.2); border-color: rgba(255, 255, 255, 0.15); }
+        .curso-card:hover { background: rgba(35, 35, 35, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(142, 36, 170, 0.2); border-color: rgba(255, 255, 255, 0.15); }
         .curso-card:hover::before { opacity: 1; background: linear-gradient(90deg, transparent, var(--robles-gold), transparent); }
         .curso-card h3 { color: #fff; margin-top: 0; font-size: 1.8em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
         .curso-card p { color: var(--text-muted); font-weight: 300; font-size: 1.05em; }
@@ -109,7 +105,7 @@
         .btn-entrar:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
         .ambient-player {
-            position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(15px); 
+            position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); 
             border: 1px solid var(--glass-border); padding: 15px 25px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
             z-index: 1000; display: flex; align-items: center; gap: 15px; transition: transform 0.15s ease;
         }
@@ -125,18 +121,15 @@
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: 0.1s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
-        /* 🔒 MODAL VIP (Optimizado: Sin Blur masivo, Color Sólido) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(10, 10, 12, 0.95); /* ⚡ Fondo oscuro sólido de alto rendimiento */
-            display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; 
-            transition: opacity 0.15s ease; will-change: opacity; /* ⚡ Aceleración GPU */
+            background: rgba(5, 5, 7, 0.98); /* Oscuro sólido absoluto, rendimiento máximo */
+            display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.15s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content {
-            background: var(--glass-bg); border: 1px solid var(--robles-gold); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px;
+            background: rgba(20, 20, 20, 0.8); border: 1px solid var(--robles-gold); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px;
             text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.15s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            will-change: transform; /* ⚡ Aceleración GPU */
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
         .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.1s; cursor: pointer; }
@@ -145,12 +138,12 @@
         .modal-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9em; }
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.1s; }
-        .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.5); }
+        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.1s; }
+        .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.8); }
         .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.1s; cursor: pointer; }
         .btn-submit:hover { background: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
-        .footer { background: rgba(10, 10, 12, 0.8); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
+        .footer { background: rgba(10, 10, 12, 0.9); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
         .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8em; color: #fff; margin-bottom: 10px; }
         .footer-logo span { color: var(--robles-gold); }
         .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -160,9 +153,6 @@
     </style>
 </head>
 <body>
-
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
 
     <div class="header">
         <h1>🦅 Academia <span>Robles Bienestar</span></h1>
