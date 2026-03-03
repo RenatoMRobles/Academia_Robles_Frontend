@@ -37,7 +37,6 @@
 
         body {
             font-family: 'Inter', sans-serif; margin: 0; padding: 0;
-            /* ⚡ HACK 1: Las "Nebulosas" ahora son gradientes radiales estáticos. CERO lag por blur. */
             background-color: #0a0a0c;
             background-image: 
                 radial-gradient(circle at 15% 20%, rgba(142, 36, 170, 0.15) 0%, transparent 40%),
@@ -51,18 +50,28 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 💫 Aura Cuántica (Optimizada) */
-        .cursor-outline {
-            position: fixed; top: 0; left: 0;
-            width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
-            border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform;
-            transition: width 0.1s, height 0.1s, background-color 0.1s, border-color 0.1s;
+        /* 📱 BLINDAJE CELULAR: Solo computadoras con ratón (pointer: fine) verán el Aura y el puntero dorado */
+        @media (pointer: fine) {
+            * {
+                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important;
+            }
+            .cursor-outline {
+                position: fixed; top: 0; left: 0;
+                width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
+                border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform;
+                /* ⚡ Velocidad extrema: 0.05s */
+                transition: width 0.05s, height 0.05s, background-color 0.05s, border-color 0.05s;
+            }
+            .cursor-outline.hover {
+                width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
+            }
         }
-        .cursor-outline.hover {
-            width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
+        /* Apagado para celulares (pointer: coarse) */
+        @media (pointer: coarse) {
+            .cursor-outline { display: none !important; }
         }
 
-        /* ⚡ HACK 2: Reducción del Blur al 50%. Mismo efecto visual, mitad de carga de CPU. */
+        /* Componentes */
         .header {
             background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); padding: 40px 20px; 
             display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--glass-border); 
@@ -70,12 +79,12 @@
         }
         .header h1 { margin: 0; font-size: 3.5em; letter-spacing: 2px; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .header h1 span { color: var(--robles-gold); background: linear-gradient(to right, #ffca28, #ffb300); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header p { font-size: 1.2em; color: var(--text-muted); font-style: italic; }
+        .header p { font-size: 1.2em; color: var(--text-muted); font-style: italic; text-align: center;}
 
         .btn-header-vip {
             margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1); color: var(--robles-gold); 
             border: 1px solid var(--robles-gold); border-radius: 30px; font-weight: 600; font-size: 0.9em; 
-            text-transform: uppercase; letter-spacing: 1px; transition: all 0.1s ease; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.05s ease; cursor: pointer;
         }
         .btn-header-vip:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
@@ -100,7 +109,7 @@
         .btn-entrar {
             display: inline-block; margin-top: 30px; padding: 12px 30px; background: transparent;
             color: var(--robles-gold); text-decoration: none; border-radius: 30px; border: 1px solid var(--robles-gold);
-            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; transition: all 0.1s ease;
+            font-weight: 500; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; transition: all 0.05s ease;
         }
         .btn-entrar:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
@@ -113,41 +122,41 @@
         .player-info { display: flex; flex-direction: column; }
         .player-title { margin: 0; color: #fff; font-size: 0.85em; font-weight: 600; text-transform: uppercase; }
         .player-subtitle { margin: 0; color: var(--robles-gold); font-size: 0.7em; opacity: 0.8; }
-        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.1s ease; cursor: pointer; }
+        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.05s ease; cursor: pointer; }
         .btn-play.pulse { animation: playPulse 2s infinite; }
         @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); } }
         
         input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: pointer; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: 0.1s; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: 0.05s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(5, 5, 7, 0.98); /* Oscuro sólido absoluto, rendimiento máximo */
-            display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.15s ease;
+            background: rgba(5, 5, 7, 0.98); 
+            display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.1s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-content {
             background: rgba(20, 20, 20, 0.8); border: 1px solid var(--robles-gold); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px;
-            text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.15s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.1s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.1s; cursor: pointer; }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.05s; cursor: pointer; }
         .close-modal:hover { color: var(--robles-gold); }
         .modal-content h2 { color: #fff; margin-top: 0; font-size: 2em; }
         .modal-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9em; }
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.1s; }
+        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.05s; }
         .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.8); }
-        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.1s; cursor: pointer; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.05s; cursor: pointer; }
         .btn-submit:hover { background: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
         .footer { background: rgba(10, 10, 12, 0.9); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
         .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8em; color: #fff; margin-bottom: 10px; }
         .footer-logo span { color: var(--robles-gold); }
         .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9em; transition: color 0.1s ease; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9em; transition: color 0.05s ease; }
         .footer-links a:hover { color: var(--robles-gold); }
         .footer-copy { color: #666; font-size: 0.85em; margin-top: 20px; }
     </style>
@@ -163,9 +172,9 @@
     <aside class="ambient-player" aria-label="Reproductor de música para concentración">
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <button id="prevBtn" onclick="prevTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.1s; cursor:pointer;">⏮</button>
+                <button id="prevBtn" onclick="prevTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏮</button>
                 <button id="playPauseBtn" class="btn-play pulse" aria-label="Reproducir música" onclick="toggleAudio()">▶</button>
-                <button id="nextBtn" onclick="nextTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.1s; cursor:pointer;">⏭</button>
+                <button id="nextBtn" onclick="nextTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.05s; cursor:pointer;">⏭</button>
             </div>
             <div style="display: flex; align-items: center; gap: 5px; margin-top: 5px;">
                 <span style="color: var(--text-muted); font-size: 0.9em;">🔈</span>
@@ -236,27 +245,31 @@
     <div class="cursor-outline"></div>
 
     <script>
-        const cursorOutline = document.querySelector('.cursor-outline');
-        let mouseX = 0, mouseY = 0;
-        let outlineX = 0, outlineY = 0;
+        // 🚀 Motor de Aura Inteligente (Solo opera si hay un mouse real conectado)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const cursorOutline = document.querySelector('.cursor-outline');
+            let mouseX = 0, mouseY = 0;
+            let outlineX = 0, outlineY = 0;
 
-        window.addEventListener('mousemove', function(e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+            window.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
 
-        function animateCursor() {
-            outlineX += (mouseX - outlineX) * 0.4; 
-            outlineY += (mouseY - outlineY) * 0.4;
-            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
-            requestAnimationFrame(animateCursor);
+            function animateCursor() {
+                // ⚡ Multiplicador subido a 0.6 para reacción casi instantánea
+                outlineX += (mouseX - outlineX) * 0.6; 
+                outlineY += (mouseY - outlineY) * 0.6;
+                cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, input, .btn-play, .curso-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+            });
         }
-        animateCursor();
-
-        document.querySelectorAll('a, button, input, .btn-play, .curso-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
-        });
 
         // Lógica del Reproductor
         const audio = document.getElementById("bgMusic");
