@@ -54,17 +54,12 @@
         .orb-2 { width: 400px; height: 400px; background: rgba(255, 202, 40, 0.2); bottom: -100px; right: -50px; animation-delay: -10s; }
         @keyframes floatOrbs { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.1); } }
 
-        /* 🖱️ Puntero Cuántico 2.0 (Fluido y Seguro) */
-        * { cursor: none !important; }
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; border-radius: 50%;
-            pointer-events: none; z-index: 99999; will-change: transform;
-        }
-        .cursor-dot {
-            width: 8px; height: 8px; background: var(--robles-gold); box-shadow: 0 0 10px var(--robles-gold);
-        }
+        /* 💫 Aura Cuántica (Híbrida: Puntero nativo visible + Aura interactiva) */
+        /* Nota: Se eliminó el "cursor: none", el usuario usará el suyo por defecto */
         .cursor-outline {
+            position: fixed; top: 0; left: 0;
             width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
+            border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform;
             transition: width 0.15s, height 0.15s, background-color 0.15s, border-color 0.15s;
         }
         .cursor-outline.hover {
@@ -84,7 +79,7 @@
         .btn-header-vip {
             margin-top: 20px; padding: 10px 25px; background: rgba(255, 202, 40, 0.1); color: var(--robles-gold); 
             border: 1px solid var(--robles-gold); border-radius: 30px; font-weight: 600; font-size: 0.9em; 
-            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer;
         }
         .btn-header-vip:hover { background: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
@@ -95,7 +90,6 @@
         .curso-card {
             background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border);
             border-radius: 20px; padding: 40px 30px; position: relative; overflow: hidden;
-            /* 👇 REPARACIÓN DEL BUG DE SALTOS: Solo transicionamos colores, NO el transform 3D */
             transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
         .curso-card::before {
@@ -123,11 +117,11 @@
         .player-info { display: flex; flex-direction: column; }
         .player-title { margin: 0; color: #fff; font-size: 0.85em; font-weight: 600; text-transform: uppercase; }
         .player-subtitle { margin: 0; color: var(--robles-gold); font-size: 0.7em; opacity: 0.8; }
-        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.3s ease; cursor: none !important; }
+        .btn-play { background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: all 0.3s ease; cursor: pointer; }
         .btn-play.pulse { animation: playPulse 2s infinite; }
         @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); } }
         
-        input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: none !important; }
+        input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: pointer; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
@@ -141,15 +135,15 @@
             text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.3s; cursor: none !important; }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.3s; cursor: pointer; }
         .close-modal:hover { color: var(--robles-gold); }
         .modal-content h2 { color: #fff; margin-top: 0; font-size: 2em; }
         .modal-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9em; }
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; color: var(--text-muted); font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.3s; cursor: none !important;}
+        .input-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Inter', sans-serif; box-sizing: border-box; transition: 0.3s; }
         .input-group input:focus { outline: none; border-color: var(--robles-gold); background: rgba(0,0,0,0.5); }
-        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: none !important;}
+        .btn-submit { width: 100%; padding: 15px; background: var(--robles-gold); color: #000; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
         .btn-submit:hover { background: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
         .footer { background: rgba(10, 10, 12, 0.8); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
@@ -175,9 +169,9 @@
     <aside class="ambient-player" aria-label="Reproductor de música para concentración">
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <button id="prevBtn" onclick="prevTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.3s;">⏮</button>
+                <button id="prevBtn" onclick="prevTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.3s; cursor:pointer;">⏮</button>
                 <button id="playPauseBtn" class="btn-play pulse" aria-label="Reproducir música" onclick="toggleAudio()">▶</button>
-                <button id="nextBtn" onclick="nextTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.3s;">⏭</button>
+                <button id="nextBtn" onclick="nextTrack()" style="background:none; border:none; color:var(--text-muted); font-size:1.2em; transition:0.3s; cursor:pointer;">⏭</button>
             </div>
             <div style="display: flex; align-items: center; gap: 5px; margin-top: 5px;">
                 <span style="color: var(--text-muted); font-size: 0.9em;">🔈</span>
@@ -245,12 +239,10 @@
         </div>
     </footer>
 
-    <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
     <script>
-        // 🚀 Motor JS Perfecto: Cero lag y auto-centrado
-        const cursorDot = document.querySelector('.cursor-dot');
+        // 🚀 Motor Híbrido: Puntero nativo (0 lag) + Aura dorada
         const cursorOutline = document.querySelector('.cursor-outline');
         let mouseX = 0, mouseY = 0;
         let outlineX = 0, outlineY = 0;
@@ -258,12 +250,10 @@
         window.addEventListener('mousemove', function(e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            // El núcleo se mueve instantáneamente. El translate(-50%, -50%) lo mantiene perfectamente centrado.
-            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
         });
 
         function animateCursor() {
-            // El anillo tiene un multiplicador de 0.3 para inercia fluida y veloz
+            // Inercia fluida (0.3)
             outlineX += (mouseX - outlineX) * 0.3; 
             outlineY += (mouseY - outlineY) * 0.3;
             cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
@@ -271,6 +261,7 @@
         }
         animateCursor();
 
+        // Efecto expansivo cuando tocas botones o tarjetas
         document.querySelectorAll('a, button, input, .btn-play, .curso-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
