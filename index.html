@@ -248,7 +248,7 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO CUÁNTICO (Web Audio API - Cero Latencia)
+        // 🎵 MOTOR DE AUDIO CUÁNTICO (Web Audio API - Volumen Optimizado)
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -261,7 +261,7 @@
             }
         }
 
-        // Tono de "Cristal" al pasar el ratón
+        // Tono de "Cristal" al pasar el ratón (Volumen al 8%)
         function playHoverSound() {
             if (!audioCtx || audioCtx.state === 'suspended') return;
             const osc = audioCtx.createOscillator();
@@ -269,35 +269,40 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(800, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+            
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.01); // Volumen ASMR súper sutil
+            gainNode.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.01); // 🔊 Volumen aumentado
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.1);
         }
 
-        // Tono de "Confirmación Bóveda" al hacer clic
+        // Tono de "Confirmación Bóveda" al hacer clic (Volumen al 15%)
         function playClickSound() {
-            initAudio(); // Asegura inicialización en el clic
+            initAudio(); 
             if (!audioCtx) return;
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             osc.type = 'sine';
             osc.frequency.setValueAtTime(300, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+            
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.02);
+            gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.02); // 🔊 Volumen aumentado
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+            
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.2);
         }
 
-        // Desbloquear audio en el primer clic del usuario (Políticas de Navegador)
-        document.body.addEventListener('click', initAudio, { once: true });
+        // ⚡ Desbloqueo forzado de audio al hacer clic en CUALQUIER lugar de la página
+        window.addEventListener('mousedown', initAudio, { once: true });
+        window.addEventListener('keydown', initAudio, { once: true });
 
         // Asignar eventos ASMR
         document.querySelectorAll('.hover-sound').forEach(el => {
