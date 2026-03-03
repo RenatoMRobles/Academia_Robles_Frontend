@@ -65,8 +65,10 @@
             width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
             border-radius: 50%; z-index: 99999; pointer-events: none; will-change: transform;
             /* Se eliminó la transición en "transform" para evitar los saltitos */
-            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+            /* 👇 Animación ultrarrápida (0.1s) para reacción instantánea */
+            transition: width 0.1s, height 0.1s, background-color 0.1s, border-color 0.1s;
         }
+            
         .cursor-outline.hover {
             width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
         }
@@ -258,16 +260,18 @@
         });
 
         // Loop sincronizado con los Hercios (Hz) de tu monitor
+        // Loop sincronizado con los Hercios (Hz) de tu monitor
         function animateCursor() {
             let distX = mouseX - outlineX;
             let distY = mouseY - outlineY;
             
-            // Inercia matemática suave
-            outlineX += distX * 0.2; 
-            outlineY += distY * 0.2;
+            // 👇 Inyección de "Cafeína": Subimos de 0.2 a 0.5 para máxima vitalidad
+            outlineX += distX * 0.5; 
+            outlineY += distY * 0.5;
             
             cursorOutline.style.transform = `translate3d(${outlineX - 20}px, ${outlineY - 20}px, 0)`;
             requestAnimationFrame(animateCursor);
+        }
         }
         animateCursor();
 
