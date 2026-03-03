@@ -50,7 +50,7 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 📱 BLINDAJE CELULAR: Solo computadoras con ratón (pointer: fine) verán el Aura y el puntero dorado */
+        /* 📱 BLINDAJE CELULAR: Aura Inteligente */
         @media (pointer: fine) {
             * {
                 cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important;
@@ -59,19 +59,16 @@
                 position: fixed; top: 0; left: 0;
                 width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
                 border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform;
-                /* ⚡ Velocidad extrema: 0.05s */
                 transition: width 0.05s, height 0.05s, background-color 0.05s, border-color 0.05s;
             }
             .cursor-outline.hover {
                 width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
             }
         }
-        /* Apagado para celulares (pointer: coarse) */
         @media (pointer: coarse) {
             .cursor-outline { display: none !important; }
         }
 
-        /* Componentes */
         .header {
             background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); padding: 40px 20px; 
             display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--glass-border); 
@@ -130,17 +127,27 @@
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: 0.05s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
+        /* ⚡ MODAL VIP (Latencia 0.0ms: visibility en lugar de display) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(5, 5, 7, 0.98); 
-            display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.1s ease;
+            display: flex; /* Siempre renderizado, pero invisible */
+            justify-content: center; align-items: center; z-index: 2000; 
+            opacity: 0; visibility: hidden; /* Aquí está la magia negra del rendimiento */
+            transition: opacity 0.15s ease, visibility 0.15s ease;
         }
-        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-overlay.active { 
+            opacity: 1; visibility: visible; 
+        }
         .modal-content {
             background: rgba(20, 20, 20, 0.8); border: 1px solid var(--robles-gold); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px;
-            text-align: center; position: relative; transform: translateY(-20px); transition: transform 0.1s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            text-align: center; position: relative; 
+            transform: scale(0.95) translateY(-10px); /* Lujoso efecto Pop-in */
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
-        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-overlay.active .modal-content { 
+            transform: scale(1) translateY(0); 
+        }
         .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 1.5em; background: none; border: none; transition: 0.05s; cursor: pointer; }
         .close-modal:hover { color: var(--robles-gold); }
         .modal-content h2 { color: #fff; margin-top: 0; font-size: 2em; }
@@ -245,7 +252,6 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🚀 Motor de Aura Inteligente (Solo opera si hay un mouse real conectado)
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0, mouseY = 0;
@@ -257,7 +263,6 @@
             });
 
             function animateCursor() {
-                // ⚡ Multiplicador subido a 0.6 para reacción casi instantánea
                 outlineX += (mouseX - outlineX) * 0.6; 
                 outlineY += (mouseY - outlineY) * 0.6;
                 cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
