@@ -264,16 +264,20 @@
         .orb-2 { width: 400px; height: 400px; background: rgba(255, 202, 40, 0.2); bottom: -100px; right: -50px; animation-delay: -10s; }
         @keyframes floatOrbs { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.1); } }
 
-        /* 🖱️ Puntero Cuántico (Ocultar el de Windows) */
+        /* 🖱️ Puntero Cuántico (Acelerado por GPU) */
         body, a, button, input { cursor: none !important; }
         .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            position: fixed; top: 0; left: 0;
             border-radius: 50%; z-index: 9999; pointer-events: none;
+            will-change: transform; /* Le indica a la Tarjeta Gráfica que tome el control */
         }
-        .cursor-dot { width: 8px; height: 8px; background: var(--robles-gold); box-shadow: 0 0 10px var(--robles-gold); }
+        .cursor-dot { 
+            width: 8px; height: 8px; background: var(--robles-gold); 
+            box-shadow: 0 0 10px var(--robles-gold); 
+        }
         .cursor-outline {
             width: 40px; height: 40px; border: 1px solid rgba(255, 202, 40, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
         }
         .cursor-outline.hover {
             width: 60px; height: 60px; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold);
@@ -450,6 +454,6 @@
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
         });
     </script>
-    
+
 </body>
 </html>
