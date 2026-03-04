@@ -50,7 +50,7 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 📱 BLINDAJE CELULAR Y AURA CUÁNTICA */
+        /* 📱 AURA CUÁNTICA LUMINOSA */
         @media (pointer: fine) {
             * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
             .cursor-outline {
@@ -127,7 +127,7 @@
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: background-color 0.05s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
-        /* ⚡ MODAL VIP BLINDADO */
+        /* ⚡ BÓVEDA VIP SINTRÓPICA */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #050507; display: flex; justify-content: center; align-items: center; z-index: 2000; 
@@ -248,7 +248,7 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO CUÁNTICO (Acústica Premium & Minimalista)
+        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO (Frecuencias Sintrópicas y Purificadas)
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -261,7 +261,7 @@
             }
         }
 
-        // 🎴 Tono "Hover": Un ligerísimo 'tick' de cristal, muy tenue y sofisticado.
+        // 🎴 Tono "Hover": Ascensión Luminosa (Micro-Doppler Positivo, Onda Sine Cristalina)
         function playHoverSound() {
             initAudio(); 
             if (!audioCtx) return;
@@ -269,21 +269,21 @@
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'sine'; // Onda pura para evitar estridencias
-            osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.03); // Caída hiper-rápida
+            osc.type = 'sine'; // Frecuencia pura formadora de cristales
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); // Subida sintrópica veloz
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01); // 🔊 Volumen mínimo y elegante (5%)
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); // Se apaga casi de inmediato
+            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); // Presencia firme pero elegante
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
             
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.05);
+            osc.stop(audioCtx.currentTime + 0.04);
         }
 
-        // 🖱️ Tono "Click": Un sonido profundo, sobrio y corporativo.
+        // 🖱️ Tono "Click": Certeza de Bóveda (Descenso Sólido de Autoridad, Onda Sine)
         function playClickSound() {
             initAudio(); 
             if (!audioCtx) return;
@@ -291,25 +291,25 @@
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'sine'; // Onda profunda
+            osc.type = 'sine'; // Solidez y orden
             osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.1); // Descenso de tono grave
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); // Caída de lujo y seguridad
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02); // 🔊 Volumen firme pero moderado (10%)
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15); // Duración corta
+            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); // Ataque de dopamina
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
             
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
+            osc.stop(audioCtx.currentTime + 0.08);
         }
 
         // Desbloqueo inicial global
         window.addEventListener('mousedown', initAudio, { once: true });
         window.addEventListener('keydown', initAudio, { once: true });
 
-        // Asignar eventos
+        // Asignar eventos de bienestar
         document.querySelectorAll('.hover-sound').forEach(el => {
             el.addEventListener('mouseenter', playHoverSound);
         });
@@ -317,7 +317,7 @@
             el.addEventListener('mousedown', playClickSound);
         });
 
-        // 🖱️ MOTOR DE PUNTERO (Inercia Inteligente)
+        // 🖱️ MOTOR DE PUNTERO (Inercia Inteligente y Luminosa)
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0, mouseY = 0;
