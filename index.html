@@ -9,7 +9,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -63,7 +63,7 @@
         }
         @media (pointer: coarse) { .cursor-outline { display: none !important; } }
 
-        /* Componentes */
+        /* Componentes Principales */
         .header {
             background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); padding: 40px 20px; 
             display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--glass-border); 
@@ -83,7 +83,9 @@
 
         .container { flex: 1; max-width: 1200px; margin: 80px auto; padding: 0 20px; }
         .section-title { text-align: center; font-size: 2.8em; margin-bottom: 50px; }
-        .grid-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        
+        /* 📚 Catálogo de Cursos */
+        .grid-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-bottom: 100px; }
 
         .curso-card {
             background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
@@ -106,6 +108,38 @@
         }
         .btn-entrar:hover { background-color: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
+        /* 👩‍🏫 NUEVO: Claustro Académico (Profesores IA) */
+        .grid-profesores { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 80px;}
+        
+        .profesor-card {
+            background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(142, 36, 170, 0.3);
+            border-radius: 30px; padding: 40px 30px; text-align: center; position: relative; overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .profesor-card:hover {
+            transform: translateY(-10px); border-color: var(--robles-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 202, 40, 0.15);
+        }
+        .avatar-container {
+            width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 50%; 
+            background: linear-gradient(135deg, var(--robles-purple), #38006b); padding: 3px; position: relative;
+        }
+        .emoji-avatar {
+            width: 100%; height: 100%; border-radius: 50%; background: #0a0a0c;
+            display: flex; align-items: center; justify-content: center; font-size: 3.5em;
+        }
+        .online-dot {
+            position: absolute; bottom: 10px; right: 10px; width: 18px; height: 18px;
+            background: #00e676; border-radius: 50%; border: 3px solid #0a0a0c;
+            box-shadow: 0 0 15px #00e676; animation: pulse-green 2.5s infinite;
+        }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(0, 230, 118, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); } }
+        
+        .profesor-card h3 { color: #fff; margin: 10px 0 5px 0; font-size: 1.5em; }
+        .profesor-especialidad { color: var(--robles-gold); font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 20px;}
+        .profesor-card p { color: var(--text-muted); font-size: 0.95em; line-height: 1.6; margin-bottom: 30px;}
+
+        /* Reproductor y Bóveda (Mismo diseño premium anterior) */
         .ambient-player {
             position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); 
             border: 1px solid var(--glass-border); padding: 15px 25px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
@@ -117,20 +151,17 @@
         .player-subtitle { margin: 0; color: var(--robles-gold); font-size: 0.7em; opacity: 0.8; }
         .btn-play { 
             background: var(--robles-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; font-size: 1.2em; 
-            transition: box-shadow 0.05s ease, transform 0.05s ease; cursor: pointer; 
+            display: flex; justify-content: center; align-items: center; font-size: 1.2em; transition: box-shadow 0.05s ease, transform 0.05s ease; cursor: pointer; 
         }
         .btn-play.pulse { animation: playPulse 2s infinite; }
-        @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 202, 40, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); } }
         
         input[type=range] { -webkit-appearance: none; width: 80px; background: transparent; cursor: pointer; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 12px; border-radius: 50%; background: var(--robles-gold); margin-top: -4px; transition: background-color 0.05s; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
 
-        /* ⚡ BÓVEDA VIP SINTRÓPICA */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #050507; display: flex; justify-content: center; align-items: center; z-index: 2000; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050507; 
+            display: flex; justify-content: center; align-items: center; z-index: 2000; 
             opacity: 0; visibility: hidden; transition: opacity 0.15s ease, visibility 0.15s ease; contain: paint;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -155,7 +186,7 @@
         }
         .btn-submit:hover { background-color: #ffb300; box-shadow: 0 0 15px rgba(255, 202, 40, 0.4); }
 
-        .footer { background: rgba(10, 10, 12, 0.9); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; margin-top: 60px; }
+        .footer { background: rgba(10, 10, 12, 0.9); border-top: 1px solid var(--glass-border); padding: 40px 20px; text-align: center; }
         .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8em; color: #fff; margin-bottom: 10px; }
         .footer-logo span { color: var(--robles-gold); }
         .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -210,6 +241,33 @@
                 <a href="#" class="btn-entrar hover-sound click-sound">Acceder ➔</a>
             </div>
         </div>
+
+        <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000" style="margin-top: 80px;">Claustro Académico</h2>
+        <div class="grid-profesores">
+            
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">👩🏻‍💼</div>
+                    <div class="online-dot" title="En línea, lista para crear"></div>
+                </div>
+                <h3>Dra. Victoria Freud Segura</h3>
+                <div class="profesor-especialidad">Neuropsicología y Lógica</div>
+                <p>Mentora IA de nivel supremo, diseñada para estructurar tus rutas neuronales, blindar tu soberanía emocional y asegurar tu victoria analítica en cada desafío.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">👨🏻‍💻</div>
+                    <div class="online-dot" title="En línea, listo para crear"></div>
+                </div>
+                <h3>Ing. Arquitecto de Datos</h3>
+                <div class="profesor-especialidad">Python & Soberanía Serverless</div>
+                <p>Especialista en estructuración de servidores puros y automatización. Te guiará paso a paso para construir tu propio imperio tecnológico inquebrantable.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+        </div>
     </div>
 
     <div id="loginModal" class="modal-overlay">
@@ -248,33 +306,27 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO (Frecuencias Sintrópicas y Purificadas)
+        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO (Frecuencias Sintrópicas)
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
         function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new AudioContext();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) { audioCtx = new AudioContext(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
         }
 
-        // 🎴 Tono "Hover": Ascensión Luminosa (Micro-Doppler Positivo, Onda Sine Cristalina)
         function playHoverSound() {
             initAudio(); 
             if (!audioCtx) return;
-            
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'sine'; // Frecuencia pura formadora de cristales
+            osc.type = 'sine'; 
             osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); // Subida sintrópica veloz
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); 
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); // Presencia firme pero elegante
+            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); 
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
             
             osc.connect(gainNode);
@@ -283,20 +335,18 @@
             osc.stop(audioCtx.currentTime + 0.04);
         }
 
-        // 🖱️ Tono "Click": Certeza de Bóveda (Descenso Sólido de Autoridad, Onda Sine)
         function playClickSound() {
             initAudio(); 
             if (!audioCtx) return;
-            
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
-            osc.type = 'sine'; // Solidez y orden
+            osc.type = 'sine'; 
             osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); // Caída de lujo y seguridad
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); 
             
             gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); // Ataque de dopamina
+            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); 
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
             
             osc.connect(gainNode);
@@ -305,11 +355,9 @@
             osc.stop(audioCtx.currentTime + 0.08);
         }
 
-        // Desbloqueo inicial global
         window.addEventListener('mousedown', initAudio, { once: true });
         window.addEventListener('keydown', initAudio, { once: true });
 
-        // Asignar eventos de bienestar
         document.querySelectorAll('.hover-sound').forEach(el => {
             el.addEventListener('mouseenter', playHoverSound);
         });
@@ -317,7 +365,7 @@
             el.addEventListener('mousedown', playClickSound);
         });
 
-        // 🖱️ MOTOR DE PUNTERO (Inercia Inteligente y Luminosa)
+        // 🖱️ MOTOR DE PUNTERO
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0, mouseY = 0;
@@ -340,7 +388,7 @@
             }
             animateCursor();
 
-            document.querySelectorAll('a, button, input, .btn-play, .curso-card').forEach(el => {
+            document.querySelectorAll('a, button, input, .btn-play, .curso-card, .profesor-card').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
                 el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
             });
