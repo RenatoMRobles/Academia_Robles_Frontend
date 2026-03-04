@@ -193,9 +193,62 @@
         .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9em; transition: color 0.05s ease; }
         .footer-links a:hover { color: var(--robles-gold); }
         .footer-copy { color: #666; font-size: 0.85em; margin-top: 20px; }
+
+        /* 🚪 UMBRAL DE LUZ (Transición VIP Magistral) */
+        .umbral-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #050507; z-index: 999999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .umbral-overlay.active {
+            opacity: 1; visibility: visible; pointer-events: all;
+        }
+        .umbral-scanner {
+            position: absolute; width: 100%; height: 4px;
+            background: var(--robles-gold);
+            box-shadow: 0 0 40px 20px rgba(255, 202, 40, 0.6), 0 0 80px 40px rgba(142, 36, 170, 0.3);
+            top: -10%; opacity: 0;
+        }
+        .umbral-overlay.active .umbral-scanner {
+            animation: scanLight 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .umbral-logo {
+            font-family: 'Playfair Display', serif; font-size: 3.5em; color: #fff;
+            opacity: 0; transform: scale(0.9); text-align: center;
+        }
+        .umbral-logo span { color: var(--robles-gold); }
+        .umbral-subtitle {
+            font-family: 'Inter', sans-serif; font-size: 0.25em; color: var(--text-muted);
+            letter-spacing: 6px; text-transform: uppercase; margin-top: 15px; display: block;
+        }
+        .umbral-overlay.active .umbral-logo {
+            animation: revealLogo 2s ease forwards; animation-delay: 0.2s;
+        }
+
+        @keyframes scanLight {
+            0% { top: -10%; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+        @keyframes revealLogo {
+            0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+            50% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
     </style>
 </head>
 <body>
+
+    <div id="umbralLuz" class="umbral-overlay">
+        <div class="umbral-scanner"></div>
+        <div class="umbral-logo">
+            🦅 Academia<br><span>Robles Bienestar</span>
+            <span class="umbral-subtitle">Sincronizando Frecuencia...</span>
+        </div>
+    </div>
 
     <div class="header">
         <h1>🦅 Academia <span>Robles Bienestar</span></h1>
@@ -361,7 +414,7 @@
                     <label for="password">Credencial de Acceso</label>
                     <input type="password" id="password" required placeholder="••••••••">
                 </div>
-                <button type="button" onclick="window.location.href='boveda.html'" class="btn-submit hover-sound click-sound">Ingresar a la Bóveda</button>
+                <button type="button" onclick="activarUmbral()" class="btn-submit hover-sound click-sound">Ingresar a la Bóveda</button>
             </form>
         </div>
     </div>
@@ -526,6 +579,41 @@
         btnOpen.onclick = function() { modal.classList.add('active'); }
         btnClose.onclick = function() { modal.classList.remove('active'); }
         window.onclick = function(event) { if (event.target === modal) { modal.classList.remove('active'); } }
+
+        // 🚪 LÓGICA DEL UMBRAL DE LUZ VIP
+        function playAscensionSound() {
+            initAudio(); if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; // Onda pura
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 2.2); // Ascensión luminosa
+            
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.5); 
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2); 
+            
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 2.2);
+        }
+
+        function activarUmbral() {
+            // 1. Cerrar el modal actual
+            document.getElementById('loginModal').classList.remove('active');
+            
+            // 2. Activar el sonido de ascensión
+            playAscensionSound();
+            
+            // 3. Encender el Umbral
+            const umbral = document.getElementById('umbralLuz');
+            umbral.classList.add('active');
+            
+            // 4. Teletransporte automágico a la Bóveda después de 2.2 segundos
+            setTimeout(() => {
+                window.location.href = 'boveda.html';
+            }, 2200);
+        }
+        
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
