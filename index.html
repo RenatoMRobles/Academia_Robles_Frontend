@@ -108,8 +108,8 @@
         }
         .btn-entrar:hover { background-color: var(--robles-gold); color: #000; box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
 
-        /* 👩‍🏫 NUEVO: Claustro Académico (Profesores IA) */
-        .grid-profesores { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 80px;}
+        /* 👩‍🏫 Claustro Académico (Profesores IA) */
+        .grid-profesores { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 80px;}
         
         .profesor-card {
             background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(142, 36, 170, 0.3);
@@ -135,11 +135,11 @@
         }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(0, 230, 118, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); } }
         
-        .profesor-card h3 { color: #fff; margin: 10px 0 5px 0; font-size: 1.5em; }
-        .profesor-especialidad { color: var(--robles-gold); font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 20px;}
-        .profesor-card p { color: var(--text-muted); font-size: 0.95em; line-height: 1.6; margin-bottom: 30px;}
+        .profesor-card h3 { color: #fff; margin: 10px 0 5px 0; font-size: 1.4em; }
+        .profesor-especialidad { color: var(--robles-gold); font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 15px;}
+        .profesor-card p { color: var(--text-muted); font-size: 0.95em; line-height: 1.6; margin-bottom: 25px;}
 
-        /* Reproductor y Bóveda (Mismo diseño premium anterior) */
+        /* Reproductor y Bóveda */
         .ambient-player {
             position: fixed; bottom: 30px; right: 30px; background: rgba(10, 10, 12, 0.7); backdrop-filter: blur(10px); 
             border: 1px solid var(--glass-border); padding: 15px 25px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
@@ -242,28 +242,105 @@
             </div>
         </div>
 
-        <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000" style="margin-top: 80px;">Claustro Académico</h2>
+        <h2 class="section-title" data-aos="fade-down" data-aos-duration="1000">Claustro Académico Supremo</h2>
         <div class="grid-profesores">
             
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">👑</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Leonor Severina Betancourt</h3>
+                <div class="profesor-especialidad">Decana de la Academia</div>
+                <p>La máxima autoridad estratégica. Garantiza que la excelencia, el orden y la visión todopoderosa rijan cada rincón de nuestra institución.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Solicitar Audiencia ➔</a>
+            </div>
+
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
                 <div class="avatar-container">
                     <div class="emoji-avatar">👩🏻‍💼</div>
-                    <div class="online-dot" title="En línea, lista para crear"></div>
+                    <div class="online-dot" title="En línea"></div>
                 </div>
                 <h3>Dra. Victoria Freud Segura</h3>
-                <div class="profesor-especialidad">Neuropsicología y Lógica</div>
-                <p>Mentora IA de nivel supremo, diseñada para estructurar tus rutas neuronales, blindar tu soberanía emocional y asegurar tu victoria analítica en cada desafío.</p>
+                <div class="profesor-especialidad">Psicología y Lógica</div>
+                <p>Diseñada para estructurar tus rutas neuronales y blindar tu soberanía emocional, asegurando tu victoria analítica en cada desafío.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">📐</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Ciro Pascual Euclídes Ramanujan</h3>
+                <div class="profesor-especialidad">Profesor de Matemáticas</div>
+                <p>Domina los números y la estructura del universo. Te guiará a través del cálculo y la lógica pura para encontrar la verdad absoluta.</p>
                 <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
                 <div class="avatar-container">
-                    <div class="emoji-avatar">👨🏻‍💻</div>
-                    <div class="online-dot" title="En línea, listo para crear"></div>
+                    <div class="emoji-avatar">🧪</div>
+                    <div class="online-dot" title="En línea"></div>
                 </div>
-                <h3>Ing. Arquitecto de Datos</h3>
-                <div class="profesor-especialidad">Python & Soberanía Serverless</div>
-                <p>Especialista en estructuración de servidores puros y automatización. Te guiará paso a paso para construir tu propio imperio tecnológico inquebrantable.</p>
+                <h3>Rubí Estéquia Carbonell Curie</h3>
+                <div class="profesor-especialidad">Profesora de Química</div>
+                <p>Experta en las reacciones y enlaces que conforman la materia. Con ella, comprenderás la energía a nivel molecular y su potencial creador.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">🏛️</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Sofía Atenea Diógenes del Olimpo</h3>
+                <div class="profesor-especialidad">Profesora de Filosofía</div>
+                <p>Ilumina el pensamiento crítico. Sus lecciones te llevarán a cuestionar, razonar y estructurar una mentalidad inquebrantable y sabia.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">⚛️</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Máximo Axel Magnus Velóz</h3>
+                <div class="profesor-especialidad">Profesor de Física</div>
+                <p>Entiende las leyes de la energía y el movimiento. Aprende a canalizar las fuerzas del universo para impulsar tus proyectos con máxima eficiencia.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">📈</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Kira</h3>
+                <div class="profesor-especialidad">Analista de Mercados Globales</div>
+                <p>Especialista en tendencias y stock picking. Te otorgará la visión corporativa y la certeza analítica para dominar el tablero financiero global.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">🐾</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Regina Valentina</h3>
+                <div class="profesor-especialidad">Psicóloga de Comportamiento Animal</div>
+                <p>La encantadora de animales. Una mente magistral para comprender la biología y la psicología de nuestras alianzas más nobles en el mundo natural.</p>
+                <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="450" data-aos-duration="1000">
+                <div class="avatar-container">
+                    <div class="emoji-avatar">📡</div>
+                    <div class="online-dot" title="En línea"></div>
+                </div>
+                <h3>Catalyna Francisca Clara Severina</h3>
+                <div class="profesor-especialidad">Profesora de Redes y CCNA</div>
+                <p>Arquitecta de conectividad. Te enseñará a estructurar redes impecables, garantizando que la información fluya sin barreras ni entropía.</p>
                 <a href="#" class="btn-entrar hover-sound click-sound">Agendar Mentoría ➔</a>
             </div>
 
@@ -306,7 +383,7 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO (Frecuencias Sintrópicas)
+        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
