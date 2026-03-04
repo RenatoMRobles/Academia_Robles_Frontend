@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bóveda VIP | Academia Robles Bienestar</title>
+    <title>Mis Módulos | Academia Robles Bienestar</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
     
@@ -17,15 +17,15 @@
             --robles-purple: #8e24aa;
             --robles-gold: #ffca28;
             --bg-dark: #050507;
-            --panel-bg: rgba(20, 20, 25, 0.7);
+            --panel-bg: rgba(20, 20, 25, 0.65);
             --text-light: #f5f5f7;
             --text-muted: #a1a1aa;
             --glass-border: rgba(255, 202, 40, 0.15);
         }
 
         ::selection { background: var(--robles-gold); color: #000; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
 
@@ -33,7 +33,6 @@
             font-family: 'Inter', sans-serif; margin: 0; padding: 0;
             background-color: var(--bg-dark); color: var(--text-light);
             display: flex; height: 100vh; overflow: hidden;
-            /* El fondo se maneja ahora con el Canvas para la Geometría Molecular */
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin: 0; }
@@ -54,7 +53,7 @@
         .sidebar {
             width: 280px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px);
             border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
-            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10;
+            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10; flex-shrink: 0;
         }
         .sidebar-logo {
             text-align: center; padding: 0 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -77,67 +76,71 @@
         }
         .user-avatar { width: 40px; height: 40px; background: var(--robles-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 600; color: #fff;}
 
-        /* 🌟 CONTENIDO LUMINOSO */
-        .main-content {
-            flex: 1; padding: 40px 60px; overflow-y: auto; position: relative; z-index: 1;
+        /* 📚 GALERÍA DEL CONOCIMIENTO */
+        .gallery-layout {
+            flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;
+            padding: 40px 60px; overflow-y: auto;
         }
-        .header-dashboard {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
-        }
-        .header-dashboard h1 { font-size: 2.5em; color: #fff; }
-        .header-dashboard p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
-
-        /* Tarjetas de Victoria */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 50px;
-        }
-        .stat-card {
-            background: var(--panel-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
-            border-radius: 20px; padding: 30px; transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-        .stat-card:hover { transform: translateY(-5px); border-color: var(--robles-gold); }
-        .stat-card h3 { color: var(--text-muted); font-size: 1em; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px;}
-        .stat-value { font-size: 2.5em; color: #fff; margin: 10px 0; font-family: 'Playfair Display', serif;}
-        .stat-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 15px;}
-        .stat-fill { height: 100%; background: var(--robles-gold); width: 85%; box-shadow: 0 0 10px var(--robles-gold);}
-        .stat-fill.purple { background: var(--robles-purple); box-shadow: 0 0 10px var(--robles-purple); width: 60%;}
-
-        /* Módulos Activos */
-        .section-header { font-size: 1.8em; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
-        .modules-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         
+        .gallery-header {
+            margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px;
+        }
+        .gallery-header h1 { font-size: 2.5em; color: #fff; }
+        .gallery-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
+
+        /* Secciones de los Estantes */
+        .shelf-section { margin-bottom: 50px; }
+        .shelf-title { 
+            font-size: 1.4em; color: var(--text-light); margin-bottom: 25px; 
+            display: flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif;
+        }
+        .shelf-title span { color: var(--robles-gold); font-size: 1.2em; }
+
+        .modules-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
+        }
+
+        /* Tarjeta de Módulo Magistral */
         .module-card {
-            background: linear-gradient(145deg, rgba(30,30,35,0.8), rgba(15,15,20,0.9));
-            border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 30px; display: flex; flex-direction: column;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative; overflow: hidden; text-decoration: none;
         }
-        .module-info h2 { font-size: 1.5em; margin-bottom: 10px;}
-        .module-info p { color: var(--text-muted); font-size: 0.9em; margin: 0;}
-        .btn-action {
-            padding: 12px 25px; background: var(--robles-gold); color: #000; text-decoration: none;
-            border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 0.8em;
-            transition: box-shadow 0.2s ease;
+        .module-card:hover { 
+            transform: translateY(-8px); border-color: var(--robles-gold); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(255, 202, 40, 0.15);
         }
-        .btn-action:hover { box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
+        
+        /* Etiqueta de Estado */
+        .status-badge {
+            position: absolute; top: 20px; right: 20px; padding: 5px 12px; border-radius: 20px;
+            font-size: 0.7em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;
+        }
+        .badge-active { background: rgba(0, 230, 118, 0.15); color: #00e676; border: 1px solid rgba(0, 230, 118, 0.3); }
+        .badge-completed { background: rgba(255, 202, 40, 0.15); color: var(--robles-gold); border: 1px solid rgba(255, 202, 40, 0.3); }
+        .badge-locked { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid rgba(255, 255, 255, 0.1); }
 
-        .tools-card {
-            background: var(--panel-bg); border: 1px solid rgba(142, 36, 170, 0.3);
-            border-radius: 20px; padding: 30px;
-        }
-        .tool-item {
-            display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer;
-        }
-        .tool-item:hover h4 { color: var(--robles-gold); }
-        .tool-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;}
-        .tool-text h4 { margin: 0; font-family: 'Inter', sans-serif; font-size: 1em; transition: color 0.2s;}
-        .tool-text p { margin: 0; font-size: 0.8em; color: var(--text-muted);}
+        .module-icon { font-size: 2.5em; margin-bottom: 15px; }
+        .module-card h3 { color: #fff; font-size: 1.4em; margin-bottom: 10px; }
+        .module-card p { color: var(--text-muted); font-size: 0.9em; line-height: 1.5; margin: 0 0 20px 0; flex: 1; }
 
-        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR (Toque Emoto) */
+        /* Barra de Progreso Interna */
+        .progress-container { width: 100%; margin-top: auto; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 0.8em; color: var(--text-muted); margin-bottom: 8px;}
+        .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;}
+        .progress-fill { height: 100%; background: var(--robles-gold); box-shadow: 0 0 10px var(--robles-gold); border-radius: 3px;}
+        .fill-purple { background: var(--robles-purple); box-shadow: 0 0 10px var(--robles-purple); }
+        .fill-green { background: #00e676; box-shadow: 0 0 10px #00e676; }
+
+        /* Estilo para tarjetas bloqueadas */
+        .module-card.locked { opacity: 0.6; pointer-events: none; filter: grayscale(100%); }
+
+        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR */
         #emotoCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; opacity: 0.5; /* Sutil y sintrópico */
+            z-index: 0; pointer-events: none; opacity: 0.4;
         }
-
     </style>
 </head>
 <body>
@@ -149,10 +152,10 @@
             🦅 Academia<br><span>Robles</span>
         </div>
         <nav class="nav-menu">
-            <a href="#" class="nav-link active hover-sound click-sound">✨ Santuario Central</a>
-            <a href="modulos.html" class="nav-link hover-sound click-sound">📚 Mis Módulos</a>
-            <a href="#" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
-            <a href="#" class="nav-link hover-sound click-sound">📋 RoblesKanban</a>
+            <a href="boveda.html" class="nav-link hover-sound click-sound">✨ Santuario Central</a>
+            <a href="modulos.html" class="nav-link active hover-sound click-sound">📚 Mis Módulos</a>
+            <a href="mentoria.html" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
+            <a href="kanban.html" class="nav-link hover-sound click-sound">📋 RoblesKanban</a>
             <a href="index.html" class="nav-link hover-sound click-sound" style="margin-top: auto; color: #ff5252;">Cerrar Sesión ➔</a>
         </nav>
         <div class="user-profile hover-sound">
@@ -164,67 +167,104 @@
         </div>
     </aside>
 
-    <main class="main-content">
-        <header class="header-dashboard" data-aos="fade-down" data-aos-delay="100">
-            <div>
-                <h1>Excelso día, Renato.</h1>
-                <p>Tu evolución está garantizada.</p>
-            </div>
-        </header>
+    <main class="gallery-layout">
+        
+        <div class="gallery-header" data-aos="fade-down" data-aos-delay="100">
+            <h1>Galería del Conocimiento</h1>
+            <p>El Ciclo Perfecto de tu Evolución</p>
+        </div>
 
-        <div class="stats-grid">
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="200">
-                <h3>Sintropía Lógica</h3>
-                <div class="stat-value">85%</div>
-                <div class="stat-bar"><div class="stat-fill"></div></div>
-            </div>
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="300">
-                <h3>Soberanía Python</h3>
-                <div class="stat-value">60%</div>
-                <div class="stat-bar"><div class="stat-fill purple"></div></div>
-            </div>
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="400">
-                <h3>Horas de Iluminación</h3>
-                <div class="stat-value">142<span style="font-size: 0.5em; color: var(--text-muted);">h</span></div>
-                <p style="margin:0; font-size: 0.8em; color: #00e676;">+12h esta semana magistral</p>
+        <div class="shelf-section">
+            <h2 class="shelf-title" data-aos="fade-right" data-aos-delay="200"><span>⚡</span> Evolución Activa</h2>
+            <div class="modules-grid">
+                
+                <a href="aula.html" class="module-card hover-sound click-sound" data-aos="fade-up" data-aos-delay="300">
+                    <div class="status-badge badge-active">En Proceso</div>
+                    <div class="module-icon">🧠</div>
+                    <h3>Fundamentos de Lógica</h3>
+                    <p>Reestructuración de matrices abstractas y pensamiento deductivo puro. Módulo 4 de 10.</p>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía</span>
+                            <span style="color: #00e676;">25%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill fill-green" style="width: 25%;"></div></div>
+                    </div>
+                </a>
+
+                <a href="#" class="module-card hover-sound click-sound" data-aos="fade-up" data-aos-delay="400">
+                    <div class="status-badge badge-active">En Proceso</div>
+                    <div class="module-icon">💻</div>
+                    <h3>Inteligencia Artificial y Python</h3>
+                    <p>Dominio de automatización y creación de asistentes virtuales magistrales. Módulo 6 de 8.</p>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía</span>
+                            <span style="color: var(--robles-purple);">60%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill fill-purple" style="width: 60%;"></div></div>
+                    </div>
+                </a>
+
             </div>
         </div>
 
-        <h2 class="section-header" data-aos="fade-right" data-aos-delay="500">Foco de Creación Actual</h2>
-        <div class="modules-grid">
-            
-            <div class="module-card hover-sound" data-aos="fade-up" data-aos-delay="600">
-                <div class="module-info">
-                    <h2>🧠 Algoritmos Creadores</h2>
-                    <p>Módulo 4: Reestructuración de matrices abstractas.</p>
+        <div class="shelf-section">
+            <h2 class="shelf-title" data-aos="fade-right" data-aos-delay="500"><span>🏆</span> Cristales Forjados</h2>
+            <div class="modules-grid">
+                
+                <div class="module-card hover-sound click-sound" data-aos="fade-up" data-aos-delay="600">
+                    <div class="status-badge badge-completed">Completado</div>
+                    <div class="module-icon">📊</div>
+                    <h3>Soberanía Tecnológica</h3>
+                    <p>Control absoluto de sistemas, servidores y arquitectura en la nube. Victoria garantizada.</p>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía</span>
+                            <span style="color: var(--robles-gold);">100%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                    </div>
                 </div>
-                <a href="aula.html" class="btn-action click-sound">Continuar Evolución</a>
+
             </div>
-
-            <div class="tools-card hover-sound" data-aos="fade-up" data-aos-delay="700">
-                <h3 style="margin-bottom: 20px;">Herramientas Supremas</h3>
-                
-                <a href="kanban.html" style="text-decoration: none; color: inherit;">
-                    <div class="tool-item click-sound">
-                        <div class="tool-icon">📋</div>
-                        <div class="tool-text">
-                            <h4>RoblesKanban</h4>
-                            <p>Gestión de proyectos y orden visual</p>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="mentoria.html" style="text-decoration: none; color: inherit;">
-                    <div class="tool-item click-sound" style="border-bottom: none;">
-                        <div class="tool-icon">👩🏻‍💼</div>
-                        <div class="tool-text">
-                            <h4>Consultar a Victoria</h4>
-                            <p>Chat de neuropsicología activo</p>
-                        </div>
-                    </div>
-                </a>
-
         </div>
+
+        <div class="shelf-section">
+            <h2 class="shelf-title" data-aos="fade-right" data-aos-delay="700"><span>🔒</span> Próximas Iluminaciones</h2>
+            <div class="modules-grid">
+                
+                <div class="module-card locked" data-aos="fade-up" data-aos-delay="800">
+                    <div class="status-badge badge-locked">Bloqueado</div>
+                    <div class="module-icon">📈</div>
+                    <h3>Análisis de Mercados Globales</h3>
+                    <p>Dominio del tablero financiero global y stock picking. Requiere completar Módulo de Lógica.</p>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                    </div>
+                </div>
+
+                <div class="module-card locked" data-aos="fade-up" data-aos-delay="900">
+                    <div class="status-badge badge-locked">Bloqueado</div>
+                    <div class="module-icon">🐾</div>
+                    <h3>Psicología de Comportamiento</h3>
+                    <p>Comprender la biología y psicología de alianzas naturales. Disponible Próximamente.</p>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <div class="cursor-outline"></div>
@@ -273,10 +313,9 @@
         document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
         document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
 
-        // Coordenadas globales del ratón para sincronización cuántica
+        // Coordenadas globales del ratón
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         window.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
-
 
         // 🖱️ MOTOR DE PUNTERO LUMINOSO
         if (window.matchMedia("(pointer: fine)").matches) {
@@ -293,13 +332,13 @@
             }
             animateCursor();
 
-            document.querySelectorAll('a, button, .stat-card, .module-card, .tool-item, .user-profile').forEach(el => {
+            document.querySelectorAll('a, button, .module-card:not(.locked), .user-profile').forEach(el => {
                 el.addEventListener('mouseenter', () => { cursorOutline.classList.add('hover'); targetScale = 1.5; });
                 el.addEventListener('mouseleave', () => { cursorOutline.classList.remove('hover'); targetScale = 1; });
             });
         }
 
-        // 💧 MOTOR DE GEOMETRÍA MOLECULAR (HTML5 Canvas - Toque Emoto)
+        // 💧 MOTOR DE GEOMETRÍA MOLECULAR
         const canvas = document.getElementById('emotoCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -315,20 +354,17 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1; // Micro-cristales
-                this.speedX = Math.random() * 0.5 - 0.25; // Movimiento perezoso y pacífico
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.15)' : 'rgba(142, 36, 170, 0.15)'; // Oro o Púrpura sutil
+                this.size = Math.random() * 2 + 1; 
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.1)' : 'rgba(142, 36, 170, 0.1)'; 
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // Rebotar en los bordes con suavidad
                 if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
                 if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
 
-                // Interacción Cuántica con el Ratón: Las partículas se acercan suavemente
                 let dx = mouseX - this.x;
                 let dy = mouseY - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
@@ -340,7 +376,6 @@
             draw() {
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
-                // Dibujar hexágonos pequeños (forma base del agua cristalizada)
                 const sides = 6;
                 const radius = this.size;
                 ctx.moveTo(this.x + radius * Math.cos(0), this.y + radius * Math.sin(0));
@@ -354,11 +389,8 @@
 
         function initParticles() {
             particles = [];
-            // Densidad sintrópica perfecta (dependiente del tamaño de pantalla)
-            const numberOfParticles = (canvas.width * canvas.height) / 15000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
+            const numberOfParticles = (canvas.width * canvas.height) / 18000;
+            for (let i = 0; i < numberOfParticles; i++) { particles.push(new Particle()); }
         }
 
         function animateParticles() {
