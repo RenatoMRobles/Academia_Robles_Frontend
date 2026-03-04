@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula de Iluminación | Academia Robles Bienestar</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --robles-purple: #8e24aa;
+            --robles-gold: #ffca28;
+            --bg-dark: #050507;
+            --panel-bg: rgba(20, 20, 25, 0.75);
+            --text-light: #f5f5f7;
+            --text-muted: #a1a1aa;
+            --glass-border: rgba(255, 202, 40, 0.15);
+        }
+
+        ::selection { background: var(--robles-gold); color: #000; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
+
+        body {
+            font-family: 'Inter', sans-serif; margin: 0; padding: 0;
+            background-color: var(--bg-dark); color: var(--text-light);
+            display: flex; height: 100vh; overflow: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin: 0; }
+
+        /* 📱 AURA CUÁNTICA LUMINOSA */
+        @media (pointer: fine) {
+            * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
+            .cursor-outline {
+                position: fixed; top: -20px; left: -20px; width: 40px; height: 40px; 
+                border: 1px solid rgba(255, 202, 40, 0.5); border-radius: 50%; pointer-events: none; z-index: 99999; 
+                will-change: transform; transition: background-color 0.15s ease, border-color 0.15s ease;
+            }
+            .cursor-outline.hover { background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold); }
+        }
+        @media (pointer: coarse) { .cursor-outline { display: none !important; } }
+
+        /* 🏛️ SIDEBAR MAGISTRAL */
+        .sidebar {
+            width: 280px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
+            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10; flex-shrink: 0;
+        }
+        .sidebar-logo {
+            text-align: center; padding: 0 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.5em; letter-spacing: 1px;
+        }
+        .sidebar-logo span { color: var(--robles-gold); }
+        .nav-menu { flex: 1; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
+        .nav-link {
+            display: flex; align-items: center; gap: 15px; padding: 12px 20px;
+            color: var(--text-muted); text-decoration: none; border-radius: 12px;
+            transition: all 0.2s ease; font-weight: 500;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 202, 40, 0.1); color: var(--robles-gold);
+            box-shadow: inset 3px 0 0 var(--robles-gold);
+        }
+        .user-profile {
+            padding: 20px; margin: 0 20px; background: rgba(255,255,255,0.03); border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 15px;
+        }
+        .user-avatar { width: 40px; height: 40px; background: var(--robles-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 600; color: #fff;}
+
+        /* 🎓 AULA DE ILUMINACIÓN (Layout Principal) */
+        .aula-layout {
+            flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;
+            padding: 30px 50px; overflow-y: auto;
+        }
+        
+        .aula-header {
+            margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;
+        }
+        .aula-header h1 { font-size: 2.2em; color: #fff; margin-bottom: 5px; }
+        .aula-header .breadcrumb { color: var(--robles-gold); font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .btn-back {
+            color: var(--text-muted); text-decoration: none; font-size: 0.9em; display: flex; align-items: center; gap: 8px; transition: color 0.2s;
+        }
+        .btn-back:hover { color: #fff; }
+
+        .aula-grid {
+            display: grid; grid-template-columns: 1fr 320px; gap: 40px; flex: 1;
+        }
+
+        /* 🎥 Contenedor de Foco (Video) */
+        .video-section { display: flex; flex-direction: column; gap: 25px; }
+        
+        .video-player-container {
+            width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 20px;
+            border: 1px solid var(--robles-gold); box-shadow: 0 10px 40px rgba(255, 202, 40, 0.15);
+            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, rgba(20,20,25,1), rgba(10,10,12,1));
+        }
+        
+        /* Simulación de Reproductor Espléndido */
+        .video-placeholder { text-align: center; color: var(--text-muted); }
+        .play-btn-large {
+            width: 80px; height: 80px; background: var(--robles-gold); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: #000; font-size: 2.5em;
+            margin: 0 auto 20px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        }
+        .play-btn-large:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 202, 40, 0.6); }
+
+        .lesson-details {
+            background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 30px;
+        }
+        .lesson-details h2 { font-size: 1.6em; margin-bottom: 15px; color: #fff; }
+        .lesson-details p { color: var(--text-muted); line-height: 1.7; font-size: 1.05em; }
+
+        /* 📋 Temario Sintrópico (Sidebar Derecha) */
+        .temario-section {
+            background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid rgba(142, 36, 170, 0.3);
+            border-radius: 20px; display: flex; flex-direction: column; overflow: hidden;
+            height: calc(100vh - 200px); position: sticky; top: 0;
+        }
+        .temario-header {
+            padding: 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .temario-header h3 { font-size: 1.2em; color: #fff; margin-bottom: 15px; }
+        
+        .progress-container { width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 0.8em; color: var(--text-muted); margin-bottom: 8px;}
+        .progress-labels span:last-child { color: var(--robles-gold); font-weight: 600;}
+        .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;}
+        .progress-fill { width: 25%; height: 100%; background: var(--robles-gold); box-shadow: 0 0 10px var(--robles-gold);}
+
+        .lessons-list {
+            flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 5px;
+        }
+        .lesson-item {
+            display: flex; gap: 15px; padding: 15px; border-radius: 12px; cursor: pointer;
+            transition: background-color 0.2s ease; border: 1px solid transparent;
+        }
+        .lesson-item:hover { background: rgba(255,255,255,0.03); }
+        .lesson-item.active { background: rgba(255, 202, 40, 0.08); border-color: rgba(255, 202, 40, 0.3); }
+        .lesson-item.completed .lesson-icon { background: var(--robles-gold); color: #000; }
+        
+        .lesson-icon {
+            width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center; font-size: 0.8em; flex-shrink: 0;
+            color: var(--text-muted); transition: all 0.2s;
+        }
+        .lesson-item.active .lesson-icon { background: transparent; border: 2px solid var(--robles-gold); color: var(--robles-gold); }
+        
+        .lesson-text h4 { margin: 0 0 5px 0; font-size: 0.95em; color: var(--text-light); font-family: 'Inter', sans-serif;}
+        .lesson-item.active .lesson-text h4 { color: var(--robles-gold); }
+        .lesson-text p { margin: 0; font-size: 0.8em; color: var(--text-muted); }
+
+        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR */
+        #emotoCanvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none; opacity: 0.3; /* Aún más tenue para el foco en el video */
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="emotoCanvas"></canvas>
+
+    <aside class="sidebar" data-aos="fade-right" data-aos-duration="800">
+        <div class="sidebar-logo">
+            🦅 Academia<br><span>Robles</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="boveda.html" class="nav-link hover-sound click-sound">✨ Santuario Central</a>
+            <a href="#" class="nav-link active hover-sound click-sound">📚 Mis Módulos</a>
+            <a href="mentoria.html" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
+            <a href="#" class="nav-link hover-sound click-sound">📋 RoblesKanban</a>
+            <a href="index.html" class="nav-link hover-sound click-sound" style="margin-top: auto; color: #ff5252;">Cerrar Sesión ➔</a>
+        </nav>
+        <div class="user-profile hover-sound">
+            <div class="user-avatar">R</div>
+            <div>
+                <div style="font-weight: 600; font-size: 0.9em; color: #fff;">Renato Robles</div>
+                <div style="font-size: 0.75em; color: var(--robles-gold);">CEO & Estudiante VIP</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="aula-layout">
+        
+        <div class="aula-header" data-aos="fade-down" data-aos-delay="100">
+            <div>
+                <div class="breadcrumb">Lógica / Módulo 4</div>
+                <h1>Reestructuración de Matrices Abstractas</h1>
+            </div>
+            <a href="boveda.html" class="btn-back hover-sound click-sound">⮜ Volver al Santuario</a>
+        </div>
+
+        <div class="aula-grid">
+            
+            <div class="video-section">
+                <div class="video-player-container hover-sound" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="video-placeholder">
+                        <div class="play-btn-large click-sound">▶</div>
+                        <h2 style="color: #fff; margin-bottom: 5px;">Inicia tu Evolución</h2>
+                        <p style="margin:0;">Lección 4.2 - Duración Magistral: 15:00 min</p>
+                    </div>
+                </div>
+
+                <div class="lesson-details" data-aos="fade-up" data-aos-delay="300">
+                    <h2>Acerca de esta Lección Suprema</h2>
+                    <p>En este bloque creador, exploraremos los fundamentos matemáticos detrás de las matrices lógicas que componen la prueba Mensa. Dominarás la capacidad de prever secuencias, eliminar la entropía visual y estructurar soluciones todopoderosas en fracciones de segundo. La victoria de tu razonamiento espacial está garantizada.</p>
+                </div>
+            </div>
+
+            <div class="temario-section" data-aos="fade-left" data-aos-delay="400">
+                <div class="temario-header">
+                    <h3>Progreso del Módulo</h3>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Sintropía Alcanzada</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lessons-list">
+                    <div class="lesson-item completed hover-sound click-sound">
+                        <div class="lesson-icon">✓</div>
+                        <div class="lesson-text">
+                            <h4>4.1 Introducción Sintrópica</h4>
+                            <p>10:00 min</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lesson-item active hover-sound click-sound">
+                        <div class="lesson-icon">▶</div>
+                        <div class="lesson-text">
+                            <h4>4.2 El Patrón Creador</h4>
+                            <p>15:00 min • Evolucionando</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item hover-sound click-sound">
+                        <div class="lesson-icon">3</div>
+                        <div class="lesson-text">
+                            <h4>4.3 Lógica Todopoderosa</h4>
+                            <p>20:00 min</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lesson-item hover-sound click-sound">
+                        <div class="lesson-icon">4</div>
+                        <div class="lesson-text">
+                            <h4>4.4 Ejercicios Mensa</h4>
+                            <p>45:00 min</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item hover-sound click-sound">
+                        <div class="lesson-icon" style="background: rgba(142, 36, 170, 0.2); color: var(--robles-purple);">🏆</div>
+                        <div class="lesson-text">
+                            <h4 style="color: var(--robles-purple);">Prueba Magistral</h4>
+                            <p>Certificación de Módulo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <div class="cursor-outline"></div>
+
+    <script>
+        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) { audioCtx = new AudioContext(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+        }
+
+        function playHoverSound() {
+            initAudio(); if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); 
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.04);
+        }
+
+        function playClickSound() {
+            initAudio(); if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); 
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+        }
+
+        window.addEventListener('mousedown', initAudio, { once: true });
+        window.addEventListener('keydown', initAudio, { once: true });
+
+        document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
+        document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
+
+        // Coordenadas globales del ratón para sincronización cuántica
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        window.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
+
+        // 🖱️ MOTOR DE PUNTERO LUMINOSO
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const cursorOutline = document.querySelector('.cursor-outline');
+            let outlineX = mouseX, outlineY = mouseY;
+            let targetScale = 1, currentScale = 1;
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.4; 
+                outlineY += (mouseY - outlineY) * 0.4;
+                currentScale += (targetScale - currentScale) * 0.2;
+                cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) scale(${currentScale})`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, .lesson-item, .video-player-container, .user-profile').forEach(el => {
+                el.addEventListener('mouseenter', () => { cursorOutline.classList.add('hover'); targetScale = 1.5; });
+                el.addEventListener('mouseleave', () => { cursorOutline.classList.remove('hover'); targetScale = 1; });
+            });
+        }
+
+        // 💧 MOTOR DE GEOMETRÍA MOLECULAR (Fondo Pacífico y Sutil)
+        const canvas = document.getElementById('emotoCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1; // Un poco más pequeños para no distraer
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.1)' : 'rgba(142, 36, 170, 0.1)'; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+                let dx = mouseX - this.x;
+                let dy = mouseY - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    this.x += dx * 0.01;
+                    this.y += dy * 0.01;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                const sides = 6;
+                const radius = this.size;
+                ctx.moveTo(this.x + radius * Math.cos(0), this.y + radius * Math.sin(0));
+                for (let i = 1; i <= sides; i++) {
+                    ctx.lineTo(this.x + radius * Math.cos(i * 2 * Math.PI / sides), this.y + radius * Math.sin(i * 2 * Math.PI / sides));
+                }
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = (canvas.width * canvas.height) / 18000;
+            for (let i = 0; i < numberOfParticles; i++) { particles.push(new Particle()); }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ once: true, offset: 50 }); </script>
+</body>
+</html>
