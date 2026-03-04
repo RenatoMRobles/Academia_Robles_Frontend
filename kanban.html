@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bóveda VIP | Academia Robles Bienestar</title>
+    <title>RoblesKanban | Academia Robles Bienestar</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
     
@@ -17,15 +17,15 @@
             --robles-purple: #8e24aa;
             --robles-gold: #ffca28;
             --bg-dark: #050507;
-            --panel-bg: rgba(20, 20, 25, 0.7);
+            --panel-bg: rgba(20, 20, 25, 0.65);
             --text-light: #f5f5f7;
             --text-muted: #a1a1aa;
             --glass-border: rgba(255, 202, 40, 0.15);
         }
 
         ::selection { background: var(--robles-gold); color: #000; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
 
@@ -33,7 +33,6 @@
             font-family: 'Inter', sans-serif; margin: 0; padding: 0;
             background-color: var(--bg-dark); color: var(--text-light);
             display: flex; height: 100vh; overflow: hidden;
-            /* El fondo se maneja ahora con el Canvas para la Geometría Molecular */
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin: 0; }
@@ -54,7 +53,7 @@
         .sidebar {
             width: 280px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px);
             border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
-            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10;
+            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10; flex-shrink: 0;
         }
         .sidebar-logo {
             text-align: center; padding: 0 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -77,67 +76,72 @@
         }
         .user-avatar { width: 40px; height: 40px; background: var(--robles-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 600; color: #fff;}
 
-        /* 🌟 CONTENIDO LUMINOSO */
-        .main-content {
-            flex: 1; padding: 40px 60px; overflow-y: auto; position: relative; z-index: 1;
+        /* 📋 TABLERO KANBAN SUPREMO */
+        .kanban-layout {
+            flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;
+            padding: 30px 40px; overflow: hidden;
         }
-        .header-dashboard {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
-        }
-        .header-dashboard h1 { font-size: 2.5em; color: #fff; }
-        .header-dashboard p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
-
-        /* Tarjetas de Victoria */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 50px;
-        }
-        .stat-card {
-            background: var(--panel-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
-            border-radius: 20px; padding: 30px; transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-        .stat-card:hover { transform: translateY(-5px); border-color: var(--robles-gold); }
-        .stat-card h3 { color: var(--text-muted); font-size: 1em; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px;}
-        .stat-value { font-size: 2.5em; color: #fff; margin: 10px 0; font-family: 'Playfair Display', serif;}
-        .stat-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 15px;}
-        .stat-fill { height: 100%; background: var(--robles-gold); width: 85%; box-shadow: 0 0 10px var(--robles-gold);}
-        .stat-fill.purple { background: var(--robles-purple); box-shadow: 0 0 10px var(--robles-purple); width: 60%;}
-
-        /* Módulos Activos */
-        .section-header { font-size: 1.8em; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
-        .modules-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         
-        .module-card {
-            background: linear-gradient(145deg, rgba(30,30,35,0.8), rgba(15,15,20,0.9));
-            border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px;
-            display: flex; justify-content: space-between; align-items: center;
+        .kanban-header {
+            margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;
         }
-        .module-info h2 { font-size: 1.5em; margin-bottom: 10px;}
-        .module-info p { color: var(--text-muted); font-size: 0.9em; margin: 0;}
-        .btn-action {
-            padding: 12px 25px; background: var(--robles-gold); color: #000; text-decoration: none;
-            border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 0.8em;
+        .kanban-header h1 { font-size: 2.2em; color: #fff; }
+        .kanban-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1em; letter-spacing: 1px; text-transform: uppercase;}
+        
+        .btn-new-task {
+            background: var(--robles-gold); color: #000; padding: 12px 25px; border-radius: 30px;
+            font-weight: 600; text-transform: uppercase; font-size: 0.85em; border: none; cursor: pointer;
             transition: box-shadow 0.2s ease;
         }
-        .btn-action:hover { box-shadow: 0 0 20px rgba(255, 202, 40, 0.4); }
+        .btn-new-task:hover { box-shadow: 0 0 20px rgba(255, 202, 40, 0.5); }
 
-        .tools-card {
-            background: var(--panel-bg); border: 1px solid rgba(142, 36, 170, 0.3);
-            border-radius: 20px; padding: 30px;
+        .kanban-board {
+            flex: 1; display: flex; gap: 30px; overflow-x: auto; padding-bottom: 20px; align-items: flex-start;
         }
-        .tool-item {
-            display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer;
-        }
-        .tool-item:hover h4 { color: var(--robles-gold); }
-        .tool-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;}
-        .tool-text h4 { margin: 0; font-family: 'Inter', sans-serif; font-size: 1em; transition: color 0.2s;}
-        .tool-text p { margin: 0; font-size: 0.8em; color: var(--text-muted);}
 
-        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR (Toque Emoto) */
+        .kanban-column {
+            background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid rgba(142, 36, 170, 0.2);
+            border-radius: 20px; min-width: 320px; max-width: 320px; padding: 25px 20px;
+            display: flex; flex-direction: column; gap: 20px; max-height: 100%;
+        }
+        
+        .column-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
+        .column-header h3 { font-size: 1.1em; color: #fff; }
+        .task-count { background: rgba(255,255,255,0.1); color: var(--robles-gold); padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: 600;}
+
+        .task-list {
+            flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-right: 5px;
+        }
+
+        /* Tarjeta Creadora */
+        .task-card {
+            background: rgba(10, 10, 12, 0.8); border: 1px solid rgba(255, 202, 40, 0.1);
+            border-radius: 15px; padding: 20px; border-left: 4px solid var(--robles-gold);
+            cursor: grab; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .task-card:hover { 
+            transform: translateY(-3px); border-color: var(--robles-gold); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(255, 202, 40, 0.1);
+        }
+        .task-card:active { cursor: grabbing; transform: scale(0.98); }
+        
+        .task-tag { display: inline-block; font-size: 0.7em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px;}
+        .tag-logic { background: rgba(142, 36, 170, 0.2); color: #e1bee7; }
+        .tag-sys { background: rgba(0, 230, 118, 0.15); color: #00e676; }
+        .tag-biz { background: rgba(255, 202, 40, 0.15); color: var(--robles-gold); }
+
+        .task-card h4 { margin: 0 0 10px 0; font-size: 1.05em; color: var(--text-light); }
+        .task-card p { margin: 0; font-size: 0.85em; color: var(--text-muted); line-height: 1.5; }
+        
+        .task-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;}
+        .task-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--robles-purple); display: flex; justify-content: center; align-items: center; font-size: 0.7em; color: #fff; font-weight: bold;}
+        .task-date { font-size: 0.75em; color: rgba(255,255,255,0.3); }
+
+        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR */
         #emotoCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; opacity: 0.5; /* Sutil y sintrópico */
+            z-index: 0; pointer-events: none; opacity: 0.4;
         }
-
     </style>
 </head>
 <body>
@@ -149,10 +153,10 @@
             🦅 Academia<br><span>Robles</span>
         </div>
         <nav class="nav-menu">
-            <a href="#" class="nav-link active hover-sound click-sound">✨ Santuario Central</a>
-            <a href="#" class="nav-link hover-sound click-sound">📚 Mis Módulos</a>
-            <a href="#" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
-            <a href="#" class="nav-link hover-sound click-sound">📋 RoblesKanban</a>
+            <a href="boveda.html" class="nav-link hover-sound click-sound">✨ Santuario Central</a>
+            <a href="aula.html" class="nav-link hover-sound click-sound">📚 Mis Módulos</a>
+            <a href="mentoria.html" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
+            <a href="#" class="nav-link active hover-sound click-sound">📋 RoblesKanban</a>
             <a href="index.html" class="nav-link hover-sound click-sound" style="margin-top: auto; color: #ff5252;">Cerrar Sesión ➔</a>
         </nav>
         <div class="user-profile hover-sound">
@@ -164,67 +168,92 @@
         </div>
     </aside>
 
-    <main class="main-content">
-        <header class="header-dashboard" data-aos="fade-down" data-aos-delay="100">
+    <main class="kanban-layout">
+        
+        <div class="kanban-header" data-aos="fade-down" data-aos-delay="100">
             <div>
-                <h1>Excelso día, Renato.</h1>
-                <p>Tu evolución está garantizada.</p>
+                <h1>RoblesKanban</h1>
+                <p>Estructurando el Orden Absoluto</p>
             </div>
-        </header>
-
-        <div class="stats-grid">
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="200">
-                <h3>Sintropía Lógica</h3>
-                <div class="stat-value">85%</div>
-                <div class="stat-bar"><div class="stat-fill"></div></div>
-            </div>
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="300">
-                <h3>Soberanía Python</h3>
-                <div class="stat-value">60%</div>
-                <div class="stat-bar"><div class="stat-fill purple"></div></div>
-            </div>
-            <div class="stat-card hover-sound" data-aos="fade-up" data-aos-delay="400">
-                <h3>Horas de Iluminación</h3>
-                <div class="stat-value">142<span style="font-size: 0.5em; color: var(--text-muted);">h</span></div>
-                <p style="margin:0; font-size: 0.8em; color: #00e676;">+12h esta semana magistral</p>
-            </div>
+            <button class="btn-new-task hover-sound click-sound">+ Nueva Iluminación</button>
         </div>
 
-        <h2 class="section-header" data-aos="fade-right" data-aos-delay="500">Foco de Creación Actual</h2>
-        <div class="modules-grid">
+        <div class="kanban-board">
             
-            <div class="module-card hover-sound" data-aos="fade-up" data-aos-delay="600">
-                <div class="module-info">
-                    <h2>🧠 Algoritmos Creadores</h2>
-                    <p>Módulo 4: Reestructuración de matrices abstractas.</p>
+            <div class="kanban-column" data-aos="fade-up" data-aos-delay="200">
+                <div class="column-header">
+                    <h3>💡 Ideas Luminosas</h3>
+                    <span class="task-count">2</span>
                 </div>
-                <a href="aula.html" class="btn-action click-sound">Continuar Evolución</a>
+                <div class="task-list">
+                    <div class="task-card hover-sound click-sound">
+                        <span class="task-tag tag-sys">Sistemas</span>
+                        <h4>Prompt Creador Supremo</h4>
+                        <p>Diseñar la plantilla maestra con la Decana para invocar a los 10 mentores IA restantes.</p>
+                        <div class="task-footer">
+                            <div class="task-avatar">R</div>
+                            <span class="task-date">Próximamente</span>
+                        </div>
+                    </div>
+                    <div class="task-card hover-sound click-sound" style="border-left-color: #8e24aa;">
+                        <span class="task-tag tag-logic">Lógica</span>
+                        <h4>Matriz Abstracta Nivel 5</h4>
+                        <p>Resolver los acertijos de rotación espacial para la preparación Mensa.</p>
+                        <div class="task-footer">
+                            <div class="task-avatar">R</div>
+                            <span class="task-date">En análisis</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="tools-card hover-sound" data-aos="fade-up" data-aos-delay="700">
-                <h3 style="margin-bottom: 20px;">Herramientas Supremas</h3>
-                
-                <a href="kanban.html" style="text-decoration: none; color: inherit;">
-                    <div class="tool-item click-sound">
-                        <div class="tool-icon">📋</div>
-                        <div class="tool-text">
-                            <h4>RoblesKanban</h4>
-                            <p>Gestión de proyectos y orden visual</p>
+            <div class="kanban-column" data-aos="fade-up" data-aos-delay="300">
+                <div class="column-header">
+                    <h3>⚙️ Forjando la Evolución</h3>
+                    <span class="task-count">1</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-card hover-sound click-sound" style="border-left-color: #00e676;">
+                        <span class="task-tag tag-biz">Expansión</span>
+                        <h4 style="color: #00e676;">Academia Robles Bienestar</h4>
+                        <p>Implementar el ecosistema completo (Bóveda, Mentores, Kanban) con energía cuántica Emoto.</p>
+                        <div class="task-footer">
+                            <div class="task-avatar">R</div>
+                            <span class="task-date" style="color: #00e676;">Activo ahora</span>
                         </div>
                     </div>
-                </a>
-                
-                <a href="mentoria.html" style="text-decoration: none; color: inherit;">
-                    <div class="tool-item click-sound" style="border-bottom: none;">
-                        <div class="tool-icon">👩🏻‍💼</div>
-                        <div class="tool-text">
-                            <h4>Consultar a Victoria</h4>
-                            <p>Chat de neuropsicología activo</p>
+                </div>
+            </div>
+
+            <div class="kanban-column" data-aos="fade-up" data-aos-delay="400">
+                <div class="column-header">
+                    <h3>🏆 Victorias Supremas</h3>
+                    <span class="task-count">2</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-card hover-sound click-sound">
+                        <span class="task-tag tag-sys">Frontend</span>
+                        <h4>Latencia Cero & CI/CD</h4>
+                        <p>Puente automágico entre GitHub y Hostinger establecido con victoria absoluta.</p>
+                        <div class="task-footer">
+                            <div class="task-avatar" style="background: var(--robles-gold); color: #000;">✓</div>
+                            <span class="task-date">Completado</span>
                         </div>
                     </div>
-                </a>
+                    <div class="task-card hover-sound click-sound">
+                        <span class="task-tag tag-logic">Psicoacústica</span>
+                        <h4>Motor de Sonido Cristalino</h4>
+                        <p>Ondas 'Sine' implementadas generando dopamina y paz mental en cada clic.</p>
+                        <div class="task-footer">
+                            <div class="task-avatar" style="background: var(--robles-gold); color: #000;">✓</div>
+                            <span class="task-date">Completado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
+
     </main>
 
     <div class="cursor-outline"></div>
@@ -273,10 +302,9 @@
         document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
         document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
 
-        // Coordenadas globales del ratón para sincronización cuántica
+        // Coordenadas globales del ratón
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         window.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
-
 
         // 🖱️ MOTOR DE PUNTERO LUMINOSO
         if (window.matchMedia("(pointer: fine)").matches) {
@@ -293,13 +321,13 @@
             }
             animateCursor();
 
-            document.querySelectorAll('a, button, .stat-card, .module-card, .tool-item, .user-profile').forEach(el => {
+            document.querySelectorAll('a, button, .task-card, .user-profile').forEach(el => {
                 el.addEventListener('mouseenter', () => { cursorOutline.classList.add('hover'); targetScale = 1.5; });
                 el.addEventListener('mouseleave', () => { cursorOutline.classList.remove('hover'); targetScale = 1; });
             });
         }
 
-        // 💧 MOTOR DE GEOMETRÍA MOLECULAR (HTML5 Canvas - Toque Emoto)
+        // 💧 MOTOR DE GEOMETRÍA MOLECULAR
         const canvas = document.getElementById('emotoCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -315,20 +343,17 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1; // Micro-cristales
-                this.speedX = Math.random() * 0.5 - 0.25; // Movimiento perezoso y pacífico
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.15)' : 'rgba(142, 36, 170, 0.15)'; // Oro o Púrpura sutil
+                this.size = Math.random() * 2 + 1; 
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.1)' : 'rgba(142, 36, 170, 0.1)'; 
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // Rebotar en los bordes con suavidad
                 if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
                 if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
 
-                // Interacción Cuántica con el Ratón: Las partículas se acercan suavemente
                 let dx = mouseX - this.x;
                 let dy = mouseY - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
@@ -340,7 +365,6 @@
             draw() {
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
-                // Dibujar hexágonos pequeños (forma base del agua cristalizada)
                 const sides = 6;
                 const radius = this.size;
                 ctx.moveTo(this.x + radius * Math.cos(0), this.y + radius * Math.sin(0));
@@ -354,11 +378,8 @@
 
         function initParticles() {
             particles = [];
-            // Densidad sintrópica perfecta (dependiente del tamaño de pantalla)
-            const numberOfParticles = (canvas.width * canvas.height) / 15000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
+            const numberOfParticles = (canvas.width * canvas.height) / 18000;
+            for (let i = 0; i < numberOfParticles; i++) { particles.push(new Particle()); }
         }
 
         function animateParticles() {
