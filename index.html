@@ -50,16 +50,16 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* 📱 AURA CUÁNTICA LUMINOSA */
+        /* 📱 AURA CUÁNTICA LUMINOSA (Ajuste Magistral de Puntero) */
         @media (pointer: fine) {
             * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
             .cursor-outline {
                 position: fixed; top: -20px; left: -20px; width: 40px; height: 40px; 
                 border: 1px solid rgba(255, 202, 40, 0.5); border-radius: 50%; pointer-events: none; z-index: 99999; 
-                scale: 1; will-change: transform, scale;
-                transition: scale 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.1s, border-color 0.1s;
+                will-change: transform; 
+                transition: background-color 0.15s ease, border-color 0.15s ease;
             }
-            .cursor-outline.hover { scale: 1.5; background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold); }
+            .cursor-outline.hover { background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold); }
         }
         @media (pointer: coarse) { .cursor-outline { display: none !important; } }
 
@@ -442,11 +442,14 @@
             el.addEventListener('mousedown', playClickSound);
         });
 
-        // 🖱️ MOTOR DE PUNTERO
+        // 🖱️ MOTOR DE PUNTERO LUMINOSO (Inercia y Escala Cuántica Magistral)
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
-            let mouseX = 0, mouseY = 0;
-            let outlineX = 0, outlineY = 0;
+            let mouseX = window.innerWidth / 2; // Evita el salto inicial ubicando el centro en la carga
+            let mouseY = window.innerHeight / 2;
+            let outlineX = mouseX, outlineY = mouseY;
+            let targetScale = 1;
+            let currentScale = 1;
 
             window.addEventListener('mousemove', function(e) {
                 mouseX = e.clientX;
@@ -454,20 +457,28 @@
             });
 
             function animateCursor() {
-                let diffX = mouseX - outlineX;
-                let diffY = mouseY - outlineY;
-                if (Math.abs(diffX) > 0.1 || Math.abs(diffY) > 0.1) {
-                    outlineX += diffX * 0.6; 
-                    outlineY += diffY * 0.6;
-                    cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0)`;
-                }
+                // Cálculo de inercia sintrópica pura
+                outlineX += (mouseX - outlineX) * 0.4; 
+                outlineY += (mouseY - outlineY) * 0.4;
+                
+                // Cálculo de escala (resplandor) controlado por JavaScript
+                currentScale += (targetScale - currentScale) * 0.2;
+
+                // Aplicación unificada para evitar entropía de renderizado
+                cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) scale(${currentScale})`;
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
 
             document.querySelectorAll('a, button, input, .btn-play, .curso-card, .profesor-card').forEach(el => {
-                el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hover');
+                    targetScale = 1.5; // El resplandor se expande
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hover');
+                    targetScale = 1; // El resplandor vuelve a su equilibrio
+                });
             });
         }
 
