@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claustro Académico | Academia Robles Bienestar</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦅</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --robles-purple: #8e24aa;
+            --robles-gold: #ffca28;
+            --bg-dark: #050507;
+            --panel-bg: rgba(20, 20, 25, 0.65);
+            --text-light: #f5f5f7;
+            --text-muted: #a1a1aa;
+            --glass-border: rgba(255, 202, 40, 0.15);
+        }
+
+        ::selection { background: var(--robles-gold); color: #000; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 202, 40, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--robles-gold); }
+
+        body {
+            font-family: 'Inter', sans-serif; margin: 0; padding: 0;
+            background-color: var(--bg-dark); color: var(--text-light);
+            display: flex; height: 100vh; overflow: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin: 0; }
+
+        /* 📱 AURA CUÁNTICA LUMINOSA */
+        @media (pointer: fine) {
+            * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
+            .cursor-outline {
+                position: fixed; top: -20px; left: -20px; width: 40px; height: 40px; 
+                border: 1px solid rgba(255, 202, 40, 0.5); border-radius: 50%; pointer-events: none; z-index: 99999; 
+                will-change: transform; transition: background-color 0.15s ease, border-color 0.15s ease;
+            }
+            .cursor-outline.hover { background-color: rgba(255, 202, 40, 0.1); border-color: var(--robles-gold); }
+        }
+        @media (pointer: coarse) { .cursor-outline { display: none !important; } }
+
+        /* 🏛️ SIDEBAR MAGISTRAL */
+        .sidebar {
+            width: 280px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
+            padding: 30px 0; box-shadow: 5px 0 20px rgba(0,0,0,0.5); z-index: 10; flex-shrink: 0;
+        }
+        .sidebar-logo {
+            text-align: center; padding: 0 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.5em; letter-spacing: 1px;
+        }
+        .sidebar-logo span { color: var(--robles-gold); }
+        .nav-menu { flex: 1; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
+        .nav-link {
+            display: flex; align-items: center; gap: 15px; padding: 12px 20px;
+            color: var(--text-muted); text-decoration: none; border-radius: 12px;
+            transition: all 0.2s ease; font-weight: 500;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 202, 40, 0.1); color: var(--robles-gold);
+            box-shadow: inset 3px 0 0 var(--robles-gold);
+        }
+        .user-profile {
+            padding: 20px; margin: 0 20px; background: rgba(255,255,255,0.03); border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 15px;
+        }
+        .user-avatar { width: 40px; height: 40px; background: var(--robles-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 600; color: #fff;}
+
+        /* 🎓 GALERÍA DEL CLAUSTRO */
+        .claustro-layout {
+            flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;
+            padding: 40px 60px; overflow-y: auto;
+        }
+        
+        .claustro-header {
+            margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: flex-end;
+        }
+        .claustro-header h1 { font-size: 2.5em; color: #fff; }
+        .claustro-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
+
+        .claustro-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px;
+            padding-bottom: 50px;
+        }
+
+        /* Tarjeta de Profesor Magistral */
+        .profesor-card {
+            background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
+            border-radius: 25px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+        .profesor-card:hover { 
+            transform: translateY(-10px); border-color: var(--robles-gold); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 202, 40, 0.15);
+        }
+
+        /* Contenedor para las imágenes de Nano Banana 2 */
+        .avatar-frame {
+            width: 130px; height: 130px; margin-bottom: 20px; position: relative;
+            border-radius: 30px; /* Estilo Squircle elegante */
+            padding: 3px; background: linear-gradient(135deg, var(--robles-purple), var(--robles-gold));
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .avatar-img {
+            width: 100%; height: 100%; border-radius: 27px; object-fit: cover;
+            background-color: #1a1a20; /* Color de fondo mientras carga la imagen real */
+            display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 0.8em;
+        }
+        
+        .online-dot {
+            position: absolute; bottom: 5px; right: 5px; width: 16px; height: 16px;
+            background: #00e676; border-radius: 50%; border: 3px solid #1a1a20;
+            box-shadow: 0 0 10px #00e676; z-index: 2;
+        }
+
+        .profesor-card h3 { color: #fff; font-size: 1.3em; margin-bottom: 5px; }
+        .prof-specialty { color: var(--robles-gold); font-size: 0.85em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px; }
+        
+        .btn-mentoria {
+            margin-top: auto; padding: 10px 25px; background: transparent; color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; font-size: 0.85em; font-weight: 500;
+            text-decoration: none; transition: all 0.3s ease;
+        }
+        .profesor-card:hover .btn-mentoria {
+            background: var(--robles-gold); color: #000; border-color: var(--robles-gold);
+            box-shadow: 0 0 15px rgba(255, 202, 40, 0.4);
+        }
+
+        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR */
+        #emotoCanvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none; opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="emotoCanvas"></canvas>
+
+    <aside class="sidebar" data-aos="fade-right" data-aos-duration="800">
+        <div class="sidebar-logo">
+            🦅 Academia<br><span>Robles</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="boveda.html" class="nav-link hover-sound click-sound">✨ Santuario Central</a>
+            <a href="modulos.html" class="nav-link hover-sound click-sound">📚 Mis Módulos</a>
+            <a href="claustro.html" class="nav-link active hover-sound click-sound">🏛️ Claustro Académico</a>
+            <a href="mentoria.html" class="nav-link hover-sound click-sound">👩🏻‍💼 Mentorías IA</a>
+            <a href="kanban.html" class="nav-link hover-sound click-sound">📋 RoblesKanban</a>
+            <a href="index.html" class="nav-link hover-sound click-sound" style="margin-top: auto; color: #ff5252;">Cerrar Sesión ➔</a>
+        </nav>
+        <div class="user-profile hover-sound">
+            <div class="user-avatar">R</div>
+            <div>
+                <div style="font-weight: 600; font-size: 0.9em; color: #fff;">Renato Robles</div>
+                <div style="font-size: 0.75em; color: var(--robles-gold);">CEO & Estudiante VIP</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="claustro-layout">
+        
+        <div class="claustro-header" data-aos="fade-down" data-aos-delay="100">
+            <div>
+                <h1>Claustro Académico</h1>
+                <p>La Élite del Conocimiento a tu Disposición</p>
+            </div>
+        </div>
+
+        <div class="claustro-grid">
+            
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
+                <div class="avatar-frame">
+                    <img src="ruta-regina.jpg" alt="Regina Valentina" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🐾</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Regina Valentina</h3>
+                <div class="prof-specialty">Directora General / Psicóloga Animal</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Solicitar Audiencia</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
+                <div class="avatar-frame">
+                    <img src="ruta-leonor.jpg" alt="Leonor Severina" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>👑</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Leonor S. Betancourt</h3>
+                <div class="prof-specialty">Decana / Arquitecta IA</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400">
+                <div class="avatar-frame">
+                    <img src="ruta-victoria.jpg" alt="Victoria Freud" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🧠</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Dra. Victoria Freud</h3>
+                <div class="prof-specialty">Psicología y Lógica</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="500">
+                <div class="avatar-frame">
+                    <img src="ruta-ciro.jpg" alt="Ciro Pascual" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>📐</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Ciro P. Euclídes</h3>
+                <div class="prof-specialty">Matemáticas Aplicadas</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="600">
+                <div class="avatar-frame">
+                    <img src="ruta-rubi.jpg" alt="Rubí Estéquia" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🧪</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Rubí Estéquia C.</h3>
+                <div class="prof-specialty">Química Estructural</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+            </div>
+
+            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="700">
+                <div class="avatar-frame">
+                    <img src="ruta-sofia.jpg" alt="Sofía Atenea" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🏛️</text></svg>'">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>Sofía Atenea Diógenes</h3>
+                <div class="prof-specialty">Filosofía Crítica</div>
+                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+            </div>
+
+            </div>
+
+    </main>
+
+    <div class="cursor-outline"></div>
+
+    <script>
+        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) { audioCtx = new AudioContext(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+        }
+
+        function playHoverSound() {
+            initAudio(); if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); 
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.04);
+        }
+
+        function playClickSound() {
+            initAudio(); if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; 
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); 
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+        }
+
+        window.addEventListener('mousedown', initAudio, { once: true });
+        window.addEventListener('keydown', initAudio, { once: true });
+
+        document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
+        document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
+
+        // Coordenadas globales del ratón
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        window.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
+
+        // 🖱️ MOTOR DE PUNTERO LUMINOSO
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const cursorOutline = document.querySelector('.cursor-outline');
+            let outlineX = mouseX, outlineY = mouseY;
+            let targetScale = 1, currentScale = 1;
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.4; 
+                outlineY += (mouseY - outlineY) * 0.4;
+                currentScale += (targetScale - currentScale) * 0.2;
+                cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) scale(${currentScale})`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, .profesor-card, .user-profile').forEach(el => {
+                el.addEventListener('mouseenter', () => { cursorOutline.classList.add('hover'); targetScale = 1.5; });
+                el.addEventListener('mouseleave', () => { cursorOutline.classList.remove('hover'); targetScale = 1; });
+            });
+        }
+
+        // 💧 MOTOR DE GEOMETRÍA MOLECULAR
+        const canvas = document.getElementById('emotoCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1; 
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.1)' : 'rgba(142, 36, 170, 0.1)'; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+                let dx = mouseX - this.x;
+                let dy = mouseY - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    this.x += dx * 0.01;
+                    this.y += dy * 0.01;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                const sides = 6;
+                const radius = this.size;
+                ctx.moveTo(this.x + radius * Math.cos(0), this.y + radius * Math.sin(0));
+                for (let i = 1; i <= sides; i++) {
+                    ctx.lineTo(this.x + radius * Math.cos(i * 2 * Math.PI / sides), this.y + radius * Math.sin(i * 2 * Math.PI / sides));
+                }
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = (canvas.width * canvas.height) / 18000;
+            for (let i = 0; i < numberOfParticles; i++) { particles.push(new Particle()); }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ once: true, offset: 50 }); </script>
+</body>
+</html>
