@@ -14,7 +14,8 @@
 
     <style>
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        @import url('https://fonts.cdnfonts.com/css/sign-language'); /* Fuente Oficial de Manos */
+        /* Restauración de la fuente Gallaudet (Las verdaderas manitas de señas) */
+        @import url('https://fonts.cdnfonts.com/css/gallaudet');
     </style>
 
     <style>
@@ -160,19 +161,19 @@
         /* ✨ FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* ✨ LENGUA DE SEÑAS (Blindaje Absoluto en Mayúsculas y 1.35em) */
-        body.modo-senas, body.modo-senas * {
-            font-family: 'Sign Language', sans-serif !important;
-            font-size: 1.35em !important; 
+        /* ✨ LENGUA DE SEÑAS (Tamaño majestuoso a 1.45em y Gallaudet forzado) */
+        body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
+            font-family: 'Gallaudet', sans-serif !important;
+            font-size: 1.45em !important; 
             line-height: 1.6 !important; 
             letter-spacing: 3px !important;
-            text-transform: uppercase !important; 
+            text-transform: lowercase !important; 
         }
 
         /* ✨ FUENTE GIGANTE */
-        body.fuente-gigante { font-size: 140% !important; }
-        body.fuente-gigante .profesor-card h3 { font-size: 1.5em !important; }
-        body.fuente-gigante .prof-specialty { font-size: 1em !important; }
+        body.fuente-gigante { font-size: 150% !important; }
+        body.fuente-gigante .profesor-card h3 { font-size: 1.6em !important; }
+        body.fuente-gigante .prof-specialty { font-size: 1.1em !important; }
 
         /* 🌍 SELECTOR DE IDIOMAS FLOTANTE (Esquina Superior Derecha) */
         .lang-floating-menu {
@@ -210,7 +211,8 @@
         .settings-panel {
             position: fixed; top: 0; right: -350px; width: 300px; height: 100vh;
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(20px);
-            border-left: 1px solid var(--glass-border); z-index: 1000000; 
+            border-left: 1px solid var(--glass-border); 
+            z-index: 1000000; 
             padding: 40px 25px; box-shadow: -5px 0 30px rgba(0,0,0,0.8);
             transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s ease;
             display: flex; flex-direction: column; gap: 18px; font-family: 'Inter', sans-serif;
@@ -240,7 +242,9 @@
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: rgba(20, 20, 25, 0.8); border: 1px solid var(--glass-border);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 1.8em; z-index: 1000000; cursor: pointer; color: var(--text-light);
+            font-size: 1.8em; 
+            z-index: 1000000; 
+            cursor: pointer; color: var(--text-light);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
