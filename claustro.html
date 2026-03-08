@@ -86,15 +86,13 @@
         .claustro-header h1 { font-size: 2.5em; color: #fff; }
         .claustro-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
 
-        /* Animación Nativa Mamá Pingüina */
         @keyframes fadeInGrid {
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         .claustro-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
-            gap: 50px; /* Aumentamos el aire para máximo lujo visual */
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 50px;
             padding-bottom: 50px;
             animation: fadeInGrid 0.8s ease-out forwards;
         }
@@ -133,8 +131,8 @@
             padding: 25px 20px; display: flex; flex-direction: column; align-items: center; flex: 1; width: 100%; box-sizing: border-box;
         }
 
-        .profesor-card h3 { color: #fff; font-size: 1.2em; margin-bottom: 5px; }
-        .prof-specialty { color: var(--robles-gold); font-size: 0.8em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
+        .profesor-card h3 { color: #fff; font-size: 1.2em; margin-bottom: 5px; transition: color 0.3s ease;}
+        .prof-specialty { color: var(--robles-gold); font-size: 0.8em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; transition: color 0.3s ease;}
         
         .btn-mentoria {
             margin-top: auto; padding: 10px 25px; background: transparent; color: var(--text-light);
@@ -151,44 +149,121 @@
             z-index: 0; pointer-events: none; opacity: 0.4;
         }
 
+        /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
+        @import url('https://fonts.cdnfonts.com/css/opendyslexic');
+
+        html { transition: font-size 0.3s ease; }
+        body { transition: background-color 0.5s ease, color 0.5s ease, filter 0.5s ease; }
+
+        body.modo-sepia { filter: sepia(0.5) contrast(0.95); }
+
+        body.alto-contraste {
+            --bg-dark: #000000; --panel-bg: #000000; --text-light: #ffffff; --text-muted: #e0e0e0;
+            --robles-gold: #ffff00; --robles-purple: #ff00ff; --glass-border: #ffffff;
+        }
+        body.alto-contraste .profesor-card { border: 2px solid #ffff00; background: #000; box-shadow: none; }
+        body.alto-contraste .portrait-img { filter: contrast(1.3); }
+
+        body.fuente-comoda, body.fuente-comoda * {
+            font-family: 'OpenDyslexic', sans-serif !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Menú lateral de configuración */
+        .settings-panel {
+            position: fixed; top: 0; right: -350px; width: 300px; height: 100vh;
+            background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(20px);
+            border-left: 1px solid var(--glass-border); z-index: 100000;
+            padding: 40px 25px; box-shadow: -5px 0 30px rgba(0,0,0,0.8);
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; gap: 25px; font-family: 'Inter', sans-serif;
+        }
+        .settings-panel.open { right: 0; }
+        .settings-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
+        .settings-header h2 { color: var(--robles-gold); font-size: 1.5em; margin: 0; font-family: 'Playfair Display', serif;}
+        .close-settings { background: none; border: none; color: #fff; font-size: 1.5em; cursor: pointer; transition: color 0.2s;}
+        .close-settings:hover { color: #ff5252; }
+
+        .setting-item { display: flex; flex-direction: column; gap: 10px; }
+        .setting-item label { color: #fff; font-weight: 500; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em;}
+        
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); transition: .4s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .toggle-slider { background-color: var(--robles-gold); }
+        input:checked + .toggle-slider:before { transform: translateX(24px); background-color: #000; }
+
+        .font-slider { width: 100%; appearance: none; background: rgba(255,255,255,0.2); height: 6px; border-radius: 5px; outline: none; transition: background 0.2s; }
+        .font-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--robles-gold); cursor: pointer; }
+
+        .btn-config-flotante {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: rgba(20, 20, 25, 0.8); border: 1px solid var(--glass-border);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 1.8em; z-index: 99999; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            transition: all 0.3s ease; color: #fff;
+        }
+        .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
+
         /* 📱 RESPONSIVIDAD SUPREMA (MÓVIL) */
         @media (max-width: 768px) {
-            body { 
-                flex-direction: column; /* Apila el menú arriba y el contenido abajo */
-                overflow-y: auto; /* Permite hacer scroll en toda la pantalla */
-            }
-            .sidebar { 
-                width: 100%; 
-                height: auto;
-                padding: 20px 0; 
-                border-right: none; 
-                border-bottom: 1px solid var(--glass-border);
-                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-                position: relative;
-                z-index: 10;
-            }
+            body { flex-direction: column; overflow-y: auto; }
+            .sidebar { width: 100%; height: auto; padding: 20px 0; border-right: none; border-bottom: 1px solid var(--glass-border); box-shadow: 0 5px 20px rgba(0,0,0,0.5); position: relative; z-index: 10; }
             .sidebar-logo { padding: 0 20px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
             .nav-menu { padding: 15px 20px; }
             .user-profile { margin: 10px 20px 0; }
-            
-            .claustro-layout { 
-                padding: 20px; 
-                overflow-y: visible; /* El scroll ahora lo hace el body */
-            }
-            .claustro-header h1 { font-size: 2em; }
-            
-            .claustro-grid { 
-                grid-template-columns: 1fr; /* Una sola columna para que las fotos luzcan gigantes */
-                gap: 40px; 
-            }
-            .portrait-frame { height: 320px; } /* Hacemos la foto más alta en móviles para impacto total */
+            .claustro-layout { padding: 20px; overflow-y: visible; }
+            .claustro-grid { grid-template-columns: 1fr; gap: 40px; }
+            .portrait-frame { height: 320px; }
         }
-
     </style>
 </head>
 <body>
 
     <canvas id="emotoCanvas"></canvas>
+
+    <button class="btn-config-flotante click-sound hover-sound" id="btnSettings" title="Ajustes de Bienestar">⚙️</button>
+
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>Bienestar Visual</h2>
+            <button class="close-settings click-sound hover-sound" id="btnCloseSettings">✖</button>
+        </div>
+        
+        <div class="setting-item">
+            <label>Modo Sepia 
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleSepia" class="click-sound">
+                    <span class="toggle-slider hover-sound"></span>
+                </label>
+            </label>
+        </div>
+
+        <div class="setting-item">
+            <label>Alto Contraste 
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleContrast" class="click-sound">
+                    <span class="toggle-slider hover-sound"></span>
+                </label>
+            </label>
+        </div>
+
+        <div class="setting-item">
+            <label>Fuente Cómoda (Dyslexic)
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleFont" class="click-sound">
+                    <span class="toggle-slider hover-sound"></span>
+                </label>
+            </label>
+        </div>
+
+        <div class="setting-item" style="margin-top: 15px;">
+            <label style="margin-bottom: 8px;">Tamaño de Fuente: <span id="fontSizeDisplay" style="color: var(--robles-gold);">100%</span></label>
+            <input type="range" min="80" max="150" value="100" class="font-slider hover-sound" id="sliderFontSize">
+        </div>
+    </div>
 
     <aside class="sidebar" data-aos="fade-right" data-aos-duration="800">
         <div class="sidebar-logo">
@@ -623,6 +698,61 @@
 
         initParticles();
         animateParticles();
+
+        // ⚙️ CEREBRO DE BIENESTAR VISUAL (Persistencia con LocalStorage)
+        const btnSettings = document.getElementById('btnSettings');
+        const btnCloseSettings = document.getElementById('btnCloseSettings');
+        const settingsPanel = document.getElementById('settingsPanel');
+        
+        const toggleSepia = document.getElementById('toggleSepia');
+        const toggleContrast = document.getElementById('toggleContrast');
+        const toggleFont = document.getElementById('toggleFont');
+        const sliderFontSize = document.getElementById('sliderFontSize');
+        const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Abrir/Cerrar menú
+        btnSettings.addEventListener('click', () => { settingsPanel.classList.add('open'); playClickSound(); });
+        btnCloseSettings.addEventListener('click', () => { settingsPanel.classList.remove('open'); playClickSound(); });
+
+        // 1. Cargar preferencias al iniciar la página
+        if(localStorage.getItem('robles_sepia') === 'true') { bodyElement.classList.add('modo-sepia'); toggleSepia.checked = true; }
+        if(localStorage.getItem('robles_contrast') === 'true') { bodyElement.classList.add('alto-contraste'); toggleContrast.checked = true; }
+        if(localStorage.getItem('robles_font') === 'true') { bodyElement.classList.add('fuente-comoda'); toggleFont.checked = true; }
+        
+        let savedSize = localStorage.getItem('robles_fontSize');
+        if(savedSize) { 
+            htmlElement.style.fontSize = savedSize + '%'; 
+            sliderFontSize.value = savedSize; 
+            fontSizeDisplay.textContent = savedSize + '%';
+        }
+
+        // 2. Escuchar cambios y guardarlos en memoria
+        toggleSepia.addEventListener('change', (e) => {
+            bodyElement.classList.toggle('modo-sepia', e.target.checked);
+            localStorage.setItem('robles_sepia', e.target.checked);
+            playClickSound();
+        });
+
+        toggleContrast.addEventListener('change', (e) => {
+            bodyElement.classList.toggle('alto-contraste', e.target.checked);
+            localStorage.setItem('robles_contrast', e.target.checked);
+            playClickSound();
+        });
+
+        toggleFont.addEventListener('change', (e) => {
+            bodyElement.classList.toggle('fuente-comoda', e.target.checked);
+            localStorage.setItem('robles_font', e.target.checked);
+            playClickSound();
+        });
+
+        sliderFontSize.addEventListener('input', (e) => {
+            let size = e.target.value;
+            htmlElement.style.fontSize = size + '%';
+            fontSizeDisplay.textContent = size + '%';
+            localStorage.setItem('robles_fontSize', size);
+        });
 
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
