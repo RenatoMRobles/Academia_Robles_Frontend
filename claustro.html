@@ -113,8 +113,8 @@
         .online-dot { position: absolute; bottom: 15px; right: 15px; width: 16px; height: 16px; background: #00e676; border-radius: 50%; border: 3px solid #1a1a20; box-shadow: 0 0 10px #00e676; z-index: 2; transition: border-color 0.5s ease;}
 
         .profesor-info { padding: 25px 20px; display: flex; flex-direction: column; align-items: center; flex: 1; width: 100%; box-sizing: border-box; }
-        .profesor-card h3 { color: var(--text-light); font-size: 1.2em; margin-bottom: 5px; transition: color 0.5s ease;}
-        .prof-specialty { color: var(--robles-gold); font-size: 0.8em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; transition: color 0.5s ease;}
+        .profesor-card h3 { color: var(--text-light); font-size: 1.2em; margin-bottom: 5px; transition: color 0.5s ease, font-size 0.3s ease;}
+        .prof-specialty { color: var(--robles-gold); font-size: 0.8em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; transition: color 0.5s ease, font-size 0.3s ease;}
         
         .btn-mentoria {
             margin-top: auto; padding: 10px 25px; background: transparent; color: var(--text-light);
@@ -127,9 +127,7 @@
 
         /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        /* Doble importación de Lengua de Señas para garantizar funcionamiento */
-        @import url('https://fonts.cdnfonts.com/css/gallaudet'); 
-        @font-face { font-family: 'SignLanguageFallback'; src: url('https://db.onlinewebfonts.com/t/d137b01988899eb7d169e61c37b3f99e.woff') format('woff'); }
+        @import url('https://fonts.cdnfonts.com/css/american-sign-language-2'); /* Fuente robusta de señas */
 
         html { transition: font-size 0.3s ease; }
 
@@ -158,13 +156,18 @@
         /* FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* LENGUA DE SEÑAS (Corrección Suprema) */
-        body.modo-senas, body.modo-senas * {
-            font-family: 'Gallaudet', 'SignLanguageFallback', sans-serif !important;
-            font-size: 1.25em !important; 
+        /* LENGUA DE SEÑAS (Blindaje Absoluto) */
+        body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
+            font-family: 'American Sign Language', sans-serif !important;
+            font-size: 1.5em !important; 
             letter-spacing: 3px !important;
-            text-transform: uppercase !important; /* Las fuentes de señas suelen mapear mejor en mayúsculas */
+            text-transform: uppercase !important; 
         }
+
+        /* FUENTE GIGANTE */
+        body.fuente-gigante { font-size: 140% !important; }
+        body.fuente-gigante .profesor-card h3 { font-size: 1.5em !important; }
+        body.fuente-gigante .prof-specialty { font-size: 1em !important; }
 
         /* PANEL LATERAL DE CONFIGURACIÓN */
         .settings-panel {
@@ -213,10 +216,12 @@
         }
         .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
 
-        /* Ocultar artefactos de Google Translate para estética limpia */
-        .goog-te-banner-frame.skiptranslate, #goog-gt-tt { display: none !important; }
-        body { top: 0px !important; }
-        font { background: transparent !important; color: inherit !important; box-shadow: none !important; }
+        /* 🚫 ANIQUILACIÓN DE LA BARRA DE GOOGLE TRANSLATE */
+        .goog-te-banner-frame.skiptranslate, iframe.skiptranslate { display: none !important; }
+        body { top: 0px !important; position: static !important; }
+        html { top: 0px !important; }
+        .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; } /* Clase moderna de Google */
+        #goog-gt-tt { display: none !important; }
 
         /* 📱 RESPONSIVIDAD SUPREMA */
         @media (max-width: 768px) {
@@ -237,9 +242,9 @@
 
     <div id="google_translate_element" style="display:none;"></div>
 
-    <button class="btn-config-flotante click-sound hover-sound" id="btnSettings" title="Centro de Bienestar Visual">⚙️</button>
+    <button class="btn-config-flotante click-sound hover-sound" id="btnSettings" title="Centro de Bienestar">⚙️</button>
 
-    <div class="settings-panel" id="settingsPanel">
+    <div class="settings-panel notranslate" id="settingsPanel">
         <div class="settings-header">
             <h2>Ajustes Globales</h2>
             <button class="close-settings click-sound hover-sound" id="btnCloseSettings">✖</button>
@@ -252,7 +257,7 @@
                 <option value="en">🇺🇸 Inglés (English)</option>
                 <option value="fr">🇫🇷 Francés (Français)</option>
                 <option value="pt">🇧🇷 Portugués (Português)</option>
-                <option value="it">🇮🇹 Italiano</option>
+                <option value="it">🇮🇹 Italiano (Italiano)</option>
                 <option value="de">🇩🇪 Alemán (Deutsch)</option>
                 <option value="hi">🇮🇳 Hindi (हिन्दी)</option>
                 <option value="ht">🇭🇹 Criollo Haitiano (Kreyòl)</option>
@@ -280,6 +285,10 @@
             <label>Lengua de Señas (LSM/ASL) <label class="toggle-switch"><input type="checkbox" id="toggleSign" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
+        <div class="setting-item">
+            <label style="color: var(--robles-gold);">Fuente Gigante (Visión) <label class="toggle-switch"><input type="checkbox" id="toggleGiantFont" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
+        </div>
+
         <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px;">
             <label style="color: var(--robles-gold);">Asistencia Auditiva</label>
             <label>Lector de Texto (Voz) <label class="toggle-switch"><input type="checkbox" id="toggleTTS" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
@@ -287,7 +296,7 @@
         </div>
 
         <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px;">
-            <label style="margin-bottom: 2px;">Tamaño de Fuente: <span id="fontSizeDisplay" style="color: var(--robles-gold);">100%</span></label>
+            <label style="margin-bottom: 2px;">Ajuste Fino de Fuente: <span id="fontSizeDisplay" style="color: var(--robles-gold);">100%</span></label>
             <input type="range" min="80" max="150" value="100" class="font-slider hover-sound" id="sliderFontSize">
         </div>
     </div>
@@ -609,6 +618,7 @@
         const btnSettings = document.getElementById('btnSettings'); const btnCloseSettings = document.getElementById('btnCloseSettings'); const settingsPanel = document.getElementById('settingsPanel');
         const toggleLight = document.getElementById('toggleLight'); const toggleSepia = document.getElementById('toggleSepia'); const toggleContrast = document.getElementById('toggleContrast');
         const toggleFont = document.getElementById('toggleFont'); const toggleSign = document.getElementById('toggleSign'); const toggleTTS = document.getElementById('toggleTTS');
+        const toggleGiantFont = document.getElementById('toggleGiantFont');
         const sliderFontSize = document.getElementById('sliderFontSize'); const fontSizeDisplay = document.getElementById('fontSizeDisplay');
         const selectLanguage = document.getElementById('languageSelect');
         const bodyElement = document.body; const htmlElement = document.documentElement;
@@ -638,6 +648,7 @@
         if(localStorage.getItem('robles_sepia') === 'true') { bodyElement.classList.add('modo-sepia'); toggleSepia.checked = true; }
         if(localStorage.getItem('robles_contrast') === 'true') { bodyElement.classList.add('alto-contraste'); toggleContrast.checked = true; }
         if(localStorage.getItem('robles_font') === 'true') { bodyElement.classList.add('fuente-comoda'); toggleFont.checked = true; }
+        if(localStorage.getItem('robles_giant_font') === 'true') { bodyElement.classList.add('fuente-gigante'); toggleGiantFont.checked = true; }
         
         if(localStorage.getItem('robles_sign') === 'true') { 
             bodyElement.classList.add('modo-senas'); toggleSign.checked = true; 
@@ -659,6 +670,7 @@
         toggleSepia.addEventListener('change', (e) => { bodyElement.classList.toggle('modo-sepia', e.target.checked); localStorage.setItem('robles_sepia', e.target.checked); playClickSound(); });
         toggleContrast.addEventListener('change', (e) => { bodyElement.classList.toggle('alto-contraste', e.target.checked); localStorage.setItem('robles_contrast', e.target.checked); playClickSound(); });
         toggleFont.addEventListener('change', (e) => { bodyElement.classList.toggle('fuente-comoda', e.target.checked); localStorage.setItem('robles_font', e.target.checked); playClickSound(); });
+        toggleGiantFont.addEventListener('change', (e) => { bodyElement.classList.toggle('fuente-gigante', e.target.checked); localStorage.setItem('robles_giant_font', e.target.checked); playClickSound(); });
         
         toggleSign.addEventListener('change', (e) => {
             bodyElement.classList.toggle('modo-senas', e.target.checked);
@@ -671,12 +683,16 @@
 
         sliderFontSize.addEventListener('input', (e) => { let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size); });
 
+        // Blindaje del Traductor
         selectLanguage.addEventListener('change', (e) => {
             const lang = e.target.value; playClickSound();
-            if(lang === 'es') {
-                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + location.hostname + "; path=/;";
-            } else {
+            
+            // Borrar cualquier rastro de cookies anteriores de Google para forzar el cambio
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + location.hostname + "; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + location.hostname + "; path=/;";
+            
+            if(lang !== 'es') {
                 document.cookie = `googtrans=/es/${lang}; path=/`;
                 document.cookie = `googtrans=/es/${lang}; domain=${location.hostname}; path=/`;
             }
@@ -695,7 +711,6 @@
                     window.speechSynthesis.cancel(); 
                     const utterance = new SpeechSynthesisUtterance(textToRead);
                     
-                    // Si la página fue traducida, intentar ajustar el idioma del lector
                     const currentLangMatch = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
                     let targetLang = 'es-MX';
                     if(currentLangMatch && currentLangMatch[1]) { targetLang = currentLangMatch[1]; }
@@ -705,7 +720,6 @@
                     
                     if(systemVoices.length === 0) systemVoices = window.speechSynthesis.getVoices();
                     
-                    // Buscar voz femenina que coincida con el idioma
                     let femaleVoice = systemVoices.find(v => v.lang.startsWith(targetLang.split('-')[0]) && 
                         (v.name.includes('Sabina') || v.name.includes('Paulina') || v.name.includes('Helena') || v.name.includes('Laura') || v.name.includes('Monica') || v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('mujer') || v.name.toLowerCase().includes('zira')));
                     
