@@ -86,9 +86,16 @@
         .claustro-header h1 { font-size: 2.5em; color: #fff; }
         .claustro-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
 
+        /* Animación Nativa Mamá Pingüina */
+        @keyframes fadeInGrid {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         .claustro-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 35px;
             padding-bottom: 50px;
+            animation: fadeInGrid 0.8s ease-out forwards;
         }
 
         .profesor-card {
@@ -180,7 +187,7 @@
 
         <div class="claustro-grid">
             
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Regina Trabajando.png" alt="Regina Valentina" class="portrait-img">
                     <div class="online-dot"></div>
@@ -192,7 +199,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Leonor Trabajando.png" alt="Leonor Severina" class="portrait-img">
                     <div class="online-dot"></div>
@@ -204,7 +211,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Victoria Trabajando.png" alt="Victoria Freud" class="portrait-img">
                     <div class="online-dot"></div>
@@ -216,7 +223,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Ciro Trabajando.png" alt="Ciro Pascual" class="portrait-img">
                     <div class="online-dot"></div>
@@ -228,7 +235,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Rubi Trabajando.png" alt="Rubí Estéquia" class="portrait-img">
                     <div class="online-dot"></div>
@@ -240,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Atenea Trabajando.png" alt="Sofía Atenea" class="portrait-img">
                     <div class="online-dot"></div>
@@ -252,7 +259,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Catalyna Trabajando.png" alt="Catalyna" class="portrait-img">
                     <div class="online-dot"></div>
@@ -264,7 +271,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="450">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Maximo Trabajando.png" alt="Máximo" class="portrait-img">
                     <div class="online-dot"></div>
@@ -276,7 +283,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Beakman Trabajando.png" alt="Beakman" class="portrait-img">
                     <div class="online-dot"></div>
@@ -288,7 +295,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Carlota Trabajando.png" alt="Carlota" class="portrait-img">
                     <div class="online-dot"></div>
@@ -300,7 +307,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img" onerror="this.src='Don y Herb.png'">
                     <div class="online-dot"></div>
@@ -312,7 +319,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Doña Tere Trabajando.png" alt="Doña Tere" class="portrait-img">
                     <div class="online-dot"></div>
@@ -324,7 +331,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Goyo Trabajando.png" alt="Goyo" class="portrait-img">
                     <div class="online-dot"></div>
@@ -336,7 +343,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Guillermo Trabajando.png" alt="Guillermo" class="portrait-img">
                     <div class="online-dot"></div>
@@ -348,7 +355,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Hermenegilda Trabajando.png" alt="Hermenegilda" class="portrait-img">
                     <div class="online-dot"></div>
@@ -360,7 +367,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="450">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Herodoto Trabajando.png" alt="Herodoto" class="portrait-img">
                     <div class="online-dot"></div>
@@ -372,7 +379,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Lorena Trabajando.png" alt="Lorena" class="portrait-img">
                     <div class="online-dot"></div>
@@ -384,7 +391,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Mía Trabajando.png" alt="Mía" class="portrait-img" onerror="this.src='Mia Trabajando.png'">
                     <div class="online-dot"></div>
@@ -396,7 +403,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Miyuki Trabajando.png" alt="Miyuki Katsura" class="portrait-img">
                     <div class="online-dot"></div>
@@ -408,7 +415,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Ricardo Trabajando.png" alt="Ricardo" class="portrait-img">
                     <div class="online-dot"></div>
@@ -420,7 +427,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Taylor Trabajando.png" alt="Taylor" class="portrait-img">
                     <div class="online-dot"></div>
@@ -432,7 +439,7 @@
                 </div>
             </div>
 
-            <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
+            <div class="profesor-card hover-sound">
                 <div class="portrait-frame">
                     <img src="Vox Trabajando.png" alt="Vox 114" class="portrait-img">
                     <div class="online-dot"></div>
