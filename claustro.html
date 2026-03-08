@@ -37,7 +37,6 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; margin: 0; }
 
-        /* 📱 AURA CUÁNTICA LUMINOSA */
         @media (pointer: fine) {
             * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23ffca28"/></svg>') 8 8, auto !important; }
             .cursor-outline {
@@ -49,7 +48,6 @@
         }
         @media (pointer: coarse) { .cursor-outline { display: none !important; } }
 
-        /* 🏛️ SIDEBAR MAGISTRAL */
         .sidebar {
             width: 280px; background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(20px);
             border-right: 1px solid var(--glass-border); display: flex; flex-direction: column;
@@ -76,7 +74,6 @@
         }
         .user-avatar { width: 40px; height: 40px; background: var(--robles-purple); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 600; color: #fff;}
 
-        /* 🎓 GALERÍA DEL CLAUSTRO */
         .claustro-layout {
             flex: 1; display: flex; flex-direction: column; position: relative; z-index: 1;
             padding: 40px 60px; overflow-y: auto;
@@ -90,26 +87,22 @@
         .claustro-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
 
         .claustro-grid {
-            /* Hacemos las tarjetas un poco más anchas para que luzcan mejor */
             display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 35px;
             padding-bottom: 50px;
         }
 
-        /* Tarjeta de Profesor Magistral (Evolución a Retrato) */
         .profesor-card {
             background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
             border-radius: 20px; padding: 0; display: flex; flex-direction: column; align-items: center; text-align: center;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
-            position: relative; overflow: hidden; /* Mantiene la imagen dentro de los bordes redondeados */
+            position: relative; overflow: hidden;
         }
         .profesor-card:hover { 
             transform: translateY(-10px); border-color: var(--robles-gold); 
             box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 202, 40, 0.15);
         }
 
-        /* Contenedor panorámico para las imágenes de Nano Banana 2 */
         .portrait-frame {
-            /* Aumentamos la altura de 200 a 270 para mostrar más de la fotografía */
             width: 100%; height: 270px; position: relative;
             border-bottom: 2px solid var(--glass-border);
             overflow: hidden;
@@ -120,9 +113,7 @@
             display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 0.8em;
             transition: transform 0.6s ease;
         }
-        .profesor-card:hover .portrait-img {
-            transform: scale(1.06); /* Suave acercamiento al pasar el ratón */
-        }
+        .profesor-card:hover .portrait-img { transform: scale(1.06); }
         
         .online-dot {
             position: absolute; bottom: 15px; right: 15px; width: 16px; height: 16px;
@@ -147,7 +138,6 @@
             box-shadow: 0 0 15px rgba(255, 202, 40, 0.4);
         }
 
-        /* 💧 CANVAS DE GEOMETRÍA MOLECULAR */
         #emotoCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none; opacity: 0.4;
@@ -461,7 +451,6 @@
     <div class="cursor-outline"></div>
 
     <script>
-        // 🎵 MOTOR DE AUDIO NEUROPSICOLÓGICO
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -504,11 +493,9 @@
         document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
         document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
 
-        // Coordenadas globales del ratón
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         window.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
 
-        // 🖱️ MOTOR DE PUNTERO LUMINOSO
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
             let outlineX = mouseX, outlineY = mouseY;
@@ -529,7 +516,6 @@
             });
         }
 
-        // 💧 MOTOR DE GEOMETRÍA MOLECULAR
         const canvas = document.getElementById('emotoCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
