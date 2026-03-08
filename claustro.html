@@ -14,7 +14,7 @@
 
     <style>
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        @import url('https://fonts.cdnfonts.com/css/sign-language');
+        /* Adiós a los letreros de tráfico. Hola a las manitas de verdad: */
         @import url('https://fonts.cdnfonts.com/css/gallaudet');
     </style>
 
@@ -161,13 +161,13 @@
         /* ✨ FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* ✨ LENGUA DE SEÑAS (Protocolo de Forzado Absoluto) */
-        body.modo-senas, body.modo-senas * {
-            font-family: 'Sign Language', 'Gallaudet', sans-serif !important;
-            font-size: 1.5em !important; 
+        /* ✨ LENGUA DE SEÑAS (Las verdaderas manitas) */
+        body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
+            font-family: 'Gallaudet', sans-serif !important;
+            font-size: 2em !important; /* Más grande para que las manos se distingan bien */
             line-height: 1.8 !important; 
-            letter-spacing: 4px !important;
-            text-transform: uppercase !important; 
+            letter-spacing: 5px !important;
+            text-transform: lowercase !important; /* Gallaudet mapea mejor en minúsculas en algunos sistemas */
         }
 
         /* ✨ FUENTE GIGANTE */
@@ -177,7 +177,7 @@
 
         /* 🌍 SELECTOR DE IDIOMAS FLOTANTE (Esquina Superior Derecha) */
         .lang-floating-menu {
-            position: absolute; top: 30px; right: 60px; z-index: 999999;
+            position: absolute; top: 30px; right: 60px; z-index: 90000; /* Nivel inferior al panel de ajustes */
             font-family: 'Inter', sans-serif;
         }
         .lang-btn {
@@ -211,7 +211,8 @@
         .settings-panel {
             position: fixed; top: 0; right: -350px; width: 300px; height: 100vh;
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(20px);
-            border-left: 1px solid var(--glass-border); z-index: 100000;
+            border-left: 1px solid var(--glass-border); 
+            z-index: 1000000; /* REY ABSOLUTO DE LA PANTALLA */
             padding: 40px 25px; box-shadow: -5px 0 30px rgba(0,0,0,0.8);
             transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s ease;
             display: flex; flex-direction: column; gap: 18px; font-family: 'Inter', sans-serif;
@@ -241,13 +242,15 @@
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: rgba(20, 20, 25, 0.8); border: 1px solid var(--glass-border);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 1.8em; z-index: 99999; cursor: pointer; color: var(--text-light);
+            font-size: 1.8em; 
+            z-index: 1000000; /* REY ABSOLUTO DE LA PANTALLA */
+            cursor: pointer; color: var(--text-light);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
 
-        /* ✨ BLINDAJE VISUAL CONTRA LA BARRA NATIVA DE GOOGLE TRANSLATE */
+        /* 🚫 BLINDAJE ABSOLUTO CONTRA LA BARRA DE GOOGLE TRANSLATE */
         .goog-te-banner-frame.skiptranslate, iframe.skiptranslate { display: none !important; }
         body { top: 0px !important; position: static !important; }
         html { top: 0px !important; }
@@ -261,7 +264,7 @@
         }
         body.mostrar-traductor-nativo #google_translate_element {
             display: block !important;
-            position: absolute; top: 90px; right: 60px; z-index: 1000000; 
+            position: absolute; top: 90px; right: 60px; z-index: 90000; 
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(15px);
             padding: 15px; border-radius: 15px; border: 2px solid var(--robles-gold);
             animation: pulseGlow 1.5s infinite alternate;
@@ -294,7 +297,11 @@
             <a href="#" data-lang="es" class="lang-option click-sound">🇪🇸 Español (Original)</a>
             <a href="#" data-lang="en" class="lang-option click-sound">🇺🇸 Inglés (English)</a>
             <a href="#" data-lang="fr" class="lang-option click-sound">🇫🇷 Francés (Français)</a>
+            <a href="#" data-lang="pt" class="lang-option click-sound">🇧🇷 Portugués (Português)</a>
+            <a href="#" data-lang="it" class="lang-option click-sound">🇮🇹 Italiano (Italiano)</a>
+            <a href="#" data-lang="de" class="lang-option click-sound">🇩🇪 Alemán (Deutsch)</a>
             <a href="#" data-lang="hi" class="lang-option click-sound">🇮🇳 Hindi (हिन्दी)</a>
+            <a href="#" data-lang="ja" class="lang-option click-sound">🇯🇵 Japonés (日本語)</a>
             <a href="#" data-lang="ru" class="lang-option click-sound">🇷🇺 Ruso (Русский)</a>
             <div class="lang-divider"></div>
             <a href="#" data-lang="all" class="lang-option click-sound" style="color: var(--robles-gold);">🌍 Más idiomas...</a>
@@ -709,9 +716,13 @@
         let savedSize = localStorage.getItem('robles_fontSize');
         if(savedSize) { htmlElement.style.fontSize = savedSize + '%'; sliderFontSize.value = savedSize; fontSizeDisplay.textContent = savedSize + '%'; }
 
-        // Sincronizar botón de idioma con cookie de Google Translate
+        // Sincronizar botón de idioma con diccionario de Google Translate
         const match = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
-        const flagMap = { 'es': '🇪🇸 Español', 'en': '🇺🇸 Inglés', 'fr': '🇫🇷 Francés', 'hi': '🇮🇳 Hindi', 'ru': '🇷🇺 Ruso' };
+        const flagMap = { 
+            'es': '🇪🇸 Español', 'en': '🇺🇸 Inglés', 'fr': '🇫🇷 Francés', 
+            'pt': '🇧🇷 Portugués', 'it': '🇮🇹 Italiano', 'de': '🇩🇪 Alemán',
+            'hi': '🇮🇳 Hindi', 'ht': '🇭🇹 Haitiano', 'ja': '🇯🇵 Japonés', 'ru': '🇷🇺 Ruso' 
+        };
         if(match && match[1] && flagMap[match[1]]) {
             langBtn.innerHTML = flagMap[match[1]];
         } else if (match && match[1]) {
@@ -743,14 +754,12 @@
             playClickSound();
         });
 
-        // 🛡️ Radar de Clics: Ocultar menú y burbuja
+        // 🛡️ Radar de Clics: Ocultar menú y burbuja inteligentemente
         document.addEventListener('click', (e) => {
-            // 1. Ocultar nuestro menú de banderitas si se hace clic fuera
             if (!e.target.closest('#langFloatingMenu')) {
                 langFloatingMenu.classList.remove('open');
             }
 
-            // 2. Ocultar la cápsula nativa de Google si se hace clic fuera de ella y no en la opción "Más idiomas"
             const isClickInsideGoogle = e.target.closest('#google_translate_element') || e.target.closest('.goog-te-menu-frame') || e.target.closest('iframe.skiptranslate');
             const isClickOnMoreLangs = e.target.closest('.lang-option[data-lang="all"]');
             
@@ -766,7 +775,6 @@
                 playClickSound();
                 
                 if (lang === 'es') {
-                    // Protocolo de Purificación de Cookies (Restaurar Español)
                     bodyElement.classList.remove('mostrar-traductor-nativo');
                     const domain = location.hostname;
                     const rootDomain = domain.includes('.') ? domain.substring(domain.indexOf('.')) : domain;
