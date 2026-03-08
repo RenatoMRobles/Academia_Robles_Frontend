@@ -160,11 +160,11 @@
         /* ✨ FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* ✨ LENGUA DE SEÑAS (Tamaño calibrado a la perfección) */
+        /* ✨ LENGUA DE SEÑAS (Ajustado a 1.35em - El pelín extra) */
         body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
             font-family: 'Gallaudet', sans-serif !important;
-            font-size: 1.2em !important; 
-            line-height: 1.5 !important; 
+            font-size: 1.35em !important; 
+            line-height: 1.6 !important; 
             letter-spacing: 3px !important;
             text-transform: lowercase !important; 
         }
@@ -229,10 +229,10 @@
         
         .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;}
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: rgba(150,150,150,0.3); transition: .4s; border-radius: 34px; }
-        .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background: white; transition: .4s; border-radius: 50%; }
-        input:checked + .toggle-slider { background: var(--robles-gold); }
-        input:checked + .toggle-slider:before { transform: translateX(20px); background: #000; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(150,150,150,0.3); transition: .4s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .toggle-slider { background-color: var(--robles-gold); }
+        input:checked + .toggle-slider:before { transform: translateX(20px); background-color: #000; }
 
         .font-slider { width: 100%; appearance: none; background: rgba(150,150,150,0.3); height: 6px; border-radius: 5px; outline: none; transition: background 0.2s; margin-top: 5px;}
         .font-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--robles-gold); cursor: pointer; }
@@ -797,10 +797,6 @@
                     langFloatingMenu.classList.remove('open');
                 } else {
                     bodyElement.classList.remove('mostrar-traductor-nativo');
-                    
-                    // ✨ ACTUALIZACIÓN INSTANTÁNEA DEL BOTÓN
-                    if (flagMap[lang]) langBtn.innerHTML = flagMap[lang];
-
                     const gtSelect = document.querySelector('.goog-te-combo');
                     if (gtSelect) {
                         gtSelect.value = lang;
