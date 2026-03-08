@@ -90,7 +90,8 @@
         .claustro-header p { color: var(--robles-gold); margin-top: 5px; font-size: 1.1em; letter-spacing: 1px; text-transform: uppercase;}
 
         .claustro-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px;
+            /* Hacemos las tarjetas un poco más anchas para que luzcan mejor */
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 35px;
             padding-bottom: 50px;
         }
 
@@ -108,7 +109,8 @@
 
         /* Contenedor panorámico para las imágenes de Nano Banana 2 */
         .portrait-frame {
-            width: 100%; height: 200px; position: relative;
+            /* Aumentamos la altura de 200 a 270 para mostrar más de la fotografía */
+            width: 100%; height: 270px; position: relative;
             border-bottom: 2px solid var(--glass-border);
             overflow: hidden;
         }
@@ -207,7 +209,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Leonor S. Betancourt</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Decana / Arquitecta IA</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Decana - Rectoría Disciplina</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -219,7 +221,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Dra. Victoria Freud Segura</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Psicología y Lógica</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Psicología y Neuro Ciencias</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -243,7 +245,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Rubí Estéquia Carbonell C.</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Química Estructural</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Química y Biología</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -255,7 +257,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Sofía Atenea Diógenes</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Filosofía Crítica</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Filosofía y Epistemología</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -279,7 +281,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Máximo Axel Magnus Velóz</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Física Avanzada</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Física</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -290,7 +292,7 @@
                     <div class="online-dot"></div>
                 </div>
                 <div class="profesor-info">
-                    <h3 style="font-size: 1.1em; line-height: 1.2;">Prof. Beakman</h3>
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Prof. Beakman y compañía</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Ciencias y Experimentos</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
@@ -303,19 +305,19 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Carlota Polanco P. de Alcurnia</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Buenos Modales, Etiqueta y Protocolo</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Buenos Modales, Etiqueta y Diseño</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
                 <div class="portrait-frame">
-                    <img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img">
+                    <img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img" onerror="this.src='Don y Herb.png'">
                     <div class="online-dot"></div>
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Don y Herb</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Asistentes de Laboratorio</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Comentaristas Sarcásticos</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -327,7 +329,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Doña Tere</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Dueña de Cafetería y Gastronomía</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Dueña de la Cafetería</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -394,12 +396,12 @@
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
                 <div class="portrait-frame">
-                    <img src="Mia Trabajando.png" alt="Mía" class="portrait-img">
+                    <img src="Mía Trabajando.png" alt="Mía" class="portrait-img" onerror="this.src='Mia Trabajando.png'">
                     <div class="online-dot"></div>
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Mía Gioconda Velázquez</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Historia del Arte y Estética Visual</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Las 9 Bellas Artes</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
@@ -447,7 +449,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Vox 114</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Bóveda Info. y Biblioteca Holográfica</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Bóveda Información y Biblioteca Holográfica</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Plática</a>
                 </div>
             </div>
