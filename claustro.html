@@ -127,8 +127,9 @@
 
         /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        @import url('https://fonts.cdnfonts.com/css/sign-language'); 
+        /* Doble importación de Lengua de Señas para garantizar funcionamiento */
         @import url('https://fonts.cdnfonts.com/css/gallaudet'); 
+        @font-face { font-family: 'SignLanguageFallback'; src: url('https://db.onlinewebfonts.com/t/d137b01988899eb7d169e61c37b3f99e.woff') format('woff'); }
 
         html { transition: font-size 0.3s ease; }
 
@@ -157,11 +158,12 @@
         /* FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* LENGUA DE SEÑAS (Forzando la purificación visual) */
+        /* LENGUA DE SEÑAS (Corrección Suprema) */
         body.modo-senas, body.modo-senas * {
-            font-family: 'Sign Language', 'Gallaudet', sans-serif !important;
-            font-size: 1.15em; 
-            letter-spacing: 2px;
+            font-family: 'Gallaudet', 'SignLanguageFallback', sans-serif !important;
+            font-size: 1.25em !important; 
+            letter-spacing: 3px !important;
+            text-transform: uppercase !important; /* Las fuentes de señas suelen mapear mejor en mayúsculas */
         }
 
         /* PANEL LATERAL DE CONFIGURACIÓN */
@@ -171,9 +173,10 @@
             border-left: 1px solid var(--glass-border); z-index: 100000;
             padding: 40px 25px; box-shadow: -5px 0 30px rgba(0,0,0,0.8);
             transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s ease;
-            display: flex; flex-direction: column; gap: 20px; font-family: 'Inter', sans-serif;
+            display: flex; flex-direction: column; gap: 18px; font-family: 'Inter', sans-serif;
             overflow-y: auto;
         }
+        .settings-panel::-webkit-scrollbar { width: 5px; }
         .settings-panel.open { right: 0; }
         .settings-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(150,150,150,0.2); padding-bottom: 10px;}
         .settings-header h2 { color: var(--robles-gold); font-size: 1.4em; margin: 0; font-family: 'Playfair Display', serif;}
@@ -192,6 +195,13 @@
 
         .font-slider { width: 100%; appearance: none; background: rgba(150,150,150,0.3); height: 6px; border-radius: 5px; outline: none; transition: background 0.2s; margin-top: 5px;}
         .font-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--robles-gold); cursor: pointer; }
+        
+        .custom-select {
+            width: 100%; padding: 8px; border-radius: 8px; background: rgba(150,150,150,0.1); 
+            color: var(--text-light); border: 1px solid var(--glass-border); outline: none; font-family: 'Inter', sans-serif;
+            cursor: pointer;
+        }
+        .custom-select option { background: #1a1a20; color: #fff; }
 
         .btn-config-flotante {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
@@ -202,6 +212,11 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
+
+        /* Ocultar artefactos de Google Translate para estética limpia */
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt { display: none !important; }
+        body { top: 0px !important; }
+        font { background: transparent !important; color: inherit !important; box-shadow: none !important; }
 
         /* 📱 RESPONSIVIDAD SUPREMA */
         @media (max-width: 768px) {
@@ -220,53 +235,58 @@
 
     <canvas id="emotoCanvas"></canvas>
 
+    <div id="google_translate_element" style="display:none;"></div>
+
     <button class="btn-config-flotante click-sound hover-sound" id="btnSettings" title="Centro de Bienestar Visual">⚙️</button>
 
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-header">
-            <h2>Bienestar Sensorial</h2>
+            <h2>Ajustes Globales</h2>
             <button class="close-settings click-sound hover-sound" id="btnCloseSettings">✖</button>
         </div>
         
         <div class="setting-item">
-            <label>Modo Claro 
-                <label class="toggle-switch"><input type="checkbox" id="toggleLight" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
+            <label style="color: var(--robles-gold);">Traductor Universal</label>
+            <select id="languageSelect" class="custom-select click-sound">
+                <option value="es">🇪🇸 Español (Original)</option>
+                <option value="en">🇺🇸 Inglés (English)</option>
+                <option value="fr">🇫🇷 Francés (Français)</option>
+                <option value="pt">🇧🇷 Portugués (Português)</option>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="de">🇩🇪 Alemán (Deutsch)</option>
+                <option value="hi">🇮🇳 Hindi (हिन्दी)</option>
+                <option value="ht">🇭🇹 Criollo Haitiano (Kreyòl)</option>
+                <option value="ja">🇯🇵 Japonés (日本語)</option>
+            </select>
+        </div>
+
+        <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px;">
+            <label>Modo Claro <label class="toggle-switch"><input type="checkbox" id="toggleLight" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
         <div class="setting-item">
-            <label>Modo Sepia 
-                <label class="toggle-switch"><input type="checkbox" id="toggleSepia" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
+            <label>Modo Sepia <label class="toggle-switch"><input type="checkbox" id="toggleSepia" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
         <div class="setting-item">
-            <label>Alto Contraste 
-                <label class="toggle-switch"><input type="checkbox" id="toggleContrast" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
+            <label>Alto Contraste <label class="toggle-switch"><input type="checkbox" id="toggleContrast" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
         <div class="setting-item">
-            <label>Fuente Cómoda (Dyslexic)
-                <label class="toggle-switch"><input type="checkbox" id="toggleFont" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
+            <label>Fuente Cómoda (Dyslexic) <label class="toggle-switch"><input type="checkbox" id="toggleFont" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
         <div class="setting-item">
-            <label>Lengua de Señas (LSM/ASL)
-                <label class="toggle-switch"><input type="checkbox" id="toggleSign" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
+            <label>Lengua de Señas (LSM/ASL) <label class="toggle-switch"><input type="checkbox" id="toggleSign" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
         </div>
 
-        <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px; margin-top: 5px;">
+        <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px;">
             <label style="color: var(--robles-gold);">Asistencia Auditiva</label>
-            <label>Text-to-Speech Legacy 
-                <label class="toggle-switch"><input type="checkbox" id="toggleTTS" class="click-sound"><span class="toggle-slider hover-sound"></span></label>
-            </label>
-            <div style="font-size: 0.75em; color: var(--text-muted); margin-top: -5px;">Haz clic en cualquier texto para escucharlo.</div>
+            <label>Lector de Texto (Voz) <label class="toggle-switch"><input type="checkbox" id="toggleTTS" class="click-sound"><span class="toggle-slider hover-sound"></span></label></label>
+            <div style="font-size: 0.75em; color: var(--text-muted); margin-top: -5px;">Haz clic en textos para escuchar.</div>
         </div>
 
-        <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px; margin-top: 5px;">
+        <div class="setting-item" style="border-top: 1px solid rgba(150,150,150,0.2); padding-top: 15px;">
             <label style="margin-bottom: 2px;">Tamaño de Fuente: <span id="fontSizeDisplay" style="color: var(--robles-gold);">100%</span></label>
             <input type="range" min="80" max="150" value="100" class="font-slider hover-sound" id="sliderFontSize">
         </div>
@@ -305,10 +325,7 @@
         <div class="claustro-grid">
             
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Regina Trabajando.png" alt="Regina Valentina" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Regina Trabajando.png" alt="Regina Valentina" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Regina Valentina</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Directora / Psicología Animal</div>
@@ -317,10 +334,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Leonor Trabajando.png" alt="Leonor Severina" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Leonor Trabajando.png" alt="Leonor Severina" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Leonor S. Betancourt</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Decana - Rectoría Disciplina</div>
@@ -329,10 +343,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Victoria Trabajando.png" alt="Victoria Freud" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Victoria Trabajando.png" alt="Victoria Freud" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Dra. Victoria Freud Segura</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Psicología y Neuro Ciencias</div>
@@ -341,22 +352,16 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Doña Tere Trabajando.png" alt="Doña Tere" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Doña Tere Trabajando.png" alt="Doña Tere" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Doña Tere</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Dueña de la Cafetería y Gastronomía</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Dueña de Cafetería y Gastronomía</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Miyuki Trabajando.png" alt="Miyuki Katsura" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Miyuki Trabajando.png" alt="Miyuki Katsura" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Miyuki Katsura</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Instructora del Buen Orden</div>
@@ -365,10 +370,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Mía Trabajando.png" alt="Mía" class="portrait-img" onerror="this.src='Mia Trabajando.png'">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Mía Trabajando.png" alt="Mía" class="portrait-img" onerror="this.src='Mia Trabajando.png'"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Mía Gioconda Velázquez</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Historia del Arte y Estética Visual</div>
@@ -377,10 +379,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Carlota Trabajando.png" alt="Carlota" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Carlota Trabajando.png" alt="Carlota" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Carlota Polanco P. de Alcurnia</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Buenos Modales, Etiqueta y Protocolo</div>
@@ -389,10 +388,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Atenea Trabajando.png" alt="Sofía Atenea" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Atenea Trabajando.png" alt="Sofía Atenea" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Sofía Atenea Diógenes</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Filosofía y Epistemología</div>
@@ -401,10 +397,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Lorena Trabajando.png" alt="Lorena" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Lorena Trabajando.png" alt="Lorena" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Lorena Lira Elocuente R.</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Idiomas</div>
@@ -413,10 +406,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Ciro Trabajando.png" alt="Ciro Pascual" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Ciro Trabajando.png" alt="Ciro Pascual" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Ciro P. Euclídes Ramanujan</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Matemáticas Aplicadas</div>
@@ -425,10 +415,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Rubi Trabajando.png" alt="Rubí Estéquia" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Rubi Trabajando.png" alt="Rubí Estéquia" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Rubí Estéquia Carbonell C.</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Química y Biología</div>
@@ -437,10 +424,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Maximo Trabajando.png" alt="Máximo" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Maximo Trabajando.png" alt="Máximo" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Máximo Axel Magnus Velóz</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Física Avanzada</div>
@@ -449,22 +433,16 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Guillermo Trabajando.png" alt="Guillermo" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Guillermo Trabajando.png" alt="Guillermo" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Guillermo Camarena A. T.</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Ciencias de la Computación y Sistemas</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Ciencias de Computación y Sistemas</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Catalyna Trabajando.png" alt="Catalyna" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Catalyna Trabajando.png" alt="Catalyna" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Catalyna F. Clara Severina</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Redes y CCNA</div>
@@ -473,10 +451,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Ricardo Trabajando.png" alt="Ricardo" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Ricardo Trabajando.png" alt="Ricardo" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Ricardo D. Próspero Tostón</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Economía, Admón. y Finanzas</div>
@@ -485,10 +460,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Herodoto Trabajando.png" alt="Herodoto" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Herodoto Trabajando.png" alt="Herodoto" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Herodoto Cronos N. Troyano</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Historia Universal</div>
@@ -497,10 +469,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Taylor Trabajando.png" alt="Taylor" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Taylor Trabajando.png" alt="Taylor" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Taylor Carpenter V. Bildung</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Oficios (Carpintería, Albañilería)</div>
@@ -509,10 +478,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img" onerror="this.src='Don y Herb.png'">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img" onerror="this.src='Don y Herb.png'"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Don y Herb</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Comentaristas Sarcásticos</div>
@@ -521,10 +487,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Beakman Trabajando.png" alt="Beakman" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Beakman Trabajando.png" alt="Beakman" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Prof. Beakman y compañía</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Ciencias y Experimentos</div>
@@ -533,10 +496,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Goyo Trabajando.png" alt="Goyo" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Goyo Trabajando.png" alt="Goyo" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Don Goyo</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Chofer, Todólogo y Vida Práctica</div>
@@ -545,10 +505,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Hermenegilda Trabajando.png" alt="Hermenegilda" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Hermenegilda Trabajando.png" alt="Hermenegilda" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Hermenegilda Trismegista P.</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Mística Bibliotecaria</div>
@@ -557,10 +514,7 @@
             </div>
 
             <div class="profesor-card hover-sound">
-                <div class="portrait-frame">
-                    <img src="Vox Trabajando.png" alt="Vox 114" class="portrait-img">
-                    <div class="online-dot"></div>
-                </div>
+                <div class="portrait-frame"><img src="Vox Trabajando.png" alt="Vox 114" class="portrait-img"><div class="online-dot"></div></div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.1em; line-height: 1.2;">Vox 114</h3>
                     <div class="prof-specialty" style="font-size: 0.8em;">Bóveda Info. y Biblioteca Holográfica</div>
@@ -572,46 +526,36 @@
 
     </main>
 
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'es,en,fr,pt,it,de,hi,ht,ja', autoDisplay: false}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
-        function initAudio() {
-            if (!audioCtx) { audioCtx = new AudioContext(); }
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-        }
+        function initAudio() { if (!audioCtx) { audioCtx = new AudioContext(); } if (audioCtx.state === 'suspended') { audioCtx.resume(); } }
 
         function playHoverSound() {
             initAudio(); if (!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'sine'; 
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); 
-            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); 
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
-            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.04);
+            const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.04); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime); gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.04);
         }
 
         function playClickSound() {
             initAudio(); if (!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'sine'; 
-            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); 
-            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-            gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); 
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
-            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+            const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.08); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime); gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.01); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08); 
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.08);
         }
 
-        window.addEventListener('mousedown', initAudio, { once: true });
-        window.addEventListener('keydown', initAudio, { once: true });
-
+        window.addEventListener('mousedown', initAudio, { once: true }); window.addEventListener('keydown', initAudio, { once: true });
         document.querySelectorAll('.hover-sound').forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
         document.querySelectorAll('.click-sound').forEach(el => { el.addEventListener('mousedown', playClickSound); });
 
@@ -620,45 +564,33 @@
 
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorOutline = document.querySelector('.cursor-outline');
-            let outlineX = mouseX, outlineY = mouseY;
-            let targetScale = 1, currentScale = 1;
-
+            let outlineX = mouseX, outlineY = mouseY; let targetScale = 1, currentScale = 1;
             function animateCursor() {
-                outlineX += (mouseX - outlineX) * 0.4; 
-                outlineY += (mouseY - outlineY) * 0.4;
-                currentScale += (targetScale - currentScale) * 0.2;
+                outlineX += (mouseX - outlineX) * 0.4; outlineY += (mouseY - outlineY) * 0.4; currentScale += (targetScale - currentScale) * 0.2;
                 if(cursorOutline) cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) scale(${currentScale})`;
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
-
-            document.querySelectorAll('a, button, .profesor-card, .user-profile, .toggle-slider').forEach(el => {
+            document.querySelectorAll('a, button, .profesor-card, .user-profile, .toggle-slider, select').forEach(el => {
                 el.addEventListener('mouseenter', () => { if(cursorOutline) { cursorOutline.classList.add('hover'); targetScale = 1.5; } });
                 el.addEventListener('mouseleave', () => { if(cursorOutline) { cursorOutline.classList.remove('hover'); targetScale = 1; } });
             });
         }
 
-        const canvas = document.getElementById('emotoCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        
+        const canvas = document.getElementById('emotoCanvas'); const ctx = canvas.getContext('2d'); let particles = [];
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1; 
-                this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2;
+                this.size = Math.random() * 2 + 1; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2;
                 this.color = Math.random() > 0.5 ? 'rgba(255, 202, 40, 0.1)' : 'rgba(142, 36, 170, 0.1)'; 
             }
             update() {
                 this.x += this.speedX; this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                let dx = mouseX - this.x, dy = mouseY - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1; if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                let dx = mouseX - this.x, dy = mouseY - this.y, distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < 150) { this.x += dx * 0.01; this.y += dy * 0.01; }
             }
             draw() {
@@ -669,36 +601,18 @@
                 ctx.closePath(); ctx.fill();
             }
         }
-
-        function initParticles() {
-            particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 18000;
-            for (let i = 0; i < numberOfParticles; i++) { particles.push(new Particle()); }
-        }
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); }
-            requestAnimationFrame(animateParticles);
-        }
+        function initParticles() { particles = []; const num = (canvas.width * canvas.height) / 18000; for (let i = 0; i < num; i++) { particles.push(new Particle()); } }
+        function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); } requestAnimationFrame(animateParticles); }
         initParticles(); animateParticles();
 
-        // 🧠 CEREBRO DE BIENESTAR SENSORIAL
-        const btnSettings = document.getElementById('btnSettings');
-        const btnCloseSettings = document.getElementById('btnCloseSettings');
-        const settingsPanel = document.getElementById('settingsPanel');
-        
-        const toggleLight = document.getElementById('toggleLight');
-        const toggleSepia = document.getElementById('toggleSepia');
-        const toggleContrast = document.getElementById('toggleContrast');
-        const toggleFont = document.getElementById('toggleFont');
-        const toggleSign = document.getElementById('toggleSign');
-        const toggleTTS = document.getElementById('toggleTTS');
-        const sliderFontSize = document.getElementById('sliderFontSize');
-        const fontSizeDisplay = document.getElementById('fontSizeDisplay');
-        const bodyElement = document.body;
-        const htmlElement = document.documentElement;
+        // 🧠 CEREBRO DE BIENESTAR SENSORIAL Y TRADUCCIÓN
+        const btnSettings = document.getElementById('btnSettings'); const btnCloseSettings = document.getElementById('btnCloseSettings'); const settingsPanel = document.getElementById('settingsPanel');
+        const toggleLight = document.getElementById('toggleLight'); const toggleSepia = document.getElementById('toggleSepia'); const toggleContrast = document.getElementById('toggleContrast');
+        const toggleFont = document.getElementById('toggleFont'); const toggleSign = document.getElementById('toggleSign'); const toggleTTS = document.getElementById('toggleTTS');
+        const sliderFontSize = document.getElementById('sliderFontSize'); const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+        const selectLanguage = document.getElementById('languageSelect');
+        const bodyElement = document.body; const htmlElement = document.documentElement;
 
-        // Apertura y Cierre
         btnSettings.addEventListener('click', () => { settingsPanel.classList.add('open'); playClickSound(); });
         btnCloseSettings.addEventListener('click', () => { settingsPanel.classList.remove('open'); playClickSound(); });
 
@@ -714,7 +628,7 @@
                         node.nodeValue = node.originalText;
                     }
                 }
-            } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'BUTTON'].includes(node.nodeName)) {
+            } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'BUTTON', 'OPTION'].includes(node.nodeName)) {
                 for (let i = 0; i < node.childNodes.length; i++) { traverseTextNodes(node.childNodes[i], action); }
             }
         }
@@ -727,7 +641,7 @@
         
         if(localStorage.getItem('robles_sign') === 'true') { 
             bodyElement.classList.add('modo-senas'); toggleSign.checked = true; 
-            setTimeout(() => traverseTextNodes(document.body, 'remove'), 100); // Dar tiempo al render
+            setTimeout(() => traverseTextNodes(document.body, 'remove'), 300); // Retraso para asegurar que la fuente cargue
         }
 
         let ttsEnabled = localStorage.getItem('robles_tts') === 'true';
@@ -736,7 +650,11 @@
         let savedSize = localStorage.getItem('robles_fontSize');
         if(savedSize) { htmlElement.style.fontSize = savedSize + '%'; sliderFontSize.value = savedSize; fontSizeDisplay.textContent = savedSize + '%'; }
 
-        // Escuchadores de Interacción (Guardado automático)
+        // Sincronizar select de idioma con cookie de Google Translate
+        const match = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
+        if(match && match[1]) { selectLanguage.value = match[1]; }
+
+        // Eventos
         toggleLight.addEventListener('change', (e) => { bodyElement.classList.toggle('modo-claro', e.target.checked); localStorage.setItem('robles_light', e.target.checked); playClickSound(); });
         toggleSepia.addEventListener('change', (e) => { bodyElement.classList.toggle('modo-sepia', e.target.checked); localStorage.setItem('robles_sepia', e.target.checked); playClickSound(); });
         toggleContrast.addEventListener('change', (e) => { bodyElement.classList.toggle('alto-contraste', e.target.checked); localStorage.setItem('robles_contrast', e.target.checked); playClickSound(); });
@@ -749,45 +667,49 @@
             playClickSound();
         });
 
-        toggleTTS.addEventListener('change', (e) => {
-            ttsEnabled = e.target.checked; localStorage.setItem('robles_tts', ttsEnabled); playClickSound();
-            if (!ttsEnabled) window.speechSynthesis.cancel();
+        toggleTTS.addEventListener('change', (e) => { ttsEnabled = e.target.checked; localStorage.setItem('robles_tts', ttsEnabled); playClickSound(); if (!ttsEnabled) window.speechSynthesis.cancel(); });
+
+        sliderFontSize.addEventListener('input', (e) => { let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size); });
+
+        selectLanguage.addEventListener('change', (e) => {
+            const lang = e.target.value; playClickSound();
+            if(lang === 'es') {
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + location.hostname + "; path=/;";
+            } else {
+                document.cookie = `googtrans=/es/${lang}; path=/`;
+                document.cookie = `googtrans=/es/${lang}; domain=${location.hostname}; path=/`;
+            }
+            setTimeout(() => { window.location.reload(); }, 300);
         });
 
-        sliderFontSize.addEventListener('input', (e) => {
-            let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size);
-        });
-
-        // 🗣️ Lector Text-to-Speech (Buscador de Voz Femenina)
+        // 🗣️ Lector Text-to-Speech Femenino
         let systemVoices = [];
         window.speechSynthesis.onvoiceschanged = () => { systemVoices = window.speechSynthesis.getVoices(); };
 
         document.body.addEventListener('click', (e) => {
             if (ttsEnabled) {
-                // Evitar leer los controles del panel
-                if(e.target.closest('.settings-panel') || e.target.closest('.btn-config-flotante')) return;
-                
+                if(e.target.closest('.settings-panel') || e.target.closest('.btn-config-flotante') || e.target.tagName === 'SELECT') return;
                 let textToRead = e.target.innerText || e.target.textContent;
                 if (textToRead && textToRead.trim() !== '') {
                     window.speechSynthesis.cancel(); 
                     const utterance = new SpeechSynthesisUtterance(textToRead);
-                    utterance.lang = 'es-MX'; 
+                    
+                    // Si la página fue traducida, intentar ajustar el idioma del lector
+                    const currentLangMatch = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
+                    let targetLang = 'es-MX';
+                    if(currentLangMatch && currentLangMatch[1]) { targetLang = currentLangMatch[1]; }
+                    
+                    utterance.lang = targetLang; 
                     utterance.rate = 0.95;
                     
-                    // Buscar voz femenina
                     if(systemVoices.length === 0) systemVoices = window.speechSynthesis.getVoices();
                     
-                    let femaleVoice = systemVoices.find(v => 
-                        v.lang.startsWith('es') && 
-                        (v.name.includes('Sabina') || v.name.includes('Paulina') || v.name.includes('Helena') || 
-                         v.name.includes('Laura') || v.name.includes('Monica') || v.name.toLowerCase().includes('female') || 
-                         v.name.toLowerCase().includes('mujer'))
-                    );
+                    // Buscar voz femenina que coincida con el idioma
+                    let femaleVoice = systemVoices.find(v => v.lang.startsWith(targetLang.split('-')[0]) && 
+                        (v.name.includes('Sabina') || v.name.includes('Paulina') || v.name.includes('Helena') || v.name.includes('Laura') || v.name.includes('Monica') || v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('mujer') || v.name.toLowerCase().includes('zira')));
                     
-                    // Respaldos si no encuentra el nombre exacto
-                    if(!femaleVoice) femaleVoice = systemVoices.find(v => v.lang === 'es-MX');
-                    if(!femaleVoice) femaleVoice = systemVoices.find(v => v.lang.startsWith('es'));
-                    
+                    if(!femaleVoice) femaleVoice = systemVoices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
                     if(femaleVoice) utterance.voice = femaleVoice;
                     
                     window.speechSynthesis.speak(utterance);
