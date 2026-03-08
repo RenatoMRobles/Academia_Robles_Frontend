@@ -127,7 +127,7 @@
 
         /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        @import url('https://fonts.cdnfonts.com/css/american-sign-language-2'); /* Fuente robusta de señas */
+        @import url('https://fonts.cdnfonts.com/css/american-sign-language-2'); /* Nombre correcto importado */
 
         html { transition: font-size 0.3s ease; }
 
@@ -156,11 +156,12 @@
         /* FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* LENGUA DE SEÑAS (Blindaje Absoluto) */
+        /* LENGUA DE SEÑAS (Nombre de fuente corregido y protegido) */
         body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
-            font-family: 'American Sign Language', sans-serif !important;
-            font-size: 1.5em !important; 
-            letter-spacing: 3px !important;
+            font-family: 'American Sign Language 2', sans-serif !important;
+            font-size: 1.6em !important; 
+            line-height: 1.8 !important; /* Más espacio vertical para que las manos no choquen */
+            letter-spacing: 5px !important;
             text-transform: uppercase !important; 
         }
 
@@ -216,11 +217,11 @@
         }
         .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
 
-        /* 🚫 ANIQUILACIÓN DE LA BARRA DE GOOGLE TRANSLATE */
+        /* 🚫 BLINDAJE ABSOLUTO CONTRA LA BARRA DE GOOGLE TRANSLATE */
         .goog-te-banner-frame.skiptranslate, iframe.skiptranslate { display: none !important; }
         body { top: 0px !important; position: static !important; }
         html { top: 0px !important; }
-        .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; } /* Clase moderna de Google */
+        .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; } /* Oculta el popup emergente de Google */
         #goog-gt-tt { display: none !important; }
 
         /* 📱 RESPONSIVIDAD SUPREMA */
@@ -638,7 +639,7 @@
                         node.nodeValue = node.originalText;
                     }
                 }
-            } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'BUTTON', 'OPTION'].includes(node.nodeName)) {
+            } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'BUTTON', 'OPTION', 'SELECT'].includes(node.nodeName)) {
                 for (let i = 0; i < node.childNodes.length; i++) { traverseTextNodes(node.childNodes[i], action); }
             }
         }
@@ -652,7 +653,7 @@
         
         if(localStorage.getItem('robles_sign') === 'true') { 
             bodyElement.classList.add('modo-senas'); toggleSign.checked = true; 
-            setTimeout(() => traverseTextNodes(document.body, 'remove'), 300); // Retraso para asegurar que la fuente cargue
+            setTimeout(() => traverseTextNodes(document.body, 'remove'), 300);
         }
 
         let ttsEnabled = localStorage.getItem('robles_tts') === 'true';
@@ -683,20 +684,30 @@
 
         sliderFontSize.addEventListener('input', (e) => { let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size); });
 
-        // Blindaje del Traductor
+        // 🌐 BABELFISH: Control Maestro de Google Translate
         selectLanguage.addEventListener('change', (e) => {
-            const lang = e.target.value; playClickSound();
+            const lang = e.target.value; 
+            playClickSound();
             
-            // Borrar cualquier rastro de cookies anteriores de Google para forzar el cambio
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + location.hostname + "; path=/;";
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + location.hostname + "; path=/;";
-            
-            if(lang !== 'es') {
-                document.cookie = `googtrans=/es/${lang}; path=/`;
-                document.cookie = `googtrans=/es/${lang}; domain=${location.hostname}; path=/`;
+            if (lang === 'es') {
+                // Si elige original, borramos cookies y recargamos para purificar a fondo
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + location.hostname + "; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + location.hostname + "; path=/;";
+                window.location.reload();
+            } else {
+                // Si elige otro idioma, forzamos el menú invisible de Google a cambiar en vivo
+                const gtSelect = document.querySelector('.goog-te-combo');
+                if (gtSelect) {
+                    gtSelect.value = lang;
+                    gtSelect.dispatchEvent(new Event('change'));
+                } else {
+                    // Fallback por si Google tardó en cargar
+                    document.cookie = `googtrans=/es/${lang}; path=/`;
+                    document.cookie = `googtrans=/es/${lang}; domain=${location.hostname}; path=/`;
+                    window.location.reload();
+                }
             }
-            setTimeout(() => { window.location.reload(); }, 300);
         });
 
         // 🗣️ Lector Text-to-Speech Femenino
