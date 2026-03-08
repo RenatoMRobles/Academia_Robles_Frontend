@@ -13,6 +13,12 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        @import url('https://fonts.cdnfonts.com/css/opendyslexic');
+        @import url('https://fonts.cdnfonts.com/css/sign-language');
+        @import url('https://fonts.cdnfonts.com/css/gallaudet');
+    </style>
+
+    <style>
         :root {
             --robles-purple: #8e24aa;
             --robles-gold: #ffca28;
@@ -125,15 +131,9 @@
 
         #emotoCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.4; }
 
-        /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
-        @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        /* Triple blindaje de Lengua de Señas */
-        @import url('https://fonts.cdnfonts.com/css/asl'); 
-        @import url('https://fonts.cdnfonts.com/css/sign-language'); 
-
         html { transition: font-size 0.3s ease; }
 
-        /* MODO CLARO */
+        /* ✨ MODO CLARO */
         body.modo-claro {
             --bg-dark: #f0f4f8; --panel-bg: rgba(255, 255, 255, 0.9); --text-light: #2d2d35; --text-muted: #666;
             --robles-gold: #b38b00; --glass-border: rgba(0, 0, 0, 0.15);
@@ -146,10 +146,10 @@
         body.modo-claro .lang-option { color: #2d2d35; }
         body.modo-claro .lang-divider { background: rgba(0,0,0,0.1); }
 
-        /* MODO SEPIA */
+        /* ✨ MODO SEPIA */
         body.modo-sepia { filter: sepia(0.5) contrast(0.95); }
 
-        /* ALTO CONTRASTE */
+        /* ✨ ALTO CONTRASTE */
         body.alto-contraste {
             --bg-dark: #000000; --panel-bg: #000000; --text-light: #ffffff; --text-muted: #e0e0e0;
             --robles-gold: #ffff00; --robles-purple: #ff00ff; --glass-border: #ffffff;
@@ -158,22 +158,22 @@
         body.alto-contraste .portrait-img { filter: contrast(1.3); }
         body.alto-contraste .sidebar { background: #000; }
 
-        /* FUENTE DYSLEXIC */
+        /* ✨ FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* LENGUA DE SEÑAS (Blindaje Supremo) */
-        body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
-            font-family: 'ASL', 'Sign Language', 'Gallaudet', sans-serif !important;
+        /* ✨ LENGUA DE SEÑAS (Protocolo de Forzado Absoluto) */
+        body.modo-senas, body.modo-senas * {
+            font-family: 'Sign Language', 'Gallaudet', sans-serif !important;
             font-size: 1.5em !important; 
-            line-height: 1.6 !important; 
-            letter-spacing: 2px !important;
+            line-height: 1.8 !important; 
+            letter-spacing: 4px !important;
             text-transform: uppercase !important; 
         }
 
-        /* FUENTE GIGANTE */
-        body.fuente-gigante { font-size: 140% !important; }
-        body.fuente-gigante .profesor-card h3 { font-size: 1.5em !important; }
-        body.fuente-gigante .prof-specialty { font-size: 1em !important; }
+        /* ✨ FUENTE GIGANTE */
+        body.fuente-gigante { font-size: 150% !important; }
+        body.fuente-gigante .profesor-card h3 { font-size: 1.6em !important; }
+        body.fuente-gigante .prof-specialty { font-size: 1.1em !important; }
 
         /* 🌍 SELECTOR DE IDIOMAS FLOTANTE (Esquina Superior Derecha) */
         .lang-floating-menu {
@@ -207,7 +207,7 @@
         .lang-option:hover { background: rgba(255, 202, 40, 0.15); color: var(--robles-gold); }
         .lang-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 5px 0; }
 
-        /* PANEL LATERAL DE CONFIGURACIÓN */
+        /* ✨ PANEL LATERAL DE CONFIGURACIÓN */
         .settings-panel {
             position: fixed; top: 0; right: -350px; width: 300px; height: 100vh;
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(20px);
@@ -247,21 +247,21 @@
         }
         .btn-config-flotante:hover { transform: rotate(90deg) scale(1.1); border-color: var(--robles-gold); color: var(--robles-gold);}
 
-        /* 🚫 BLINDAJE ABSOLUTO CONTRA LA BARRA DE GOOGLE TRANSLATE */
+        /* ✨ BLINDAJE VISUAL CONTRA LA BARRA NATIVA DE GOOGLE TRANSLATE */
         .goog-te-banner-frame.skiptranslate, iframe.skiptranslate { display: none !important; }
         body { top: 0px !important; position: static !important; }
         html { top: 0px !important; }
         .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; } 
         #goog-gt-tt { display: none !important; }
 
-        /* WIDGET NATIVO DE GOOGLE TRANSLATE (Cápsula Elegante Top Right con Pulso) */
+        /* ✨ CÁPSULA FLOTANTE DE GOOGLE (Luminosa y Elegante) */
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 10px rgba(255, 202, 40, 0.2), 0 10px 30px rgba(0,0,0,0.8); }
             100% { box-shadow: 0 0 25px rgba(255, 202, 40, 0.8), 0 10px 30px rgba(0,0,0,0.8); }
         }
         body.mostrar-traductor-nativo #google_translate_element {
             display: block !important;
-            position: fixed; top: 90px; right: 40px; z-index: 1000000; 
+            position: absolute; top: 90px; right: 60px; z-index: 1000000; 
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(15px);
             padding: 15px; border-radius: 15px; border: 2px solid var(--robles-gold);
             animation: pulseGlow 1.5s infinite alternate;
@@ -277,7 +277,8 @@
             .claustro-layout { padding: 20px; overflow-y: visible; }
             .claustro-grid { grid-template-columns: 1fr; gap: 40px; }
             .portrait-frame { height: 320px; }
-            .lang-floating-menu { top: 15px; right: 15px; } /* Ajuste para móviles */
+            .lang-floating-menu { top: 15px; right: 15px; } 
+            body.mostrar-traductor-nativo #google_translate_element { right: 15px; top: 70px; }
         }
     </style>
 </head>
@@ -290,7 +291,7 @@
     <div class="lang-floating-menu notranslate" id="langFloatingMenu">
         <button class="lang-btn click-sound hover-sound" id="langBtn">🇪🇸 Español</button>
         <div class="lang-dropdown" id="langDropdown">
-            <a href="#" data-lang="es" class="lang-option click-sound">🇪🇸 Español (Restaurar)</a>
+            <a href="#" data-lang="es" class="lang-option click-sound">🇪🇸 Español (Original)</a>
             <a href="#" data-lang="en" class="lang-option click-sound">🇺🇸 Inglés (English)</a>
             <a href="#" data-lang="fr" class="lang-option click-sound">🇫🇷 Francés (Français)</a>
             <a href="#" data-lang="hi" class="lang-option click-sound">🇮🇳 Hindi (हिन्दी)</a>
@@ -712,9 +713,9 @@
         const match = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
         const flagMap = { 'es': '🇪🇸 Español', 'en': '🇺🇸 Inglés', 'fr': '🇫🇷 Francés', 'hi': '🇮🇳 Hindi', 'ru': '🇷🇺 Ruso' };
         if(match && match[1] && flagMap[match[1]]) {
-            langBtn.textContent = flagMap[match[1]];
+            langBtn.innerHTML = flagMap[match[1]];
         } else if (match && match[1]) {
-            langBtn.textContent = '🌍 Traducido';
+            langBtn.innerHTML = '🌍 Traducido';
         }
 
         // Eventos de Interruptores
@@ -735,13 +736,28 @@
 
         sliderFontSize.addEventListener('input', (e) => { let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size); });
 
-        // 🌍 LÓGICA DEL MENÚ DE IDIOMAS FLOTANTE
+        // 🌍 LÓGICA DEL MENÚ DE IDIOMAS Y BURBUJA NATIVA
         langBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             langFloatingMenu.classList.toggle('open');
             playClickSound();
         });
-        document.addEventListener('click', () => langFloatingMenu.classList.remove('open'));
+
+        // 🛡️ Radar de Clics: Ocultar menú y burbuja
+        document.addEventListener('click', (e) => {
+            // 1. Ocultar nuestro menú de banderitas si se hace clic fuera
+            if (!e.target.closest('#langFloatingMenu')) {
+                langFloatingMenu.classList.remove('open');
+            }
+
+            // 2. Ocultar la cápsula nativa de Google si se hace clic fuera de ella y no en la opción "Más idiomas"
+            const isClickInsideGoogle = e.target.closest('#google_translate_element') || e.target.closest('.goog-te-menu-frame') || e.target.closest('iframe.skiptranslate');
+            const isClickOnMoreLangs = e.target.closest('.lang-option[data-lang="all"]');
+            
+            if (!isClickInsideGoogle && !isClickOnMoreLangs && bodyElement.classList.contains('mostrar-traductor-nativo')) {
+                bodyElement.classList.remove('mostrar-traductor-nativo');
+            }
+        });
 
         langOptions.forEach(opt => {
             opt.addEventListener('click', (e) => {
@@ -750,7 +766,7 @@
                 playClickSound();
                 
                 if (lang === 'es') {
-                    // Protocolo de Aniquilación de Cookies
+                    // Protocolo de Purificación de Cookies (Restaurar Español)
                     bodyElement.classList.remove('mostrar-traductor-nativo');
                     const domain = location.hostname;
                     const rootDomain = domain.includes('.') ? domain.substring(domain.indexOf('.')) : domain;
@@ -769,12 +785,14 @@
                     window.location.reload();
                 } else if (lang === 'all') {
                     bodyElement.classList.add('mostrar-traductor-nativo');
+                    langFloatingMenu.classList.remove('open');
                 } else {
                     bodyElement.classList.remove('mostrar-traductor-nativo');
                     const gtSelect = document.querySelector('.goog-te-combo');
                     if (gtSelect) {
                         gtSelect.value = lang;
                         gtSelect.dispatchEvent(new Event('change'));
+                        langFloatingMenu.classList.remove('open');
                     } else {
                         document.cookie = `googtrans=/es/${lang}; path=/`;
                         document.cookie = `googtrans=/es/${lang}; domain=${location.hostname}; path=/`;
@@ -790,7 +808,7 @@
 
         document.body.addEventListener('click', (e) => {
             if (ttsEnabled) {
-                if(e.target.closest('.settings-panel') || e.target.closest('.lang-floating-menu') || e.target.closest('.btn-config-flotante')) return;
+                if(e.target.closest('.settings-panel') || e.target.closest('.lang-floating-menu') || e.target.closest('.btn-config-flotante') || e.target.closest('#google_translate_element')) return;
                 let textToRead = e.target.innerText || e.target.textContent;
                 if (textToRead && textToRead.trim() !== '') {
                     window.speechSynthesis.cancel(); 
