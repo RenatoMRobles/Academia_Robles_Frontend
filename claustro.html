@@ -127,7 +127,8 @@
 
         /* ♿ MOTOR DE ACCESIBILIDAD Y BIENESTAR VISUAL */
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        @import url('https://fonts.cdnfonts.com/css/gallaudet'); /* Fuente abierta de Lengua de Señas */
+        @import url('https://fonts.cdnfonts.com/css/sign-language'); 
+        @import url('https://fonts.cdnfonts.com/css/gallaudet'); 
 
         html { transition: font-size 0.3s ease; }
 
@@ -156,10 +157,11 @@
         /* FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* LENGUA DE SEÑAS */
-        body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div {
-            font-family: 'Gallaudet', 'SignLanguage', sans-serif !important;
-            font-size: 1.15em; /* Ligeramente más grande para lectura de señas */
+        /* LENGUA DE SEÑAS (Forzando la purificación visual) */
+        body.modo-senas, body.modo-senas * {
+            font-family: 'Sign Language', 'Gallaudet', sans-serif !important;
+            font-size: 1.15em; 
+            letter-spacing: 2px;
         }
 
         /* PANEL LATERAL DE CONFIGURACIÓN */
@@ -756,17 +758,38 @@
             let size = e.target.value; htmlElement.style.fontSize = size + '%'; fontSizeDisplay.textContent = size + '%'; localStorage.setItem('robles_fontSize', size);
         });
 
-        // 🗣️ Lector Text-to-Speech (Legacy)
+        // 🗣️ Lector Text-to-Speech (Buscador de Voz Femenina)
+        let systemVoices = [];
+        window.speechSynthesis.onvoiceschanged = () => { systemVoices = window.speechSynthesis.getVoices(); };
+
         document.body.addEventListener('click', (e) => {
             if (ttsEnabled) {
-                // Evitar que lea si tocamos los controles del panel
+                // Evitar leer los controles del panel
                 if(e.target.closest('.settings-panel') || e.target.closest('.btn-config-flotante')) return;
                 
                 let textToRead = e.target.innerText || e.target.textContent;
                 if (textToRead && textToRead.trim() !== '') {
                     window.speechSynthesis.cancel(); 
                     const utterance = new SpeechSynthesisUtterance(textToRead);
-                    utterance.lang = 'es-MX'; utterance.rate = 0.95;
+                    utterance.lang = 'es-MX'; 
+                    utterance.rate = 0.95;
+                    
+                    // Buscar voz femenina
+                    if(systemVoices.length === 0) systemVoices = window.speechSynthesis.getVoices();
+                    
+                    let femaleVoice = systemVoices.find(v => 
+                        v.lang.startsWith('es') && 
+                        (v.name.includes('Sabina') || v.name.includes('Paulina') || v.name.includes('Helena') || 
+                         v.name.includes('Laura') || v.name.includes('Monica') || v.name.toLowerCase().includes('female') || 
+                         v.name.toLowerCase().includes('mujer'))
+                    );
+                    
+                    // Respaldos si no encuentra el nombre exacto
+                    if(!femaleVoice) femaleVoice = systemVoices.find(v => v.lang === 'es-MX');
+                    if(!femaleVoice) femaleVoice = systemVoices.find(v => v.lang.startsWith('es'));
+                    
+                    if(femaleVoice) utterance.voice = femaleVoice;
+                    
                     window.speechSynthesis.speak(utterance);
                 }
             }
