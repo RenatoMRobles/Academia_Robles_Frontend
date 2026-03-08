@@ -94,39 +94,46 @@
             padding-bottom: 50px;
         }
 
-        /* Tarjeta de Profesor Magistral */
+        /* Tarjeta de Profesor Magistral (Evolución a Retrato) */
         .profesor-card {
             background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
-            border-radius: 25px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            border-radius: 20px; padding: 0; display: flex; flex-direction: column; align-items: center; text-align: center;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
+            position: relative; overflow: hidden; /* Mantiene la imagen dentro de los bordes redondeados */
         }
         .profesor-card:hover { 
             transform: translateY(-10px); border-color: var(--robles-gold); 
             box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 202, 40, 0.15);
         }
 
-        /* Contenedor para las imágenes de Nano Banana 2 */
-        .avatar-frame {
-            width: 130px; height: 130px; margin-bottom: 20px; position: relative;
-            border-radius: 30px; /* Estilo Squircle elegante */
-            padding: 3px; background: linear-gradient(135deg, var(--robles-purple), var(--robles-gold));
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        /* Contenedor panorámico para las imágenes de Nano Banana 2 */
+        .portrait-frame {
+            width: 100%; height: 200px; position: relative;
+            border-bottom: 2px solid var(--glass-border);
+            overflow: hidden;
         }
-        .avatar-img {
-            width: 100%; height: 100%; border-radius: 27px; object-fit: cover;
-            background-color: #1a1a20; /* Color de fondo mientras carga la imagen real */
+        .portrait-img {
+            width: 100%; height: 100%; object-fit: cover;
+            background-color: #1a1a20; 
             display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-size: 0.8em;
+            transition: transform 0.6s ease;
+        }
+        .profesor-card:hover .portrait-img {
+            transform: scale(1.06); /* Suave acercamiento al pasar el ratón */
         }
         
         .online-dot {
-            position: absolute; bottom: 5px; right: 5px; width: 16px; height: 16px;
+            position: absolute; bottom: 15px; right: 15px; width: 16px; height: 16px;
             background: #00e676; border-radius: 50%; border: 3px solid #1a1a20;
             box-shadow: 0 0 10px #00e676; z-index: 2;
         }
 
-        .profesor-card h3 { color: #fff; font-size: 1.3em; margin-bottom: 5px; }
-        .prof-specialty { color: var(--robles-gold); font-size: 0.85em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px; }
+        .profesor-info {
+            padding: 25px 20px; display: flex; flex-direction: column; align-items: center; flex: 1; width: 100%; box-sizing: border-box;
+        }
+
+        .profesor-card h3 { color: #fff; font-size: 1.2em; margin-bottom: 5px; }
+        .prof-specialty { color: var(--robles-gold); font-size: 0.8em; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
         
         .btn-mentoria {
             margin-top: auto; padding: 10px 25px; background: transparent; color: var(--text-light);
@@ -182,226 +189,271 @@
         <div class="claustro-grid">
             
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
-                <div class="avatar-frame">
-                    <img src="ReginaValentinaRostro.png" alt="Regina Valentina" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🐾</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Regina Trabajando.png" alt="Regina Valentina" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Regina Valentina</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Directora / Psicología Animal</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Solicitar Audiencia</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Regina Valentina</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Directora / Psicología Animal</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Solicitar Audiencia</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
-                <div class="avatar-frame">
-                    <img src="Leonor Avatar.png" alt="Leonor Severina" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>👑</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Leonor Trabajando.png" alt="Leonor Severina" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Leonor S. Betancourt</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Decana - Rectoría Disciplina</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Leonor S. Betancourt</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Decana / Arquitecta IA</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
-                <div class="avatar-frame">
-                    <img src="Victoria Avatar.png" alt="Victoria Freud" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🧠</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Victoria Trabajando.png" alt="Victoria Freud" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Dra. Victoria Freud Segura</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Psicología y Lógica</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Dra. Victoria Freud Segura</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Psicología y Lógica</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
-                <div class="avatar-frame">
-                    <img src="Ciro Avatar.png" alt="Ciro Pascual" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>📐</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Ciro Trabajando.png" alt="Ciro Pascual" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Ciro P. Euclídes Ramanujan</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Matemáticas Aplicadas</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Ciro P. Euclídes Ramanujan</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Matemáticas Aplicadas</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
-                <div class="avatar-frame">
-                    <img src="Rubi Avatar.png" alt="Rubí Estéquia" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🧪</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Rubi Trabajando.png" alt="Rubí Estéquia" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Rubí Estéquia Carbonell C.</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Química Estructural</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Rubí Estéquia Carbonell C.</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Química Estructural</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
-                <div class="avatar-frame">
-                    <img src="Atenea Avatar.png" alt="Sofía Atenea" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🏛️</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Atenea Trabajando.png" alt="Sofía Atenea" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Sofía Atenea Diógenes</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Filosofía Crítica</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Sofía Atenea Diógenes</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Filosofía Crítica</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400">
-                <div class="avatar-frame">
-                    <img src="Catalyna Avatar.png" alt="Catalyna" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>📡</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Catalyna Trabajando.png" alt="Catalyna" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Catalyna F. Clara Severina</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Redes y CCNA</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Catalyna F. Clara Severina</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Redes y CCNA</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="450">
-                <div class="avatar-frame">
-                    <img src="Maximo Avatar.png" alt="Máximo" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>⚛️</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Maximo Trabajando.png" alt="Máximo" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Máximo Axel Magnus Velóz</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Física Avanzada</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Máximo Axel Magnus Velóz</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Física Avanzada</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
-                <div class="avatar-frame">
-                    <img src="Beakman Avatar.png" alt="Beakman" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🔬</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Beakman Trabajando.png" alt="Beakman" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Prof. Beakman</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Ciencias y Experimentos</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Prof. Beakman</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Ciencias y Experimentos</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
-                <div class="avatar-frame">
-                    <img src="Carlota Avatar.png" alt="Carlota" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>💎</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Carlota Trabajando.png" alt="Carlota" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Carlota Polanco P. de Alcurnia</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Buenos Modales, Etiqueta y Protocolo</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Carlota Polanco P. de Alcurnia</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Buenos Modales, Etiqueta y Protocolo</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
-                <div class="avatar-frame">
-                    <img src="Don y Herb.png" alt="Don y Herb" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🐧</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Don y Herb Trabajando.png" alt="Don y Herb" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Don y Herb</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Asistentes de Laboratorio</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Don y Herb</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Asistentes de Laboratorio</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
-                <div class="avatar-frame">
-                    <img src="Doña Tere Avatar.png" alt="Doña Tere" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🍲</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Doña Tere Trabajando.png" alt="Doña Tere" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Doña Tere</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Dueña de Cafetería y Gastronomía</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Doña Tere</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Dueña de Cafetería y Gastronomía</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
-                <div class="avatar-frame">
-                    <img src="Goyo Avatar.png" alt="Goyo" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🚗</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Goyo Trabajando.png" alt="Goyo" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Don Goyo</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Chofer, Todólogo y Vida Práctica</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Don Goyo</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Chofer, Todólogo y Vida Práctica</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
-                <div class="avatar-frame">
-                    <img src="Guillermo Avatar.png" alt="Guillermo" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>💻</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Guillermo Trabajando.png" alt="Guillermo" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Guillermo Camarena Anderson T.</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Ciencias de la Computación y Sistemas</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Guillermo Camarena A. T.</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Ciencias de la Computación y Sistemas</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="400">
-                <div class="avatar-frame">
-                    <img src="Hermenegilda Avatar.png" alt="Hermenegilda" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>📜</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Hermenegilda Trabajando.png" alt="Hermenegilda" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Hermenegilda Trismegista Perla</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Filosofía y Epistemología</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Hermenegilda Trismegista P.</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Filosofía y Epistemología</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="450">
-                <div class="avatar-frame">
-                    <img src="Herodoto Avatar.png" alt="Herodoto" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>⏳</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Herodoto Trabajando.png" alt="Herodoto" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Herodoto Cronos N. Troyano</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Historia Universal</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Herodoto Cronos N. Troyano</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Historia Universal</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="100">
-                <div class="avatar-frame">
-                    <img src="Lorena Avatar.png" alt="Lorena" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🗣️</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Lorena Trabajando.png" alt="Lorena" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Lorena Lira Elocuente Retórica</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Idiomas</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Lorena Lira Elocuente R.</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Idiomas</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="150">
-                <div class="avatar-frame">
-                    <img src="Mía Avatar.png" alt="Mía" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🎨</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Mia Trabajando.png" alt="Mía" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Mía Gioconda Velázquez</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Historia del Arte y Estética Visual</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Mía Gioconda Velázquez</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Historia del Arte y Estética Visual</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="200">
-                <div class="avatar-frame">
-                    <img src="Miyuki Katsura Avatar.png" alt="Miyuki Katsura" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🌸</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Miyuki Trabajando.png" alt="Miyuki Katsura" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Miyuki Katsura</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Instructora del Buen Orden</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Miyuki Katsura</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Instructora del Buen Orden</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="250">
-                <div class="avatar-frame">
-                    <img src="Ricardo Avatar.png" alt="Ricardo" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>📈</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Ricardo Trabajando.png" alt="Ricardo" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Ricardo D. Próspero Tostón</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Economía, Admón. y Finanzas</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Ricardo D. Próspero Tostón</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Economía, Admón. y Finanzas</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="300">
-                <div class="avatar-frame">
-                    <img src="Taylor Avatar.png" alt="Taylor" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>🛠️</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Taylor Trabajando.png" alt="Taylor" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.05em; line-height: 1.2;">Taylor Carpenter Von Bildung</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Oficios (Carpintería, Albañilería)</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.05em; line-height: 1.2;">Taylor Carpenter V. Bildung</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Oficios (Carpintería, Albañilería)</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                </div>
             </div>
 
             <div class="profesor-card hover-sound" data-aos="fade-up" data-aos-delay="350">
-                <div class="avatar-frame">
-                    <img src="Vox permitido Avatar.png" alt="Vox 114" class="avatar-img" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1a20%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2240%22>💾</text></svg>'">
+                <div class="portrait-frame">
+                    <img src="Vox Trabajando.png" alt="Vox 114" class="portrait-img">
                     <div class="online-dot"></div>
                 </div>
-                <h3 style="font-size: 1.1em; line-height: 1.2;">Vox 114</h3>
-                <div class="prof-specialty" style="font-size: 0.8em;">Bóveda Información y Biblioteca Holográfica</div>
-                <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
+                <div class="profesor-info">
+                    <h3 style="font-size: 1.1em; line-height: 1.2;">Vox 114</h3>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Bóveda Info. y Biblioteca Holográfica</div>
+                    <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Plática</a>
+                </div>
             </div>
 
         </div>
+
     </main>
 
     <div class="cursor-outline"></div>
