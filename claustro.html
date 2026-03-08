@@ -93,7 +93,8 @@
         }
 
         .claustro-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 35px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+            gap: 50px; /* Aumentamos el aire para máximo lujo visual */
             padding-bottom: 50px;
             animation: fadeInGrid 0.8s ease-out forwards;
         }
@@ -149,6 +150,40 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none; opacity: 0.4;
         }
+
+        /* 📱 RESPONSIVIDAD SUPREMA (MÓVIL) */
+        @media (max-width: 768px) {
+            body { 
+                flex-direction: column; /* Apila el menú arriba y el contenido abajo */
+                overflow-y: auto; /* Permite hacer scroll en toda la pantalla */
+            }
+            .sidebar { 
+                width: 100%; 
+                height: auto;
+                padding: 20px 0; 
+                border-right: none; 
+                border-bottom: 1px solid var(--glass-border);
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+                position: relative;
+                z-index: 10;
+            }
+            .sidebar-logo { padding: 0 20px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .nav-menu { padding: 15px 20px; }
+            .user-profile { margin: 10px 20px 0; }
+            
+            .claustro-layout { 
+                padding: 20px; 
+                overflow-y: visible; /* El scroll ahora lo hace el body */
+            }
+            .claustro-header h1 { font-size: 2em; }
+            
+            .claustro-grid { 
+                grid-template-columns: 1fr; /* Una sola columna para que las fotos luzcan gigantes */
+                gap: 40px; 
+            }
+            .portrait-frame { height: 320px; } /* Hacemos la foto más alta en móviles para impacto total */
+        }
+        
     </style>
 </head>
 <body>
@@ -362,7 +397,7 @@
                 </div>
                 <div class="profesor-info">
                     <h3 style="font-size: 1.05em; line-height: 1.2;">Hermenegilda Trismegista P.</h3>
-                    <div class="prof-specialty" style="font-size: 0.8em;">Filosofía y Epistemología</div>
+                    <div class="prof-specialty" style="font-size: 0.8em;">Mística Bibliotecaria</div>
                     <a href="mentoria.html" class="btn-mentoria click-sound">Iniciar Mentoría</a>
                 </div>
             </div>
