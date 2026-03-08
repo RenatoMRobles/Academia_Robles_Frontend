@@ -14,7 +14,6 @@
 
     <style>
         @import url('https://fonts.cdnfonts.com/css/opendyslexic');
-        /* Adiós a los letreros de tráfico. Hola a las manitas de verdad: */
         @import url('https://fonts.cdnfonts.com/css/gallaudet');
     </style>
 
@@ -161,13 +160,13 @@
         /* ✨ FUENTE DYSLEXIC */
         body.fuente-comoda, body.fuente-comoda * { font-family: 'OpenDyslexic', sans-serif !important; letter-spacing: 0.5px; }
 
-        /* ✨ LENGUA DE SEÑAS (Las verdaderas manitas) */
+        /* ✨ LENGUA DE SEÑAS (Tamaño calibrado a la perfección) */
         body.modo-senas, body.modo-senas h1, body.modo-senas h2, body.modo-senas h3, body.modo-senas p, body.modo-senas a, body.modo-senas div, body.modo-senas span {
             font-family: 'Gallaudet', sans-serif !important;
-            font-size: 2em !important; /* Más grande para que las manos se distingan bien */
-            line-height: 1.8 !important; 
-            letter-spacing: 5px !important;
-            text-transform: lowercase !important; /* Gallaudet mapea mejor en minúsculas en algunos sistemas */
+            font-size: 1.2em !important; 
+            line-height: 1.5 !important; 
+            letter-spacing: 3px !important;
+            text-transform: lowercase !important; 
         }
 
         /* ✨ FUENTE GIGANTE */
@@ -177,7 +176,7 @@
 
         /* 🌍 SELECTOR DE IDIOMAS FLOTANTE (Esquina Superior Derecha) */
         .lang-floating-menu {
-            position: absolute; top: 30px; right: 60px; z-index: 90000; /* Nivel inferior al panel de ajustes */
+            position: absolute; top: 30px; right: 60px; z-index: 90000;
             font-family: 'Inter', sans-serif;
         }
         .lang-btn {
@@ -212,7 +211,7 @@
             position: fixed; top: 0; right: -350px; width: 300px; height: 100vh;
             background: rgba(10, 10, 12, 0.95); backdrop-filter: blur(20px);
             border-left: 1px solid var(--glass-border); 
-            z-index: 1000000; /* REY ABSOLUTO DE LA PANTALLA */
+            z-index: 1000000; 
             padding: 40px 25px; box-shadow: -5px 0 30px rgba(0,0,0,0.8);
             transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s ease;
             display: flex; flex-direction: column; gap: 18px; font-family: 'Inter', sans-serif;
@@ -230,10 +229,10 @@
         
         .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;}
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(150,150,150,0.3); transition: .4s; border-radius: 34px; }
-        .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .toggle-slider { background-color: var(--robles-gold); }
-        input:checked + .toggle-slider:before { transform: translateX(20px); background-color: #000; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: rgba(150,150,150,0.3); transition: .4s; border-radius: 34px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background: white; transition: .4s; border-radius: 50%; }
+        input:checked + .toggle-slider { background: var(--robles-gold); }
+        input:checked + .toggle-slider:before { transform: translateX(20px); background: #000; }
 
         .font-slider { width: 100%; appearance: none; background: rgba(150,150,150,0.3); height: 6px; border-radius: 5px; outline: none; transition: background 0.2s; margin-top: 5px;}
         .font-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--robles-gold); cursor: pointer; }
@@ -243,7 +242,7 @@
             background: rgba(20, 20, 25, 0.8); border: 1px solid var(--glass-border);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             font-size: 1.8em; 
-            z-index: 1000000; /* REY ABSOLUTO DE LA PANTALLA */
+            z-index: 1000000; 
             cursor: pointer; color: var(--text-light);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -678,6 +677,13 @@
 
         const bodyElement = document.body; const htmlElement = document.documentElement;
 
+        // DICCIONARIO DE BANDERAS GLOBAL
+        const flagMap = { 
+            'es': '🇪🇸 Español', 'en': '🇺🇸 Inglés', 'fr': '🇫🇷 Francés', 
+            'pt': '🇧🇷 Portugués', 'it': '🇮🇹 Italiano', 'de': '🇩🇪 Alemán',
+            'hi': '🇮🇳 Hindi', 'ht': '🇭🇹 Haitiano', 'ja': '🇯🇵 Japonés', 'ru': '🇷🇺 Ruso' 
+        };
+
         btnSettings.addEventListener('click', () => { settingsPanel.classList.add('open'); playClickSound(); });
         btnCloseSettings.addEventListener('click', () => { settingsPanel.classList.remove('open'); playClickSound(); });
 
@@ -716,13 +722,8 @@
         let savedSize = localStorage.getItem('robles_fontSize');
         if(savedSize) { htmlElement.style.fontSize = savedSize + '%'; sliderFontSize.value = savedSize; fontSizeDisplay.textContent = savedSize + '%'; }
 
-        // Sincronizar botón de idioma con diccionario de Google Translate
+        // Sincronizar botón de idioma inicial con cookie de Google Translate
         const match = document.cookie.match(/googtrans=\/es\/([a-zA-Z\-]+)/);
-        const flagMap = { 
-            'es': '🇪🇸 Español', 'en': '🇺🇸 Inglés', 'fr': '🇫🇷 Francés', 
-            'pt': '🇧🇷 Portugués', 'it': '🇮🇹 Italiano', 'de': '🇩🇪 Alemán',
-            'hi': '🇮🇳 Hindi', 'ht': '🇭🇹 Haitiano', 'ja': '🇯🇵 Japonés', 'ru': '🇷🇺 Ruso' 
-        };
         if(match && match[1] && flagMap[match[1]]) {
             langBtn.innerHTML = flagMap[match[1]];
         } else if (match && match[1]) {
@@ -796,6 +797,10 @@
                     langFloatingMenu.classList.remove('open');
                 } else {
                     bodyElement.classList.remove('mostrar-traductor-nativo');
+                    
+                    // ✨ ACTUALIZACIÓN INSTANTÁNEA DEL BOTÓN
+                    if (flagMap[lang]) langBtn.innerHTML = flagMap[lang];
+
                     const gtSelect = document.querySelector('.goog-te-combo');
                     if (gtSelect) {
                         gtSelect.value = lang;
